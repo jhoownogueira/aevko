@@ -1,0 +1,30 @@
+name: Consumer installation
+
+on:
+  workflow_dispatch:
+    inputs:
+      components:
+        description: Comma-separated component slugs; leave empty to test all 64
+        required: false
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 90
+    env:
+      AEVKO_COMPONENTS: ${{ inputs.components }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 12.16.1
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24.15.0
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm test:consumer

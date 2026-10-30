@@ -60,6 +60,10 @@ pnpm audit --prod
 it in a clean Angular 22 app and builds a component installed by that packaged
 CLI. Use `aevko-verification` before status or release-readiness claims.
 
+The regular CI runs `test:package`. The complete 64-component consumer suite is
+manual in `.github/workflows/consumer.yml`; select affected component slugs while
+iterating and leave the input empty only for an intentional full audit.
+
 ## Release safety
 
 - The publishable package is `aevko-ui`; registry and source workspace packages

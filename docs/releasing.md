@@ -47,6 +47,11 @@ Release Please creates the tag and GitHub Release. The `publish` job then checks
 out that exact tag, verifies the workspace and packed Angular consumer, and
 publishes to npm through OIDC.
 
+Regular CI verifies the packed CLI in one clean Angular consumer. The exhaustive
+64-component installation audit remains available through the manual **Consumer
+installation** workflow so routine documentation and infrastructure commits do
+not occupy a runner for dozens of sequential Angular builds.
+
 ## Verification
 
 After a release completes:
