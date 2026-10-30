@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 import { createHash } from 'node:crypto';
-import { existsSync } from 'node:fs';
+import { existsSync, realpathSync } from 'node:fs';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { createInterface } from 'node:readline/promises';
@@ -74,6 +74,16 @@ class CliError extends Error {
   ) {
     super(message);
   }
+}
+
+async function readCliVersion(): Promise<string> {
+  const packageJson = JSON.parse(
+    await readFile(new URL('../package.json', import.meta.url), 'utf8'),
+  ) as { version?: unknown };
+  if (typeof packageJson.version !== 'string' || packageJson.version.length === 0) {
+    throw new CliError('The CLI package version is unavailable.');
+  }
+  return packageJson.version;
 }
 
 function parseArguments(argv: string[], initialCwd: string): ParsedArguments {
@@ -493,7 +503,7 @@ export async function run(
   try {
     const parsed = parseArguments(argv, initialCwd);
     if (parsed.version) {
-      console.log('0.1.0');
+      console.log(await readCliVersion());
       return 0;
     }
     if (parsed.help || !parsed.command) {
@@ -539,5 +549,5 @@ export async function run(
 
 const isDirectExecution =
   process.argv[1] !== undefined &&
-  path.resolve(process.argv[1]) === path.resolve(fileURLToPath(import.meta.url));
+  realpathSync(process.argv[1]) === realpathSync(fileURLToPath(import.meta.url));
 if (isDirectExecution) process.exitCode = await run();

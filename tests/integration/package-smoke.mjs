@@ -10,6 +10,9 @@ const packageRoot = path.join(workspace, 'packages/cli');
 const registry = path.join(workspace, 'public-registry');
 const temporaryRoot = await mkdtemp(path.join(tmpdir(), 'aevko-package-'));
 let tarball = '';
+const expectedVersion = JSON.parse(
+  await readFile(path.join(packageRoot, 'package.json'), 'utf8'),
+).version;
 
 function execute(command, args, cwd, capture = false) {
   return execFileSync(command, args, {
@@ -72,7 +75,11 @@ try {
     process.platform === 'win32' ? 'aevko-ui.cmd' : 'aevko-ui',
   );
   const version = execute(bin, ['--version'], app, true).trim();
-  if (version !== '0.1.0') throw new Error(`Packed CLI reported unexpected version ${version}.`);
+  if (version !== expectedVersion) {
+    throw new Error(
+      `Packed CLI reported version ${version || '<empty>'}; expected ${expectedVersion}.`,
+    );
+  }
 
   execute(bin, ['init', '--yes', '--registry', registry], app);
   execute(bin, ['add', 'button', '--yes'], app);
