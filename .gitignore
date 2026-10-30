@@ -2,8 +2,6 @@ node_modules/
 dist/
 .angular/
 coverage/
-playwright-report/
-test-results/
 tmp/
 apps/consumer-smoke/
 *.tgz

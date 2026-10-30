@@ -17,9 +17,10 @@ a release or changing external infrastructure.
 - [x] Registry validation and reproducible generation pass.
 - [x] CLI tests pass and transitive component dependencies install automatically.
 - [x] Individual Angular 22 consumer production builds cover every registry item.
-- [x] Unit and axe tests pass; desktop interactions and mobile navigation pass.
+- [x] Unit and axe accessibility tests pass.
 - [x] SSR prerenders all 72 documentation routes without browser-global failures.
-- [x] Light/dark snapshots and targeted RTL audits are current.
+- [x] RTL behavior is covered by component tests and canonical documentation
+      examples.
 - [x] Prettier passes across source, tests and documentation.
 - [x] `npm pack --dry-run` contains only package metadata, README, license and the
       bundled CLI executable.

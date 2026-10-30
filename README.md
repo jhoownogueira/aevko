@@ -83,7 +83,6 @@ registry/components       Canonical installable Angular source
 registry/manifest         Component files and dependency metadata
 public-registry           Generated HTTP registry
 tests/integration         Clean Angular consumer and package tests
-tests/e2e                 Playwright accessibility and interaction tests
 docs                      Architecture, ADRs, status and release guidance
 .agents/skills            Repository-specific agent workflows
 ```
@@ -106,7 +105,6 @@ pnpm format:check
 pnpm registry:check
 pnpm test
 pnpm build
-pnpm test:e2e
 pnpm audit --prod
 ```
 

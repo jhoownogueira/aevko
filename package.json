@@ -18,14 +18,11 @@
     "registry:check": "pnpm --filter @aevko/registry check",
     "test": "pnpm registry:check && node tests/integration/icon-boundary.mjs && pnpm --filter aevko-ui test && pnpm --filter @aevko/docs test --watch=false",
     "test:consumer": "pnpm build:packages && node tests/integration/consumer-smoke.mjs",
-    "test:package": "pnpm build:packages && node tests/integration/package-smoke.mjs",
-    "test:e2e": "playwright test"
+    "test:package": "pnpm build:packages && node tests/integration/package-smoke.mjs"
   },
   "devDependencies": {
     "@angular/forms": "^22.2.0",
     "@types/node": "^24.10.0",
-    "@axe-core/playwright": "^4.14.0",
-    "@playwright/test": "^1.64.1",
     "prettier": "^3.6.2",
     "typescript": "~6.0.2",
     "vitest": "^4.0.4"

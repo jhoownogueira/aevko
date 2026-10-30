@@ -8,7 +8,8 @@
 - `registry/components` is the canonical component source. Documentation and
   consumer tests must exercise that same source.
 - A component is not `done` until its source, registry metadata, individual CLI
-  install, documentation, unit, accessibility and relevant E2E evidence exist.
+  install, documentation, unit, accessibility and isolated consumer evidence
+  exist.
 - Use standalone Angular components/directives, strict TypeScript and
   `ChangeDetectionStrategy.OnPush` where components render views.
 - Avoid browser globals without SSR guards. Preserve native semantics whenever

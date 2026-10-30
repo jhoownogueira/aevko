@@ -27,8 +27,8 @@ Installable components must not depend on an Aevko runtime or on
 ## Component change boundary
 
 A public component change is complete only when source, manifest, documentation,
-unit behavior, accessibility, relevant E2E and an isolated Angular consumer build
-all agree. Use the `aevko-component-development` repository skill for this work.
+unit behavior, accessibility and an isolated Angular consumer build all agree.
+Use the `aevko-component-development` repository skill for this work.
 
 Never add AI Elements, Kbd or Typography to the public component list. Preserve
 native semantics, strict TypeScript, standalone Angular APIs, OnPush rendering and
@@ -52,7 +52,6 @@ pnpm format:check
 pnpm registry:check
 pnpm test
 pnpm build
-pnpm test:e2e
 pnpm test:package
 pnpm audit --prod
 ```

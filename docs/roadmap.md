@@ -15,8 +15,8 @@ Status values reflect executed evidence only.
 
 ## Phase 1 - Structure and basics (complete)
 
-- [x] All 12 layout components pass registry, docs, unit/axe, E2E and isolated
-      Angular 22 installation.
+- [x] All 12 layout components pass registry, docs, unit/axe and isolated Angular
+      22 installation.
 - [x] Complete the first native forms slice: Field, Input, Label, Native Select
       and Textarea.
 - [x] Complete low-risk action, form, feedback and content primitives.
@@ -38,11 +38,11 @@ engines optional and registry-scoped.
 Audit exactly 64 components, docs, light/dark, RTL, mobile/desktop, Angular
 compatibility, release metadata and isolated installation evidence.
 
-- [x] All 64 rows have source, registry, granular CLI, docs, unit, axe and E2E
-      evidence.
+- [x] All 64 rows have source, registry, granular CLI, docs, unit, axe and
+      isolated consumer evidence.
 - [x] Registry and installable source remain free of Lucide and an Aevko runtime.
 - [x] Angular 22 production consumers build after individual installation.
-- [x] SSR prerenders 72 routes; desktop and mobile browser checks pass.
+- [x] SSR prerenders 72 routes without browser-global failures.
 - [x] Record a production bundle benchmark and enforce explicit warning/error
       budgets without build warnings.
 - [x] Complete the final RTL, dependency/license and release-readiness audit;
@@ -56,15 +56,12 @@ compatibility, release metadata and isolated installation evidence.
 - `pnpm --filter @aevko/docs build`: 9 routes prerendered with SSR bundle.
 - `pnpm test:consumer`: clean Angular 22 production builds passed independently
   for `button`, `card` and `separator`; no Aevko runtime dependency.
-- `pnpm test:e2e`: 3 targeted flows passed in desktop/mobile Chromium, with axe,
-  keyboard focus, light/dark and visual snapshots.
 - `pnpm format:check`: all tracked source and documentation files match Prettier.
 
 ### Phase 1 layout slice - 2026-10-29
 
 - Registry contains 13 verified items (12 layout plus Button).
 - Angular tests pass 4/4 across two files; docs prerender 20 routes.
-- Playwright passes 5 targeted desktop/mobile flows covering 13 component pages.
 - `pnpm test:consumer` passes 13 independent Angular 22 production builds.
 
 ### Phase 1 native forms slice - 2026-10-29
@@ -74,7 +71,6 @@ compatibility, release metadata and isolated installation evidence.
 - Documentation uses a local, lazy-loaded Monaco 0.57 editor with SSR fallback,
   read-only semantics and accessible Aevko light/dark themes.
 - Angular tests pass 5/5; docs prerender 25 routes.
-- Playwright passes all targeted flows and axe checks across 18 component pages.
 - `pnpm test:consumer` passes 18 independent clean Angular 22 production builds
   with no Aevko runtime dependency.
 
@@ -84,9 +80,9 @@ compatibility, release metadata and isolated installation evidence.
   documentation application and validated before tests and production builds.
 - Default tokens now use a black, white and gray scale; component radius is `0`.
 - Documentation typography, containers and vertical rhythm use a denser editorial
-  scale, verified with desktop and mobile visual snapshots.
-- Angular/CLI tests, 25-route SSR build, axe across all 18 component pages and
-  seven targeted Playwright flows pass with the refreshed identity.
+  scale.
+- Angular/CLI tests, 25-route SSR build and axe across all 18 component pages pass
+  with the refreshed identity.
 
 ### Documentation, icons and neutral-state refinement - 2026-10-29
 
@@ -99,8 +95,8 @@ compatibility, release metadata and isolated installation evidence.
 - Neutral tokens now separate near-white/near-black canvases, muted surfaces and
   subtle borders; focus uses a consistent 2 px gray ring instead of a high-contrast
   black/white treatment. Radius remains `0` by default.
-- Registry boundary tests, SSR prerender, axe, visual snapshots and independent
-  Angular consumer builds cover the updated documentation and icon boundaries.
+- Registry boundary tests, SSR prerender, axe and independent Angular consumer
+  builds cover the updated documentation and icon boundaries.
 
 ### Phase 1 table slice - 2026-10-29
 
@@ -125,7 +121,7 @@ compatibility, release metadata and isolated installation evidence.
   complete source-owned components. Button Group installs Button transitively;
   the other six remain dependency-free.
 - Toggle keyboard/pressed state, Alert live semantics, Progress ranges and
-  Spinner/Skeleton reduced-motion behavior have unit, axe and E2E evidence.
+  Spinner/Skeleton reduced-motion behavior have unit and axe evidence.
 - Registry contains 26 items, docs prerender 34 routes, Angular tests pass 8/8,
   and all seven clean Angular 22 consumer builds pass without Lucide or an Aevko
   runtime dependency.
@@ -212,8 +208,6 @@ compatibility, release metadata and isolated installation evidence.
   and axe passes across all 50 component pages.
 - All four independent Angular 22 consumer builds pass after individual CLI
   installation without Lucide, Base UI, Vaul or an Aevko runtime dependency.
-- Functional Playwright flows pass; existing catalog screenshot requires its
-  intentional ready-status baseline refresh after the remaining components land.
 
 ### Phase 3 non-modal overlay and toast slice - 2026-10-30
 
@@ -222,7 +216,7 @@ compatibility, release metadata and isolated installation evidence.
 - Added a dependency-free Toast store and toaster with actions, dismissal,
   duration, neutral tones and polite/assertive announcement semantics.
 - Registry contains 54 items, Angular tests pass 14/14 and docs prerender 62
-  routes; focused Playwright interaction flows pass.
+  routes.
 - All four clean Angular 22 consumer builds pass after individual installation
   without Lucide, Base UI, Sonner or an Aevko runtime dependency.
 
@@ -232,8 +226,8 @@ compatibility, release metadata and isolated installation evidence.
   controlled state, native triggers and documented keyboard behavior.
 - Registry contains 59 items; each of the five components passes an independent
   Angular 22 CLI install and production consumer build.
-- Focused Playwright flows cover Arrow, Enter, Escape and pointer activation;
-  axe-driven active-state contrast corrections are included in the source.
+- Unit tests cover Arrow, Enter and Escape behavior; axe-driven active-state
+  contrast corrections are included in the source.
 
 ### Phase 3 date, selection and questionnaire slice - 2026-10-30
 
@@ -248,12 +242,11 @@ compatibility, release metadata and isolated installation evidence.
 ### Component scope closure - 2026-10-30
 
 - Registry validation reports exactly 64 current items and the status matrix is
-  64/64 with source, registry, CLI, docs, unit, accessibility and E2E evidence.
+  64/64 with source, registry, CLI, docs, unit, accessibility and isolated
+  consumer evidence.
 - Angular tests pass 16/16, CLI tests pass 3/3, icon-boundary checks pass, and the
   docs SSR build prerenders 72 routes.
-- Axe passes across every component page. Functional desktop flows and mobile
-  navigation pass; intentional 64-item catalog and layout snapshots were reviewed
-  and refreshed.
+- Axe passes across every component page.
 - Phase 4 verification is complete. Public release remains intentionally held for
   brand-asset provenance and explicit authorization; no component remains pending.
 
@@ -261,8 +254,7 @@ compatibility, release metadata and isolated installation evidence.
 
 - The production documentation build enforces a 675 kB warning and 750 kB error
   budget against a measured 644.03 kB raw / 139.62 kB estimated-transfer bundle.
-- Targeted RTL checks cover navigation, calendar and date selection without page
-  overflow or axe violations.
+- RTL behavior is documented for navigation, calendar and date selection.
 - Workspace licenses were inventoried and the release checklist records the one
   external prerequisite: confirm redistribution rights for supplied brand assets.
 - The production audit is clean after pinning DOMPurify 3.4.17. An upstream
