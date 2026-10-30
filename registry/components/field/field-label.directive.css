@@ -1,0 +1,4 @@
+:host {
+  color: var(--aevko-foreground, #20201e);
+  font: 650 0.875rem/1.4 var(--aevko-font-sans, sans-serif);
+}

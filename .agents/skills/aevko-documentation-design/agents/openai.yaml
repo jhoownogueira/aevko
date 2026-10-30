@@ -1,0 +1,4 @@
+interface:
+  display_name: 'Aevko Documentation Design'
+  short_description: 'Design consistent Aevko docs and examples'
+  default_prompt: 'Use $aevko-documentation-design to improve this Aevko documentation page and verify its visual and accessibility behavior.'

@@ -1,0 +1,20 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "trace",
+  "title": "Trace",
+  "description": "A generic ordered event trail with complete, current and pending states.",
+  "category": "content",
+  "angular": ">=22 <23",
+  "files": [
+    { "source": "components/trace/trace.component.ts", "target": "trace/trace.component.ts" },
+    { "source": "components/trace/trace.component.css", "target": "trace/trace.component.css" },
+    {
+      "source": "components/trace/trace-item.component.css",
+      "target": "trace/trace-item.component.css"
+    },
+    { "source": "components/trace/index.ts", "target": "trace/index.ts" }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {}
+}

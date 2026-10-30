@@ -1,0 +1,30 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "select",
+  "title": "Select",
+  "description": "A controlled button-triggered listbox for one option.",
+  "category": "forms",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "target": "select/select.component.ts",
+      "content": "import { ChangeDetectionStrategy, Component, computed, input, model, signal } from '@angular/core';\nexport interface AevkoSelectItem {\n  value: string;\n  label: string;\n  disabled?: boolean;\n}\n@Component({\n  selector: 'aevko-select',\n  standalone: true,\n  templateUrl: './select.component.html',\n  styleUrl: './select.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class AevkoSelect {\n  readonly label = input.required<string>();\n  readonly placeholder = input('Select an option');\n  readonly items = input.required<readonly AevkoSelectItem[]>();\n  readonly value = model('');\n  readonly disabled = input(false);\n  protected readonly open = signal(false);\n  protected readonly active = signal(0);\n  protected readonly selected = computed(() =>\n    this.items().find((item) => item.value === this.value()),\n  );\n  protected toggle(): void {\n    if (!this.disabled()) this.open.update((v) => !v);\n  }\n  protected keydown(event: KeyboardEvent): void {\n    const items = this.items().filter((item) => !item.disabled);\n    if (event.key === 'Escape') {\n      this.open.set(false);\n      return;\n    }\n    if (!['ArrowDown', 'ArrowUp', 'Enter', ' '].includes(event.key)) return;\n    event.preventDefault();\n    if (!this.open()) {\n      this.open.set(true);\n      return;\n    }\n    if (event.key === 'Enter' || event.key === ' ') {\n      const item = items[this.active()];\n      if (item) this.choose(item);\n    } else\n      this.active.update(\n        (i) => (i + (event.key === 'ArrowUp' ? -1 : 1) + items.length) % items.length,\n      );\n  }\n  protected choose(item: AevkoSelectItem): void {\n    if (!item.disabled) {\n      this.value.set(item.value);\n      this.open.set(false);\n    }\n  }\n}\n"
+    },
+    {
+      "target": "select/select.component.html",
+      "content": "<button\n  type=\"button\"\n  aria-haspopup=\"listbox\"\n  [attr.aria-label]=\"(selected()?.label ?? placeholder()) + ', ' + label()\"\n  [attr.aria-expanded]=\"open()\"\n  aria-controls=\"aevko-select-list\"\n  [disabled]=\"disabled()\"\n  (click)=\"toggle()\"\n  (keydown)=\"keydown($event)\"\n>\n  {{ selected()?.label ?? placeholder() }}<span aria-hidden=\"true\">⌄</span>\n</button>\n<div id=\"aevko-select-list\" role=\"listbox\" [attr.aria-label]=\"label()\" [hidden]=\"!open()\">\n  @for (item of items(); track item.value; let index = $index) {\n    <div\n      role=\"option\"\n      [attr.aria-selected]=\"value() === item.value\"\n      [attr.aria-disabled]=\"item.disabled || null\"\n      [attr.data-active]=\"active() === index\"\n      (click)=\"choose(item)\"\n    >\n      {{ item.label }}\n    </div>\n  }\n</div>\n"
+    },
+    {
+      "target": "select/select.component.css",
+      "content": ":host {\n  display: inline-block;\n  min-inline-size: 12rem;\n  position: relative;\n}\nbutton {\n  align-items: center;\n  background: var(--aevko-surface, #fff);\n  border: 1px solid var(--aevko-border, #a3a3a3);\n  border-radius: 0;\n  color: inherit;\n  display: flex;\n  inline-size: 100%;\n  justify-content: space-between;\n  min-block-size: 2.5rem;\n  padding: 0.5rem 0.75rem;\n}\nbutton:focus-visible {\n  outline: 2px solid var(--aevko-ring, #a3a3a3);\n  outline-offset: 2px;\n}\n[role='listbox'] {\n  background: var(--aevko-surface, #fff);\n  border: 1px solid var(--aevko-border, #d4d4d4);\n  box-shadow: 0 12px 30px rgb(0 0 0 / 0.12);\n  inline-size: 100%;\n  inset-block-start: calc(100% + 0.25rem);\n  padding: 0.25rem;\n  position: absolute;\n  z-index: 35;\n}\n[role='option'] {\n  padding: 0.625rem;\n}\n[role='option']:hover,\n[role='option'][data-active='true'] {\n  background: var(--aevko-muted, #eee);\n}\n[role='option'][aria-disabled='true'] {\n  opacity: 0.45;\n}\n[role='option'][aria-selected='true'] {\n  font-weight: 650;\n}\n@media (prefers-color-scheme: dark) {\n  :host {\n    --aevko-surface: #171717;\n    --aevko-border: #404040;\n    --aevko-muted: #2a2a2a;\n    color: #f5f5f5;\n  }\n}\n"
+    },
+    {
+      "target": "select/index.ts",
+      "content": "export * from './select.component';\n"
+    }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {},
+  "integrity": "cd0ced9ef9928670ebb1787a3b4014feffec4a921bdbb150c5835dd47f8dcff7"
+}

@@ -1,0 +1,9 @@
+:host {
+  display: contents;
+}
+.handle {
+  background: var(--aevko-border, #a3a3a3);
+  block-size: 0.25rem;
+  inline-size: 3rem;
+  margin: -0.5rem auto 1rem;
+}

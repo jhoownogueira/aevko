@@ -1,0 +1,16 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "input",
+  "title": "Input",
+  "description": "A styled native input that preserves browser and Angular Forms behavior.",
+  "category": "forms",
+  "angular": ">=22 <23",
+  "files": [
+    { "source": "components/input/input.directive.ts", "target": "input/input.directive.ts" },
+    { "source": "components/input/input.directive.css", "target": "input/input.directive.css" },
+    { "source": "components/input/index.ts", "target": "input/index.ts" }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {}
+}

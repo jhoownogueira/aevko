@@ -1,0 +1,5 @@
+:host {
+  color: var(--aevko-danger, #3f3f3f);
+  font-size: 0.875rem;
+  font-weight: 650;
+}

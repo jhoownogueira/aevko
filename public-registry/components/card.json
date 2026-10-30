@@ -1,0 +1,50 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "card",
+  "title": "Card",
+  "description": "A compositional content surface with header, title, description, content, actions and footer.",
+  "category": "layout",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "target": "card/card.component.ts",
+      "content": "import { ChangeDetectionStrategy, Component } from '@angular/core';\n\n@Component({\n  selector: 'aevko-card',\n  standalone: true,\n  template: '<ng-content />',\n  styleUrl: './card.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class AevkoCard {}\n\n@Component({\n  selector: 'aevko-card-header',\n  standalone: true,\n  template: '<ng-content />',\n  styleUrl: './card-header.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class AevkoCardHeader {}\n\n@Component({\n  selector: 'aevko-card-title',\n  standalone: true,\n  template: '<ng-content />',\n  styleUrl: './card-title.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class AevkoCardTitle {}\n\n@Component({\n  selector: 'aevko-card-description',\n  standalone: true,\n  template: '<ng-content />',\n  styleUrl: './card-description.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class AevkoCardDescription {}\n\n@Component({\n  selector: 'aevko-card-content',\n  standalone: true,\n  template: '<ng-content />',\n  styleUrl: './card-content.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class AevkoCardContent {}\n\n@Component({\n  selector: 'aevko-card-footer',\n  standalone: true,\n  template: '<ng-content />',\n  styleUrl: './card-footer.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class AevkoCardFooter {}\n\n@Component({\n  selector: 'aevko-card-actions',\n  standalone: true,\n  template: '<ng-content />',\n  styleUrl: './card-actions.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class AevkoCardActions {}\n\nexport const AEVKO_CARD_IMPORTS = [\n  AevkoCard,\n  AevkoCardHeader,\n  AevkoCardTitle,\n  AevkoCardDescription,\n  AevkoCardContent,\n  AevkoCardFooter,\n  AevkoCardActions,\n] as const;\n"
+    },
+    {
+      "target": "card/card.component.css",
+      "content": ":host {\n  background: var(--aevko-background, #ffffff);\n  border: 1px solid var(--aevko-border, #c7c7c7);\n  border-radius: var(--aevko-radius, 0);\n  color: var(--aevko-foreground, #20201e);\n  display: grid;\n  font-family: var(--aevko-font-sans, sans-serif);\n  gap: 1.5rem;\n  padding: 1.5rem;\n}\n"
+    },
+    {
+      "target": "card/card-header.component.css",
+      "content": ":host {\n  align-items: start;\n  display: grid;\n  gap: 0.5rem;\n  grid-template-columns: minmax(0, 1fr) auto;\n}\n"
+    },
+    {
+      "target": "card/card-title.component.css",
+      "content": ":host {\n  font-size: 1.125rem;\n  font-weight: 700;\n  grid-column: 1;\n  line-height: 1.25;\n}\n"
+    },
+    {
+      "target": "card/card-description.component.css",
+      "content": ":host {\n  color: var(--aevko-muted, #5f5f5f);\n  grid-column: 1;\n  line-height: 1.5;\n}\n"
+    },
+    {
+      "target": "card/card-content.component.css",
+      "content": ":host {\n  display: block;\n}\n"
+    },
+    {
+      "target": "card/card-footer.component.css",
+      "content": ":host {\n  align-items: center;\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.75rem;\n}\n"
+    },
+    {
+      "target": "card/card-actions.component.css",
+      "content": ":host {\n  align-items: center;\n  display: flex;\n  gap: 0.5rem;\n  grid-column: 2;\n  grid-row: 1 / span 2;\n}\n"
+    },
+    {
+      "target": "card/index.ts",
+      "content": "export * from './card.component';\n"
+    }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {},
+  "integrity": "8f3d07411ab48a72c75ebff1dc98bc1c72e5f2a58d7d80cf04f514dab2b4ee4e"
+}

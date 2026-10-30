@@ -1,0 +1,7 @@
+:host {
+  align-items: center;
+  display: flex;
+  gap: 0.5rem;
+  grid-column: 2;
+  grid-row: 1 / span 2;
+}

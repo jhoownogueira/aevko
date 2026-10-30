@@ -1,0 +1,26 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "tooltip",
+  "title": "Tooltip",
+  "description": "Supplementary text shown on hover and keyboard focus.",
+  "category": "overlays",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "source": "components/tooltip/tooltip.component.ts",
+      "target": "tooltip/tooltip.component.ts"
+    },
+    {
+      "source": "components/tooltip/tooltip.component.html",
+      "target": "tooltip/tooltip.component.html"
+    },
+    {
+      "source": "components/tooltip/tooltip.component.css",
+      "target": "tooltip/tooltip.component.css"
+    },
+    { "source": "components/tooltip/index.ts", "target": "tooltip/index.ts" }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {}
+}

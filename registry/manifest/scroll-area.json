@@ -1,0 +1,22 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "scroll-area",
+  "title": "Scroll Area",
+  "description": "A focusable native scroll container with optional scrollbar treatments.",
+  "category": "layout",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "source": "components/scroll-area/scroll-area.component.ts",
+      "target": "scroll-area/scroll-area.component.ts"
+    },
+    {
+      "source": "components/scroll-area/scroll-area.component.css",
+      "target": "scroll-area/scroll-area.component.css"
+    },
+    { "source": "components/scroll-area/index.ts", "target": "scroll-area/index.ts" }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {}
+}

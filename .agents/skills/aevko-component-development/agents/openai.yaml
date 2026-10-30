@@ -1,0 +1,4 @@
+interface:
+  display_name: 'Aevko Component Development'
+  short_description: 'Build complete installable Aevko components'
+  default_prompt: 'Use $aevko-component-development to implement the next Aevko component as a verified vertical slice.'

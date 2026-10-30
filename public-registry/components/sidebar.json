@@ -1,0 +1,30 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "sidebar",
+  "title": "Sidebar",
+  "description": "A collapsible navigation sidebar with a responsive mobile drawer.",
+  "category": "layout",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "target": "sidebar/sidebar.component.ts",
+      "content": "import { ChangeDetectionStrategy, Component, booleanAttribute, input, model } from '@angular/core';\n\n@Component({\n  selector: 'aevko-sidebar',\n  standalone: true,\n  templateUrl: './sidebar.component.html',\n  styleUrl: './sidebar.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: { '(document:keydown.escape)': 'close()' },\n})\nexport class AevkoSidebar {\n  readonly label = input('Primary navigation');\n  readonly open = model(false);\n  readonly collapsed = model(false);\n  readonly closeOnNavigate = input(true, { transform: booleanAttribute });\n  protected close(): void {\n    this.open.set(false);\n  }\n}\n"
+    },
+    {
+      "target": "sidebar/sidebar.component.html",
+      "content": "<button\n  class=\"mobile-trigger\"\n  type=\"button\"\n  [attr.aria-expanded]=\"open()\"\n  aria-controls=\"aevko-sidebar-panel\"\n  (click)=\"open.update((value) => !value)\"\n>\n  <span class=\"control-icon\" aria-hidden=\"true\">\n    <svg class=\"fallback-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\">\n      <path d=\"M4 6h16M4 12h16M4 18h16\" />\n    </svg>\n    <ng-content select=\"[aevkoSidebarMenuIcon]\" />\n  </span>\n  <span>Menu</span>\n</button>\n@if (open()) {\n  <button class=\"backdrop\" type=\"button\" aria-label=\"Close navigation\" (click)=\"close()\"></button>\n}\n<aside\n  id=\"aevko-sidebar-panel\"\n  [class.open]=\"open()\"\n  [class.collapsed]=\"collapsed()\"\n  [attr.aria-label]=\"label()\"\n>\n  <div class=\"header\">\n    <ng-content select=\"[aevkoSidebarHeader]\" /><button\n      class=\"collapse\"\n      type=\"button\"\n      [attr.aria-expanded]=\"!collapsed()\"\n      [attr.aria-label]=\"collapsed() ? 'Expand navigation' : 'Collapse navigation'\"\n      (click)=\"collapsed.update((value) => !value)\"\n    >\n      @if (collapsed()) {\n        <span class=\"control-icon\" aria-hidden=\"true\">\n          <svg class=\"fallback-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\">\n            <path d=\"m9 18 6-6-6-6\" />\n          </svg>\n          <ng-content select=\"[aevkoSidebarExpandIcon]\" />\n        </span>\n      } @else {\n        <span class=\"control-icon\" aria-hidden=\"true\">\n          <svg class=\"fallback-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\">\n            <path d=\"m15 18-6-6 6-6\" />\n          </svg>\n          <ng-content select=\"[aevkoSidebarCollapseIcon]\" />\n        </span>\n      }\n    </button>\n  </div>\n  <nav [attr.aria-label]=\"label()\" (click)=\"closeOnNavigate() && close()\"><ng-content /></nav>\n  <div class=\"footer\"><ng-content select=\"[aevkoSidebarFooter]\" /></div>\n</aside>\n"
+    },
+    {
+      "target": "sidebar/sidebar.component.css",
+      "content": ":host {\n  display: block;\n}\naside {\n  background: var(--aevko-background, #fff);\n  border-inline-end: 1px solid var(--aevko-border, #c7c7c7);\n  display: grid;\n  grid-template-rows: auto 1fr auto;\n  height: 100%;\n  min-height: 20rem;\n  overflow: hidden;\n  transition: width 180ms ease;\n  width: 17rem;\n}\naside.collapsed {\n  width: 4rem;\n}\n.header,\n.footer {\n  align-items: center;\n  display: flex;\n  gap: 0.75rem;\n  justify-content: space-between;\n  padding: 1rem;\n}\nnav {\n  display: grid;\n  gap: 0.25rem;\n  overflow: auto;\n  padding: 0.5rem;\n}\n.collapse,\n.mobile-trigger {\n  align-items: center;\n  background: transparent;\n  border: 1px solid var(--aevko-border, #c7c7c7);\n  border-radius: var(--aevko-radius, 0);\n  color: inherit;\n  cursor: pointer;\n  display: inline-flex;\n  gap: 0.5rem;\n  justify-content: center;\n  min-height: 2.75rem;\n  min-width: 2.75rem;\n}\n.collapse svg,\n.mobile-trigger svg {\n  height: 1rem;\n  stroke-linecap: round;\n  stroke-linejoin: round;\n  stroke-width: 2;\n  width: 1rem;\n}\n.control-icon {\n  align-items: center;\n  display: inline-flex;\n  line-height: 0;\n}\n.control-icon:has(> :not(.fallback-icon)) > .fallback-icon {\n  display: none;\n}\n.mobile-trigger,\n.backdrop {\n  display: none;\n}\nbutton:focus-visible,\nnav:focus-visible {\n  outline: 2px solid var(--aevko-focus, #a1a1aa);\n  outline-offset: 1px;\n}\n@media (max-width: 760px) {\n  .mobile-trigger {\n    display: inline-flex;\n  }\n  .backdrop {\n    background: rgb(0 0 0 / 65%);\n    border: 0;\n    display: block;\n    inset: 0;\n    position: fixed;\n    z-index: 39;\n  }\n  aside {\n    bottom: 0;\n    left: 0;\n    max-width: 85vw;\n    position: fixed;\n    top: 0;\n    transform: translateX(-105%);\n    transition: transform 180ms ease;\n    width: 17rem;\n    z-index: 40;\n  }\n  aside.open {\n    transform: translateX(0);\n  }\n  aside.collapsed {\n    width: 17rem;\n  }\n}\n@media (prefers-reduced-motion: reduce) {\n  aside {\n    transition: none;\n  }\n}\n"
+    },
+    {
+      "target": "sidebar/index.ts",
+      "content": "export * from './sidebar.component';\n"
+    }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {},
+  "integrity": "d0edc8980d5fe330d9382781046b1819262ae853ef0cd30ff027a384fe07b5fd"
+}

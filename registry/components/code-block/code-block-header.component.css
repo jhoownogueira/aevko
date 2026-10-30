@@ -1,0 +1,9 @@
+:host {
+  align-items: center;
+  border-bottom: 1px solid var(--aevko-border, #e4e4e7);
+  display: flex;
+  font: 650 0.8125rem/1 var(--aevko-font-sans, sans-serif);
+  justify-content: space-between;
+  min-height: 2.75rem;
+  padding-inline: 0.875rem;
+}

@@ -1,0 +1,22 @@
+:host {
+  align-items: center;
+  color: var(--aevko-muted, #71717a);
+  display: inline-flex;
+  gap: 0.375rem;
+  padding-inline: 0.75rem;
+}
+:host([data-align='inline-start']) {
+  order: -1;
+}
+:host([data-align='block-start']),
+:host([data-align='block-end']) {
+  flex-basis: 100%;
+  min-height: 2.25rem;
+}
+:host([data-align='block-start']) {
+  border-bottom: 1px solid var(--aevko-border, #e4e4e7);
+  order: -1;
+}
+:host([data-align='block-end']) {
+  border-top: 1px solid var(--aevko-border, #e4e4e7);
+}

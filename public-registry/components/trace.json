@@ -1,0 +1,30 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "trace",
+  "title": "Trace",
+  "description": "A generic ordered event trail with complete, current and pending states.",
+  "category": "content",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "target": "trace/trace.component.ts",
+      "content": "import { ChangeDetectionStrategy, Component, input } from '@angular/core';\n\n@Component({\n  selector: 'aevko-trace',\n  standalone: true,\n  template: '<div role=\"list\" [attr.aria-label]=\"label()\"><ng-content /></div>',\n  styleUrl: './trace.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class AevkoTrace {\n  readonly label = input('Event trace');\n}\n\n@Component({\n  selector: 'aevko-trace-item',\n  standalone: true,\n  template:\n    '<div class=\"item\"><span class=\"marker\" aria-hidden=\"true\"></span><div><div class=\"header\"><ng-content select=\"[aevkoTraceTitle]\" /><ng-content select=\"[aevkoTraceTime]\" /></div><div class=\"detail\"><ng-content /></div></div></div>',\n  styleUrl: './trace-item.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: { role: 'listitem', '[attr.data-state]': 'state()' },\n})\nexport class AevkoTraceItem {\n  readonly state = input<'complete' | 'running' | 'error' | 'pending'>('complete');\n}\n"
+    },
+    {
+      "target": "trace/trace.component.css",
+      "content": ":host {\n  display: block;\n}\ndiv {\n  list-style: none;\n  margin: 0;\n  padding: 0;\n}\n"
+    },
+    {
+      "target": "trace/trace-item.component.css",
+      "content": ":host {\n  display: block;\n}\n.item {\n  display: grid;\n  gap: 0.75rem;\n  grid-template-columns: auto 1fr;\n  min-height: 4rem;\n  position: relative;\n}\n.item::before {\n  background: var(--aevko-border, #e4e4e7);\n  content: '';\n  inset-block: 0.75rem -0.25rem;\n  inset-inline-start: 0.3rem;\n  position: absolute;\n  width: 1px;\n}\n.marker {\n  background: var(--aevko-muted, #71717a);\n  height: 0.65rem;\n  margin-top: 0.4rem;\n  position: relative;\n  width: 0.65rem;\n  z-index: 1;\n}\n:host([data-state='complete']) .marker,\n:host([data-state='running']) .marker {\n  background: var(--aevko-foreground, #09090b);\n}\n:host([data-state='error']) .marker {\n  background: var(--aevko-danger, #3f3f3f);\n}\n:host([data-state='running']) .marker {\n  animation: aevko-trace-pulse 1.4s ease-in-out infinite;\n}\n.header {\n  display: flex;\n  gap: 1rem;\n  justify-content: space-between;\n}\n.detail {\n  color: var(--aevko-muted, #71717a);\n  margin-top: 0.25rem;\n}\n@keyframes aevko-trace-pulse {\n  50% {\n    opacity: 0.4;\n  }\n}\n@media (prefers-reduced-motion: reduce) {\n  :host([data-state='running']) .marker {\n    animation: none;\n  }\n}\n"
+    },
+    {
+      "target": "trace/index.ts",
+      "content": "export * from './trace.component';\n"
+    }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {},
+  "integrity": "1b053df9a5046422de9d0845c039afc07e241811bb3f2e95d082fb7761cc033d"
+}

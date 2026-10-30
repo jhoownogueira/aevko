@@ -1,0 +1,28 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "tabs",
+  "title": "Tabs",
+  "description": "Layered tab panels with controlled value, orientation and keyboard activation.",
+  "category": "content",
+  "angular": ">=22 <23",
+  "files": [
+    { "source": "components/tabs/tabs.component.ts", "target": "tabs/tabs.component.ts" },
+    { "source": "components/tabs/tabs.component.css", "target": "tabs/tabs.component.css" },
+    {
+      "source": "components/tabs/tabs-list.component.css",
+      "target": "tabs/tabs-list.component.css"
+    },
+    {
+      "source": "components/tabs/tabs-trigger.component.css",
+      "target": "tabs/tabs-trigger.component.css"
+    },
+    {
+      "source": "components/tabs/tabs-content.component.css",
+      "target": "tabs/tabs-content.component.css"
+    },
+    { "source": "components/tabs/index.ts", "target": "tabs/index.ts" }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {}
+}

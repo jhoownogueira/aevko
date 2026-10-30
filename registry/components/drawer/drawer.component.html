@@ -1,0 +1,15 @@
+<ng-content select="[aevkoDrawerTrigger]" />
+<aevko-dialog
+  [title]="title()"
+  [description]="description()"
+  [(open)]="open"
+  [initialFocus]="initialFocus()"
+  [closeOnEscape]="closeOnEscape()"
+  [closeOnBackdrop]="closeOnBackdrop()"
+  [restoreFocus]="restoreFocus()"
+  [showCloseButton]="showCloseButton()"
+  [side]="side() === 'center' ? 'bottom' : side()"
+>
+  <div class="handle" aria-hidden="true"></div>
+  <ng-content />
+</aevko-dialog>

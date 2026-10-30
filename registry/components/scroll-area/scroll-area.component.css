@@ -1,0 +1,21 @@
+:host {
+  display: block;
+  max-height: inherit;
+  max-width: 100%;
+  overflow: auto;
+  overscroll-behavior: contain;
+  scrollbar-color: var(--aevko-muted, #5f5f5f) transparent;
+}
+:host([data-scrollbar='thin']) {
+  scrollbar-width: thin;
+}
+:host([data-scrollbar='hidden']) {
+  scrollbar-width: none;
+}
+:host([data-scrollbar='hidden'])::-webkit-scrollbar {
+  display: none;
+}
+:host(:focus-visible) {
+  outline: 2px solid var(--aevko-focus, #a1a1aa);
+  outline-offset: 1px;
+}

@@ -1,0 +1,5 @@
+:host {
+  color: var(--aevko-muted, #5f5f5f);
+  grid-column: 1;
+  line-height: 1.5;
+}

@@ -1,0 +1,8 @@
+<span class="visual" aria-hidden="true"><ng-content select="[aevkoAttachmentIcon]" /></span>
+<span class="copy"
+  ><strong>{{ name() }}</strong>
+  @if (metadata()) {
+    <small>{{ metadata() }}</small>
+  }
+</span>
+<span class="actions"><ng-content select="[aevkoAttachmentAction]" /></span>

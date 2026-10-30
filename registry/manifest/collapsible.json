@@ -1,0 +1,26 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "collapsible",
+  "title": "Collapsible",
+  "description": "A controlled or uncontrolled disclosure with native button semantics.",
+  "category": "layout",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "source": "components/collapsible/collapsible.component.ts",
+      "target": "collapsible/collapsible.component.ts"
+    },
+    {
+      "source": "components/collapsible/collapsible.component.html",
+      "target": "collapsible/collapsible.component.html"
+    },
+    {
+      "source": "components/collapsible/collapsible.component.css",
+      "target": "collapsible/collapsible.component.css"
+    },
+    { "source": "components/collapsible/index.ts", "target": "collapsible/index.ts" }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {}
+}

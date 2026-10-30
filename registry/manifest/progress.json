@@ -1,0 +1,22 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "progress",
+  "title": "Progress",
+  "description": "A determinate or indeterminate progress indicator with native ARIA range semantics.",
+  "category": "feedback",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "source": "components/progress/progress.component.ts",
+      "target": "progress/progress.component.ts"
+    },
+    {
+      "source": "components/progress/progress.component.css",
+      "target": "progress/progress.component.css"
+    },
+    { "source": "components/progress/index.ts", "target": "progress/index.ts" }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {}
+}

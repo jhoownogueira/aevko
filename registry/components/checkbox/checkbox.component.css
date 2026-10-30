@@ -1,0 +1,50 @@
+:host {
+  appearance: none;
+  background: var(--aevko-background, #fff);
+  border: 1px solid var(--aevko-border-strong, #a1a1aa);
+  border-radius: var(--aevko-radius, 0);
+  box-sizing: border-box;
+  color: var(--aevko-background, #fff);
+  cursor: pointer;
+  display: inline-grid;
+  flex: 0 0 auto;
+  height: 1rem;
+  margin: 0;
+  place-content: center;
+  width: 1rem;
+}
+:host::after {
+  border: solid currentColor;
+  border-width: 0 2px 2px 0;
+  content: '';
+  height: 0.45rem;
+  opacity: 0;
+  transform: rotate(45deg) translate(-0.05rem, -0.05rem);
+  width: 0.22rem;
+}
+:host:checked,
+:host:indeterminate {
+  background: var(--aevko-foreground, #09090b);
+  border-color: var(--aevko-foreground, #09090b);
+}
+:host:checked::after {
+  opacity: 1;
+}
+:host:indeterminate::after {
+  border-width: 0 0 2px;
+  height: 0;
+  opacity: 1;
+  transform: none;
+  width: 0.5rem;
+}
+:host:focus-visible {
+  outline: 2px solid var(--aevko-focus, #a1a1aa);
+  outline-offset: 2px;
+}
+:host([data-invalid='true']) {
+  border-color: var(--aevko-danger, #3f3f3f);
+}
+:host:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}

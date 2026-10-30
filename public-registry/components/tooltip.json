@@ -1,0 +1,30 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "tooltip",
+  "title": "Tooltip",
+  "description": "Supplementary text shown on hover and keyboard focus.",
+  "category": "overlays",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "target": "tooltip/tooltip.component.ts",
+      "content": "import {\n  ChangeDetectionStrategy,\n  Component,\n  Directive,\n  ElementRef,\n  contentChild,\n  effect,\n  inject,\n  input,\n  model,\n} from '@angular/core';\n\n@Directive({ selector: '[aevkoTooltipTrigger]', standalone: true })\nexport class AevkoTooltipTrigger {\n  readonly element = inject<ElementRef<HTMLElement>>(ElementRef);\n}\n\n@Component({\n  selector: 'aevko-tooltip',\n  standalone: true,\n  templateUrl: './tooltip.component.html',\n  styleUrl: './tooltip.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: {\n    '(mouseenter)': 'schedule(true)',\n    '(mouseleave)': 'schedule(false)',\n    '(focusin)': 'schedule(true)',\n    '(focusout)': 'schedule(false)',\n    '(keydown.escape)': 'open.set(false)',\n  },\n})\nexport class AevkoTooltip {\n  readonly id = input('aevko-tooltip');\n  readonly open = model(false);\n  readonly side = input<'top' | 'right' | 'bottom' | 'left'>('top');\n  readonly delay = input(300);\n  private readonly trigger = contentChild(AevkoTooltipTrigger);\n  private timer?: ReturnType<typeof setTimeout>;\n  constructor() {\n    effect(() => {\n      const element = this.trigger()?.element.nativeElement;\n      if (!element) return;\n      element.setAttribute('aria-describedby', this.id());\n    });\n  }\n  protected schedule(value: boolean): void {\n    clearTimeout(this.timer);\n    this.timer = setTimeout(() => this.open.set(value), value ? this.delay() : 0);\n  }\n}\n"
+    },
+    {
+      "target": "tooltip/tooltip.component.html",
+      "content": "<ng-content select=\"[aevkoTooltipTrigger]\" />\n<span [id]=\"id()\" role=\"tooltip\" [hidden]=\"!open()\" [attr.data-side]=\"side()\"><ng-content /></span>\n"
+    },
+    {
+      "target": "tooltip/tooltip.component.css",
+      "content": ":host {\n  display: inline-block;\n  position: relative;\n}\nspan {\n  background: var(--aevko-foreground, #171717);\n  border-radius: 0;\n  color: var(--aevko-background, #fff);\n  font-size: 0.75rem;\n  inline-size: max-content;\n  max-inline-size: 16rem;\n  padding: 0.375rem 0.625rem;\n  pointer-events: none;\n  position: absolute;\n  z-index: 40;\n}\nspan[data-side='top'] {\n  inset-block-end: calc(100% + 0.375rem);\n  inset-inline-start: 50%;\n  transform: translateX(-50%);\n}\nspan[data-side='bottom'] {\n  inset-block-start: calc(100% + 0.375rem);\n  inset-inline-start: 50%;\n  transform: translateX(-50%);\n}\nspan[data-side='left'] {\n  inset-inline-end: calc(100% + 0.375rem);\n  inset-block-start: 50%;\n  transform: translateY(-50%);\n}\nspan[data-side='right'] {\n  inset-inline-start: calc(100% + 0.375rem);\n  inset-block-start: 50%;\n  transform: translateY(-50%);\n}\n@media (prefers-color-scheme: dark) {\n  span {\n    --aevko-foreground: #f5f5f5;\n    --aevko-background: #171717;\n  }\n}\n"
+    },
+    {
+      "target": "tooltip/index.ts",
+      "content": "export * from './tooltip.component';\n"
+    }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {},
+  "integrity": "9217c715c7d16263aa0dc3432ea87ae0d0b549a9c25ec9c4a3ae2a382ba49d9d"
+}

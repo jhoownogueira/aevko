@@ -1,0 +1,38 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "field",
+  "title": "Field",
+  "description": "A compositional form field for labels, descriptions, controls and errors.",
+  "category": "forms",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "target": "field/field.component.ts",
+      "content": "import { ChangeDetectionStrategy, Component, booleanAttribute, input } from '@angular/core';\n\n@Component({\n  selector: '[aevkoFieldLabel]',\n  standalone: true,\n  template: '<ng-content />',\n  styleUrl: './field-label.directive.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class AevkoFieldLabel {}\n@Component({\n  selector: '[aevkoFieldDescription]',\n  standalone: true,\n  template: '<ng-content />',\n  styleUrl: './field-description.directive.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class AevkoFieldDescription {}\n@Component({\n  selector: '[aevkoFieldError]',\n  standalone: true,\n  template: '<ng-content />',\n  styleUrl: './field-error.directive.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: { 'aria-live': 'polite' },\n})\nexport class AevkoFieldError {}\n\n@Component({\n  selector: 'aevko-field',\n  standalone: true,\n  template: '<ng-content />',\n  styleUrl: './field.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: { '[attr.data-invalid]': 'invalid() ? \"true\" : null' },\n})\nexport class AevkoField {\n  readonly invalid = input(false, { transform: booleanAttribute });\n}\n"
+    },
+    {
+      "target": "field/field.component.css",
+      "content": ":host {\n  display: grid;\n  gap: 0.375rem;\n}\n"
+    },
+    {
+      "target": "field/field-label.directive.css",
+      "content": ":host {\n  color: var(--aevko-foreground, #20201e);\n  font: 650 0.875rem/1.4 var(--aevko-font-sans, sans-serif);\n}\n"
+    },
+    {
+      "target": "field/field-description.directive.css",
+      "content": ":host {\n  color: color-mix(in srgb, var(--aevko-foreground, #20201e) 70%, transparent);\n  font-size: 0.875rem;\n}\n"
+    },
+    {
+      "target": "field/field-error.directive.css",
+      "content": ":host {\n  color: var(--aevko-danger, #3f3f3f);\n  font-size: 0.875rem;\n  font-weight: 650;\n}\n"
+    },
+    {
+      "target": "field/index.ts",
+      "content": "export * from './field.component';\n"
+    }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {},
+  "integrity": "4f19350133ae9e2e36f93c490e8fcb50c81729fe752096e85f955f08a88b7dc8"
+}

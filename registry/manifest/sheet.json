@@ -1,0 +1,17 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "sheet",
+  "title": "Sheet",
+  "description": "A dialog surface anchored to a viewport edge.",
+  "category": "overlays",
+  "angular": ">=22 <23",
+  "files": [
+    { "source": "components/sheet/sheet.component.ts", "target": "sheet/sheet.component.ts" },
+    { "source": "components/sheet/sheet.component.html", "target": "sheet/sheet.component.html" },
+    { "source": "components/sheet/sheet.component.css", "target": "sheet/sheet.component.css" },
+    { "source": "components/sheet/index.ts", "target": "sheet/index.ts" }
+  ],
+  "registryDependencies": ["dialog"],
+  "npmDependencies": {}
+}

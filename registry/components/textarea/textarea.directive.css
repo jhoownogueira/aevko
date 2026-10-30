@@ -1,0 +1,28 @@
+:host {
+  background: var(--aevko-background, #ffffff);
+  border: 1px solid color-mix(in srgb, var(--aevko-foreground, #20201e) 45%, transparent);
+  border-radius: var(--aevko-radius, 0);
+  box-sizing: border-box;
+  color: var(--aevko-foreground, #20201e);
+  font: 500 1rem/1.5 var(--aevko-font-sans, sans-serif);
+  min-height: 7rem;
+  padding: 0.625rem 0.75rem;
+  resize: vertical;
+  width: 100%;
+}
+:host:focus-visible {
+  border-color: var(--aevko-focus, #a1a1aa);
+  outline: 2px solid var(--aevko-focus, #a1a1aa);
+  outline-offset: 1px;
+}
+:host([data-invalid='true']) {
+  border-color: var(--aevko-danger, #3f3f3f);
+}
+:host([data-auto-resize='true']) {
+  overflow: hidden;
+  resize: none;
+}
+:host:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}

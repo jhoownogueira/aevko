@@ -1,0 +1,26 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "dropdown-menu",
+  "title": "Dropdown Menu",
+  "description": "A button-triggered action menu with roving keyboard focus.",
+  "category": "navigation",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "source": "components/dropdown-menu/dropdown-menu.component.ts",
+      "target": "dropdown-menu/dropdown-menu.component.ts"
+    },
+    {
+      "source": "components/dropdown-menu/dropdown-menu.component.html",
+      "target": "dropdown-menu/dropdown-menu.component.html"
+    },
+    {
+      "source": "components/dropdown-menu/dropdown-menu.component.css",
+      "target": "dropdown-menu/dropdown-menu.component.css"
+    },
+    { "source": "components/dropdown-menu/index.ts", "target": "dropdown-menu/index.ts" }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {}
+}

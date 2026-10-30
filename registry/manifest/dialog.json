@@ -1,0 +1,21 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "dialog",
+  "title": "Dialog",
+  "description": "A native modal dialog with controlled state, focus management and projected actions.",
+  "category": "overlays",
+  "angular": ">=22 <23",
+  "files": [
+    { "source": "components/dialog/dialog-base.ts", "target": "dialog/dialog-base.ts" },
+    { "source": "components/dialog/dialog.component.ts", "target": "dialog/dialog.component.ts" },
+    {
+      "source": "components/dialog/dialog.component.html",
+      "target": "dialog/dialog.component.html"
+    },
+    { "source": "components/dialog/dialog.component.css", "target": "dialog/dialog.component.css" },
+    { "source": "components/dialog/index.ts", "target": "dialog/index.ts" }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {}
+}

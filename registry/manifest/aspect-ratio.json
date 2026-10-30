@@ -1,0 +1,22 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "aspect-ratio",
+  "title": "Aspect Ratio",
+  "description": "A distortion-free responsive ratio container.",
+  "category": "layout",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "source": "components/aspect-ratio/aspect-ratio.component.ts",
+      "target": "aspect-ratio/aspect-ratio.component.ts"
+    },
+    {
+      "source": "components/aspect-ratio/aspect-ratio.component.css",
+      "target": "aspect-ratio/aspect-ratio.component.css"
+    },
+    { "source": "components/aspect-ratio/index.ts", "target": "aspect-ratio/index.ts" }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {}
+}

@@ -1,0 +1,16 @@
+<div class="panel first"><ng-content select="[aevkoResizableFirst]" /></div>
+<div
+  class="handle"
+  role="separator"
+  tabindex="0"
+  [attr.aria-orientation]="orientation()"
+  [attr.aria-valuemin]="min()"
+  [attr.aria-valuemax]="max()"
+  [attr.aria-valuenow]="size()"
+  (pointerdown)="start($event)"
+  (pointermove)="move($event)"
+  (keydown)="keyboard($event)"
+>
+  <span aria-hidden="true"></span>
+</div>
+<div class="panel second"><ng-content select="[aevkoResizableSecond]" /></div>

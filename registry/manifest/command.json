@@ -1,0 +1,26 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "command",
+  "title": "Command",
+  "description": "A searchable keyboard command list with controlled selection.",
+  "category": "navigation",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "source": "components/command/command.component.ts",
+      "target": "command/command.component.ts"
+    },
+    {
+      "source": "components/command/command.component.html",
+      "target": "command/command.component.html"
+    },
+    {
+      "source": "components/command/command.component.css",
+      "target": "command/command.component.css"
+    },
+    { "source": "components/command/index.ts", "target": "command/index.ts" }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {}
+}

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "skeleton",
+  "title": "Skeleton",
+  "description": "A decorative loading placeholder with flexible sizing and reduced-motion support.",
+  "category": "feedback",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "source": "components/skeleton/skeleton.component.ts",
+      "target": "skeleton/skeleton.component.ts"
+    },
+    {
+      "source": "components/skeleton/skeleton.component.css",
+      "target": "skeleton/skeleton.component.css"
+    },
+    { "source": "components/skeleton/index.ts", "target": "skeleton/index.ts" }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {}
+}

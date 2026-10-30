@@ -1,0 +1,52 @@
+<section [attr.aria-label]="label()">
+  @if (current(); as item) {
+    <p class="progress">Question {{ active() + 1 }} of {{ enabled().length }}</p>
+    <fieldset>
+      <legend>{{ item.prompt }}</legend>
+      @if (item.description) {
+        <p>{{ item.description }}</p>
+      }
+      <div class="choices">
+        @for (choice of item.choices ?? []; track choice.value) {
+          <label
+            ><input
+              [type]="item.multiple ? 'checkbox' : 'radio'"
+              [name]="item.name"
+              [value]="choice.value"
+              [checked]="selected(choice.value)"
+              (change)="choose(choice.value)"
+            /><span
+              ><strong>{{ choice.label }}</strong>
+              @if (choice.description) {
+                <small>{{ choice.description }}</small>
+              }
+            </span>
+            @if (choice.shortcut) {
+              <kbd>{{ choice.shortcut }}</kbd>
+            }
+          </label>
+        }
+        @if (item.freeform) {
+          <label class="freeform"
+            ><span>Other answer</span
+            ><input
+              type="text"
+              [name]="item.name + '-other'"
+              [value]="answerText(item.name)"
+              (input)="freeform($any($event.target).value)"
+          /></label>
+        }
+      </div>
+      @if (error()) {
+        <p class="error" role="alert">{{ error() }}</p>
+      }
+    </fieldset>
+    <div class="actions">
+      <button type="button" [disabled]="active() === 0" (click)="previous()">Previous</button>
+      @if (item.skippable) {
+        <button type="button" (click)="skip()">Skip</button>
+      }
+      <button type="button" (click)="next()">{{ last() ? 'Submit' : 'Next' }}</button>
+    </div>
+  }
+</section>

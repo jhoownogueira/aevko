@@ -1,0 +1,26 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "toggle-group",
+  "title": "Toggle Group",
+  "description": "Single or multiple pressed-state button groups with arrow-key focus movement.",
+  "category": "actions",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "source": "components/toggle-group/toggle-group.component.ts",
+      "target": "toggle-group/toggle-group.component.ts"
+    },
+    {
+      "source": "components/toggle-group/toggle-group.component.css",
+      "target": "toggle-group/toggle-group.component.css"
+    },
+    {
+      "source": "components/toggle-group/toggle-group-item.component.css",
+      "target": "toggle-group/toggle-group-item.component.css"
+    },
+    { "source": "components/toggle-group/index.ts", "target": "toggle-group/index.ts" }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {}
+}

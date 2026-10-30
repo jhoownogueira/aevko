@@ -1,0 +1,26 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "resizable",
+  "title": "Resizable",
+  "description": "Two resizable panels with pointer, keyboard, limits and optional persistence.",
+  "category": "layout",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "source": "components/resizable/resizable.component.ts",
+      "target": "resizable/resizable.component.ts"
+    },
+    {
+      "source": "components/resizable/resizable.component.html",
+      "target": "resizable/resizable.component.html"
+    },
+    {
+      "source": "components/resizable/resizable.component.css",
+      "target": "resizable/resizable.component.css"
+    },
+    { "source": "components/resizable/index.ts", "target": "resizable/index.ts" }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {}
+}

@@ -1,0 +1,110 @@
+<header class="site-header">
+  <a class="brand" routerLink="/" aria-label="Aevko UI home">
+    <img src="/brand/logo.svg" width="126" height="30" alt="" />
+  </a>
+
+  <nav class="desktop-nav" aria-label="Primary navigation">
+    <a routerLink="/components" routerLinkActive="active">Components</a>
+    <a routerLink="/getting-started" routerLinkActive="active">Docs</a>
+    <a routerLink="/icons" routerLinkActive="active">Icons</a>
+    <a routerLink="/theming" routerLinkActive="active">Themes</a>
+  </nav>
+
+  <div class="header-actions">
+    <button class="search-trigger" type="button" (click)="searchOpen.set(true)">
+      <svg lucideSearch class="docs-icon" aria-hidden="true"></svg>
+      <span>Search docs...</span><kbd>Ctrl K</kbd>
+    </button>
+    <button class="icon-button" type="button" (click)="toggleTheme()">
+      @if (dark()) {
+        <svg lucideSun class="docs-icon" aria-hidden="true"></svg>
+      } @else {
+        <svg lucideMoon class="docs-icon" aria-hidden="true"></svg>
+      }
+      {{ dark() ? 'Light' : 'Dark' }}
+    </button>
+    <button
+      class="menu-button"
+      type="button"
+      [attr.aria-expanded]="menuOpen()"
+      aria-controls="mobile-nav"
+      (click)="menuOpen.update((value) => !value)"
+    >
+      <svg lucideMenu class="docs-icon" aria-hidden="true"></svg>
+      Menu
+    </button>
+  </div>
+</header>
+
+@if (menuOpen()) {
+  <nav id="mobile-nav" class="mobile-nav" aria-label="Mobile navigation">
+    <a routerLink="/getting-started" (click)="menuOpen.set(false)">Getting started</a>
+    <a routerLink="/components" (click)="menuOpen.set(false)">Components</a>
+    <a routerLink="/theming" (click)="menuOpen.set(false)">Theming</a>
+    <a routerLink="/icons" (click)="menuOpen.set(false)">Icons</a>
+    <a routerLink="/cli" (click)="menuOpen.set(false)">CLI</a>
+  </nav>
+}
+
+@if (searchOpen()) {
+  <div class="search-backdrop" (click)="searchOpen.set(false)">
+    <section
+      class="search-panel"
+      role="dialog"
+      aria-modal="true"
+      aria-labelledby="search-title"
+      (click)="$event.stopPropagation()"
+    >
+      <h2 id="search-title">Search documentation</h2>
+      <input
+        id="docs-search"
+        type="search"
+        placeholder="Search components, guides, and APIs"
+        [value]="query()"
+        (input)="query.set($any($event.target).value)"
+      />
+      <div class="search-results" aria-live="polite">
+        @for (result of results(); track result.path) {
+          <a [routerLink]="result.path" (click)="searchOpen.set(false)">
+            <small>{{ result.eyebrow }}</small>
+            <strong
+              >{{ result.title }}<svg lucideArrowRight class="docs-icon" aria-hidden="true"></svg
+            ></strong>
+          </a>
+        } @empty {
+          <p>No results. Try a component or guide name.</p>
+        }
+      </div>
+      <button type="button" class="close-search" (click)="searchOpen.set(false)">
+        <svg lucideX class="docs-icon" aria-hidden="true"></svg>Close
+      </button>
+    </section>
+  </div>
+}
+
+<div class="docs-shell" [class.with-sidebar]="showSidebar()">
+  @if (showSidebar()) {
+    <aside class="docs-sidebar" aria-label="Documentation navigation">
+      <nav>
+        <p>Guides</p>
+        <a routerLink="/getting-started" routerLinkActive="active">Getting started</a>
+        <a routerLink="/theming" routerLinkActive="active">Theming</a>
+        <a routerLink="/icons" routerLinkActive="active">Icons</a>
+        <a routerLink="/cli" routerLinkActive="active">CLI and Registry</a>
+        <a routerLink="/contributing" routerLinkActive="active">Contributing</a>
+        <p>Components</p>
+        @for (component of components; track component) {
+          <a [routerLink]="componentPath(component)" routerLinkActive="active">{{ component }}</a>
+        }
+      </nav>
+    </aside>
+  }
+  <main class="docs-main">
+    <router-outlet />
+  </main>
+</div>
+
+<footer>
+  <strong>Aevko UI</strong>
+  <span>Built for Angular. Designed to be yours.</span>
+</footer>

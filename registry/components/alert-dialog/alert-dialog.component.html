@@ -1,0 +1,14 @@
+<ng-content select="[aevkoAlertDialogTrigger]" />
+<aevko-dialog
+  [title]="title()"
+  [description]="description()"
+  [(open)]="open"
+  dialogRole="alertdialog"
+  [initialFocus]="initialFocus()"
+  [closeOnEscape]="closeOnEscape()"
+  [closeOnBackdrop]="false"
+  [restoreFocus]="restoreFocus()"
+  [showCloseButton]="false"
+>
+  <ng-content />
+</aevko-dialog>

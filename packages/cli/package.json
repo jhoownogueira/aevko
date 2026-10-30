@@ -1,0 +1,50 @@
+{
+  "name": "aevko-ui",
+  "version": "0.1.0",
+  "description": "Install editable Aevko UI component source in Angular projects.",
+  "license": "MIT",
+  "author": "Aevko UI contributors",
+  "homepage": "https://aevko.jhonata.dev",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jhoownogueira/aevko.git",
+    "directory": "packages/cli"
+  },
+  "bugs": {
+    "url": "https://github.com/jhoownogueira/aevko/issues"
+  },
+  "keywords": [
+    "angular",
+    "components",
+    "design-system",
+    "registry",
+    "shadcn",
+    "tailwindcss"
+  ],
+  "type": "module",
+  "bin": {
+    "aevko-ui": "dist/index.js",
+    "aevko": "dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "publishConfig": {
+    "access": "public",
+    "registry": "https://registry.npmjs.org"
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --format esm --platform node --target node22 --clean",
+    "prepack": "pnpm run build",
+    "test": "vitest run"
+  },
+  "engines": {
+    "node": "^22.22.3 || ^24.15.0 || ^26.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^24.10.0",
+    "tsup": "^8.5.0",
+    "typescript": "~6.0.2",
+    "vitest": "^4.0.4"
+  }
+}

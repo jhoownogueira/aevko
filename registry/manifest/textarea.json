@@ -1,0 +1,22 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "textarea",
+  "title": "Textarea",
+  "description": "A native multiline input with optional content-driven resizing.",
+  "category": "forms",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "source": "components/textarea/textarea.directive.ts",
+      "target": "textarea/textarea.directive.ts"
+    },
+    {
+      "source": "components/textarea/textarea.directive.css",
+      "target": "textarea/textarea.directive.css"
+    },
+    { "source": "components/textarea/index.ts", "target": "textarea/index.ts" }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {}
+}

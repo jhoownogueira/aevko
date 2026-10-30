@@ -1,0 +1,10 @@
+@if (loading()) {
+  <span class="aevko-button__spinner" aria-hidden="true"></span>
+}
+<span class="aevko-button__icon" aria-hidden="true">
+  <ng-content select="[aevkoButtonIconStart]" />
+</span>
+<span class="aevko-button__content"><ng-content /></span>
+<span class="aevko-button__icon" aria-hidden="true">
+  <ng-content select="[aevkoButtonIconEnd]" />
+</span>

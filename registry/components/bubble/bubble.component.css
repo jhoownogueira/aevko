@@ -1,0 +1,26 @@
+:host {
+  background: var(--aevko-foreground, #09090b);
+  color: var(--aevko-background, #fff);
+  display: block;
+  inline-size: fit-content;
+  max-inline-size: min(34rem, 85%);
+  padding: 0.75rem 1rem;
+}
+:host([data-align='end']) {
+  margin-inline-start: auto;
+}
+:host([data-variant='muted']) {
+  background: var(--aevko-surface, #f4f4f5);
+  color: var(--aevko-foreground, #09090b);
+}
+:host([data-variant='outline']) {
+  background: transparent;
+  border: 1px solid var(--aevko-border, #e4e4e7);
+  color: var(--aevko-foreground, #09090b);
+}
+.reactions {
+  margin-top: 0.5rem;
+}
+.reactions:empty {
+  display: none;
+}

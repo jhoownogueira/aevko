@@ -1,0 +1,26 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "navigation-menu",
+  "title": "Navigation Menu",
+  "description": "A named primary navigation surface for projected links and controls.",
+  "category": "navigation",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "target": "navigation-menu/navigation-menu.component.ts",
+      "content": "import { ChangeDetectionStrategy, Component, input } from '@angular/core';\n@Component({\n  selector: 'aevko-navigation-menu',\n  standalone: true,\n  template: '<ng-content />',\n  styleUrl: './navigation-menu.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: { role: 'navigation', '[attr.aria-label]': 'label()' },\n})\nexport class AevkoNavigationMenu {\n  readonly label = input.required<string>();\n}\n"
+    },
+    {
+      "target": "navigation-menu/navigation-menu.component.css",
+      "content": ":host {\n  align-items: center;\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.25rem;\n}\n:host ::ng-deep a,\n:host ::ng-deep button {\n  align-items: center;\n  background: transparent;\n  border: 0;\n  border-radius: 0;\n  color: inherit;\n  display: inline-flex;\n  min-block-size: 2.5rem;\n  padding: 0.5rem 0.75rem;\n  text-decoration: none;\n}\n:host ::ng-deep a:hover,\n:host ::ng-deep button:hover {\n  background: var(--aevko-muted, #eee);\n}\n:host ::ng-deep a:focus-visible,\n:host ::ng-deep button:focus-visible {\n  outline: 2px solid var(--aevko-ring, #a3a3a3);\n  outline-offset: 2px;\n}\n"
+    },
+    {
+      "target": "navigation-menu/index.ts",
+      "content": "export * from './navigation-menu.component';\n"
+    }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {},
+  "integrity": "64d59f3ec7d20d7f2984adc45e0b4b75a4f4e3c264335ca57c0e9dd84e4b7aea"
+}

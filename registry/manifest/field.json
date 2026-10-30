@@ -1,0 +1,28 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "field",
+  "title": "Field",
+  "description": "A compositional form field for labels, descriptions, controls and errors.",
+  "category": "forms",
+  "angular": ">=22 <23",
+  "files": [
+    { "source": "components/field/field.component.ts", "target": "field/field.component.ts" },
+    { "source": "components/field/field.component.css", "target": "field/field.component.css" },
+    {
+      "source": "components/field/field-label.directive.css",
+      "target": "field/field-label.directive.css"
+    },
+    {
+      "source": "components/field/field-description.directive.css",
+      "target": "field/field-description.directive.css"
+    },
+    {
+      "source": "components/field/field-error.directive.css",
+      "target": "field/field-error.directive.css"
+    },
+    { "source": "components/field/index.ts", "target": "field/index.ts" }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {}
+}

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "menubar",
+  "title": "Menubar",
+  "description": "A persistent application command bar with roving keyboard focus.",
+  "category": "navigation",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "target": "menubar/menubar.component.ts",
+      "content": "import {\n  ChangeDetectionStrategy,\n  Component,\n  Directive,\n  ElementRef,\n  booleanAttribute,\n  contentChildren,\n  inject,\n  input,\n} from '@angular/core';\n@Directive({\n  selector: 'button[aevkoMenubarItem]',\n  standalone: true,\n  host: { type: 'button', role: 'menuitem', tabindex: '-1' },\n})\nexport class AevkoMenubarItem {\n  readonly element = inject<ElementRef<HTMLButtonElement>>(ElementRef);\n  readonly disabled = input(false, { transform: booleanAttribute });\n}\n@Component({\n  selector: 'aevko-menubar',\n  standalone: true,\n  template: '<ng-content />',\n  styleUrl: './menubar.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: { role: 'menubar', '[attr.aria-label]': 'label()', '(keydown)': 'navigate($event)' },\n})\nexport class AevkoMenubar {\n  readonly label = input.required<string>();\n  private readonly items = contentChildren(AevkoMenubarItem, { descendants: true });\n  protected navigate(event: KeyboardEvent): void {\n    if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;\n    const items = this.items().filter(\n      (item) => !item.disabled() && !item.element.nativeElement.disabled,\n    );\n    const current = items.findIndex((item) => item.element.nativeElement === event.target);\n    if (current < 0) return;\n    event.preventDefault();\n    const index =\n      event.key === 'Home'\n        ? 0\n        : event.key === 'End'\n          ? items.length - 1\n          : (current + (event.key === 'ArrowLeft' ? -1 : 1) + items.length) % items.length;\n    items[index]?.element.nativeElement.focus();\n  }\n}\n"
+    },
+    {
+      "target": "menubar/menubar.component.css",
+      "content": ":host {\n  align-items: center;\n  border: 1px solid var(--aevko-border, #d4d4d4);\n  display: inline-flex;\n  padding: 0.25rem;\n}\n:host ::ng-deep [aevkoMenubarItem] {\n  background: transparent;\n  border: 0;\n  border-radius: 0;\n  color: inherit;\n  min-block-size: 2.25rem;\n  padding: 0.5rem 0.75rem;\n}\n:host ::ng-deep [aevkoMenubarItem]:hover,\n:host ::ng-deep [aevkoMenubarItem]:focus-visible {\n  background: var(--aevko-muted, #eee);\n  outline: 2px solid var(--aevko-ring, #a3a3a3);\n  outline-offset: -2px;\n}\n"
+    },
+    {
+      "target": "menubar/index.ts",
+      "content": "export * from './menubar.component';\n"
+    }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {},
+  "integrity": "3aa152e6e2ea850fae990a1c63609241dddc91d081d8938d6d23a174bf2b01b3"
+}

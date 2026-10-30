@@ -1,0 +1,30 @@
+:host {
+  align-items: center;
+  border: 1px dashed var(--aevko-border, #c7c7c7);
+  display: grid;
+  gap: 1rem;
+  justify-items: center;
+  padding: 3rem 1.5rem;
+  text-align: center;
+}
+.icon {
+  color: var(--aevko-accent, #20201e);
+  font-size: 2rem;
+}
+.copy {
+  display: grid;
+  gap: 0.5rem;
+  max-width: 32rem;
+}
+.copy :where([aevkoEmptyTitle]) {
+  font-size: 1.25rem;
+  font-weight: 700;
+}
+.copy :where([aevkoEmptyDescription]) {
+  color: var(--aevko-muted, #5f5f5f);
+  line-height: 1.5;
+}
+.action {
+  display: flex;
+  gap: 0.75rem;
+}

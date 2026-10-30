@@ -1,0 +1,22 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "native-select",
+  "title": "Native Select",
+  "description": "A styled native select that keeps platform keyboard and form semantics.",
+  "category": "forms",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "source": "components/native-select/native-select.directive.ts",
+      "target": "native-select/native-select.directive.ts"
+    },
+    {
+      "source": "components/native-select/native-select.directive.css",
+      "target": "native-select/native-select.directive.css"
+    },
+    { "source": "components/native-select/index.ts", "target": "native-select/index.ts" }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {}
+}

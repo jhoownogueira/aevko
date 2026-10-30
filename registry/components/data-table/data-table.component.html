@@ -1,0 +1,87 @@
+<div class="toolbar">
+  <label>
+    <span class="sr-only">Filter {{ caption() }}</span>
+    <input
+      type="search"
+      [value]="filter()"
+      (input)="filter.set($any($event.target).value); setPage(1)"
+      placeholder="Filter results..."
+    />
+  </label>
+  <span>{{ resultCount() }} results</span>
+</div>
+<div class="table-wrap" tabindex="0" [attr.aria-label]="caption()">
+  <table>
+    <caption>
+      {{
+        caption()
+      }}
+    </caption>
+    <thead>
+      <tr>
+        @if (selectable()) {
+          <th scope="col"><span class="sr-only">Select row</span></th>
+        }
+        @for (column of columns(); track column.key) {
+          <th
+            scope="col"
+            [attr.data-align]="column.align || 'start'"
+            [attr.aria-sort]="
+              column.sortable
+                ? sort()?.key === column.key
+                  ? sort()?.direction === 'asc'
+                    ? 'ascending'
+                    : 'descending'
+                  : 'none'
+                : null
+            "
+          >
+            @if (column.sortable) {
+              <button type="button" (click)="toggleSort(column)">{{ column.header }}</button>
+            } @else {
+              {{ column.header }}
+            }
+          </th>
+        }
+      </tr>
+    </thead>
+    <tbody>
+      @if (loading()) {
+        <tr>
+          <td [attr.colspan]="columns().length + (selectable() ? 1 : 0)" role="status">
+            Loading {{ caption() }}...
+          </td>
+        </tr>
+      } @else if (!processedRows().length) {
+        <tr>
+          <td [attr.colspan]="columns().length + (selectable() ? 1 : 0)">{{ emptyMessage() }}</td>
+        </tr>
+      } @else {
+        @for (row of processedRows(); track rowKey()(row)) {
+          <tr [attr.data-selected]="selectedKeys().includes(rowKey()(row)) ? 'true' : null">
+            @if (selectable()) {
+              <td>
+                <input
+                  type="checkbox"
+                  [checked]="selectedKeys().includes(rowKey()(row))"
+                  (change)="toggleRow(rowKey()(row))"
+                  [attr.aria-label]="'Select row ' + rowKey()(row)"
+                />
+              </td>
+            }
+            @for (column of columns(); track column.key) {
+              <td [attr.data-align]="column.align || 'start'">{{ column.value(row) }}</td>
+            }
+          </tr>
+        }
+      }
+    </tbody>
+  </table>
+</div>
+<div class="pagination">
+  <span>Page {{ page() }} of {{ totalPages() }}</span>
+  <button type="button" (click)="setPage(page() - 1)" [disabled]="page() <= 1">Previous</button>
+  <button type="button" (click)="setPage(page() + 1)" [disabled]="page() >= totalPages()">
+    Next
+  </button>
+</div>

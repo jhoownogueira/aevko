@@ -1,0 +1,32 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "alert-dialog",
+  "title": "Alert Dialog",
+  "description": "An interruptive modal that requires an explicit projected decision.",
+  "category": "overlays",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "target": "alert-dialog/alert-dialog.component.ts",
+      "content": "import { ChangeDetectionStrategy, Component } from '@angular/core';\nimport { AevkoDialog, AevkoDialogBase } from '../dialog';\n\n@Component({\n  selector: 'aevko-alert-dialog',\n  standalone: true,\n  imports: [AevkoDialog],\n  templateUrl: './alert-dialog.component.html',\n  styleUrl: './alert-dialog.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: { '(click)': 'handleClick($event)' },\n})\nexport class AevkoAlertDialog extends AevkoDialogBase {\n  constructor() {\n    super('aevkoAlertDialogTrigger', 'aevkoAlertDialogClose');\n  }\n}\n"
+    },
+    {
+      "target": "alert-dialog/alert-dialog.component.html",
+      "content": "<ng-content select=\"[aevkoAlertDialogTrigger]\" />\n<aevko-dialog\n  [title]=\"title()\"\n  [description]=\"description()\"\n  [(open)]=\"open\"\n  dialogRole=\"alertdialog\"\n  [initialFocus]=\"initialFocus()\"\n  [closeOnEscape]=\"closeOnEscape()\"\n  [closeOnBackdrop]=\"false\"\n  [restoreFocus]=\"restoreFocus()\"\n  [showCloseButton]=\"false\"\n>\n  <ng-content />\n</aevko-dialog>\n"
+    },
+    {
+      "target": "alert-dialog/alert-dialog.component.css",
+      "content": ":host {\n  display: contents;\n}\n"
+    },
+    {
+      "target": "alert-dialog/index.ts",
+      "content": "export * from './alert-dialog.component';\n"
+    }
+  ],
+  "registryDependencies": [
+    "dialog"
+  ],
+  "npmDependencies": {},
+  "integrity": "1c827ccb0344c2ddf41f5a9312d6382c57c2a535cedb8e61db3c9bcab22a7afe"
+}

@@ -1,0 +1,118 @@
+:host {
+  align-items: center;
+  border: 1px solid transparent;
+  border-radius: var(--aevko-radius, 0);
+  box-sizing: border-box;
+  cursor: pointer;
+  display: inline-flex;
+  font: 650 0.875rem/1 var(--aevko-font-sans, sans-serif);
+  gap: 0.5rem;
+  justify-content: center;
+  letter-spacing: 0.01em;
+  min-width: 2rem;
+  padding-inline: 1rem;
+  transition:
+    background-color 120ms ease,
+    border-color 120ms ease,
+    color 120ms ease,
+    transform 120ms ease;
+}
+
+:host([data-size='sm']) {
+  min-height: 2rem;
+  padding-inline: 0.75rem;
+}
+
+:host([data-size='md']) {
+  min-height: 2.75rem;
+}
+
+:host([data-size='lg']) {
+  font-size: 1rem;
+  min-height: 3rem;
+  padding-inline: 1.25rem;
+}
+
+:host([data-variant='primary']) {
+  background: var(--aevko-foreground, #20201e);
+  color: var(--aevko-background, #ffffff);
+}
+
+:host([data-variant='outline']) {
+  background: var(--aevko-background, #ffffff);
+  border-color: var(--aevko-border, #e4e4e7);
+  color: var(--aevko-foreground, #20201e);
+}
+
+:host([data-variant='ghost']) {
+  background: transparent;
+  color: var(--aevko-foreground, #20201e);
+}
+
+:host([data-variant='accent']) {
+  background: var(--aevko-accent, #20201e);
+  color: var(--aevko-accent-foreground, #ffffff);
+}
+
+:host([data-variant='danger']) {
+  background: var(--aevko-danger, #3f3f3f);
+  color: var(--aevko-danger-foreground, #ffffff);
+}
+
+:host(:hover:not(:disabled)) {
+  filter: brightness(0.94);
+  transform: translateY(-1px);
+}
+
+:host(:focus-visible) {
+  outline: 2px solid var(--aevko-focus, #a1a1aa);
+  outline-offset: 1px;
+}
+
+:host(:disabled) {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+.aevko-button__content {
+  align-items: center;
+  display: inline-flex;
+  gap: inherit;
+}
+
+.aevko-button__icon {
+  align-items: center;
+  color: currentcolor;
+  display: inline-flex;
+  flex: none;
+  line-height: 0;
+}
+
+.aevko-button__icon:empty {
+  display: none;
+}
+
+.aevko-button__spinner {
+  animation: aevko-button-spin 700ms linear infinite;
+  border: 2px solid currentcolor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  height: 0.875rem;
+  width: 0.875rem;
+}
+
+@keyframes aevko-button-spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :host {
+    transition: none;
+  }
+
+  .aevko-button__spinner {
+    animation-duration: 1.8s;
+  }
+}

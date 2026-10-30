@@ -1,0 +1,30 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "accordion",
+  "title": "Accordion",
+  "description": "Single or multiple expandable sections with disabled and reduced-motion behavior.",
+  "category": "layout",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "target": "accordion/accordion.component.ts",
+      "content": "import { ChangeDetectionStrategy, Component, booleanAttribute, input, model } from '@angular/core';\n\nexport interface AevkoAccordionItem {\n  id: string;\n  label: string;\n  content: string;\n  disabled?: boolean;\n}\n\n@Component({\n  selector: 'aevko-accordion',\n  standalone: true,\n  templateUrl: './accordion.component.html',\n  styleUrl: './accordion.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class AevkoAccordion {\n  readonly items = input.required<readonly AevkoAccordionItem[]>();\n  readonly type = input<'single' | 'multiple'>('single');\n  readonly value = model<readonly string[]>([]);\n  readonly collapsible = input(true, { transform: booleanAttribute });\n  readonly disabled = input(false, { transform: booleanAttribute });\n  readonly id = input('aevko-accordion');\n  readonly headingLevel = input<2 | 3 | 4 | 5 | 6>(2);\n\n  protected expanded(item: AevkoAccordionItem): boolean {\n    return this.value().includes(item.id);\n  }\n  protected toggle(item: AevkoAccordionItem): void {\n    if (this.disabled() || item.disabled) return;\n    const current = this.value();\n    if (this.expanded(item)) {\n      if (this.collapsible() || this.type() === 'multiple')\n        this.value.set(current.filter((id) => id !== item.id));\n      return;\n    }\n    this.value.set(this.type() === 'single' ? [item.id] : [...current, item.id]);\n  }\n}\n"
+    },
+    {
+      "target": "accordion/accordion.component.html",
+      "content": "@for (item of items(); track item.id) {\n  <section>\n    <div class=\"heading\" role=\"heading\" [attr.aria-level]=\"headingLevel()\">\n      <button\n        type=\"button\"\n        [disabled]=\"disabled() || item.disabled\"\n        [attr.aria-expanded]=\"expanded(item)\"\n        [attr.aria-controls]=\"id() + '-' + item.id + '-panel'\"\n        [id]=\"id() + '-' + item.id + '-trigger'\"\n        (click)=\"toggle(item)\"\n      >\n        <span>{{ item.label }}</span\n        ><span class=\"indicator\" [class.open]=\"expanded(item)\" aria-hidden=\"true\">\n          <svg viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\">\n            <path d=\"m9 18 6-6-6-6\" />\n          </svg>\n        </span>\n      </button>\n    </div>\n    <div\n      role=\"region\"\n      [id]=\"id() + '-' + item.id + '-panel'\"\n      [attr.aria-labelledby]=\"id() + '-' + item.id + '-trigger'\"\n      [hidden]=\"!expanded(item)\"\n    >\n      <p>{{ item.content }}</p>\n    </div>\n  </section>\n}\n"
+    },
+    {
+      "target": "accordion/accordion.component.css",
+      "content": ":host {\n  display: block;\n}\nsection {\n  border-bottom: 1px solid var(--aevko-border, #c7c7c7);\n}\n.heading {\n  margin: 0;\n}\nbutton {\n  align-items: center;\n  background: transparent;\n  border: 0;\n  color: inherit;\n  cursor: pointer;\n  display: flex;\n  font: 700 1rem/1.3 var(--aevko-font-sans, sans-serif);\n  justify-content: space-between;\n  min-height: 3rem;\n  padding: 0.75rem 0;\n  text-align: start;\n  width: 100%;\n}\nbutton:focus-visible {\n  outline: 2px solid var(--aevko-focus, #a1a1aa);\n  outline-offset: 1px;\n}\nbutton:disabled {\n  cursor: not-allowed;\n  opacity: 0.55;\n}\n.indicator {\n  align-items: center;\n  display: inline-flex;\n  flex: none;\n  transition: transform 120ms ease;\n}\n.indicator.open {\n  transform: rotate(90deg);\n}\n.indicator svg {\n  height: 1rem;\n  stroke-linecap: round;\n  stroke-linejoin: round;\n  stroke-width: 2;\n  width: 1rem;\n}\n[role='region'] {\n  display: grid;\n  grid-template-rows: 1fr;\n  opacity: 1;\n  transition:\n    grid-template-rows 180ms ease,\n    opacity 180ms ease;\n}\n[role='region'][hidden] {\n  display: none;\n  grid-template-rows: 0fr;\n  opacity: 0;\n}\np {\n  line-height: 1.5;\n  margin: 0;\n  padding: 0 0 1rem;\n}\n@media (prefers-reduced-motion: reduce) {\n  .indicator,\n  [role='region'] {\n    transition: none;\n  }\n}\n"
+    },
+    {
+      "target": "accordion/index.ts",
+      "content": "export * from './accordion.component';\n"
+    }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {},
+  "integrity": "003fd8412596cb27c46c9cb63fccfe769b1a1bb4b61d1b0beddf6dfeb30b7840"
+}

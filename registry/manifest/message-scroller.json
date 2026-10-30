@@ -1,0 +1,30 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "message-scroller",
+  "title": "Message Scroller",
+  "description": "A keyboard-focusable transcript scroller that preserves reader position and supports controlled live following.",
+  "category": "content",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "source": "components/message-scroller/message-scroller.component.ts",
+      "target": "message-scroller/message-scroller.component.ts"
+    },
+    {
+      "source": "components/message-scroller/message-scroller.component.html",
+      "target": "message-scroller/message-scroller.component.html"
+    },
+    {
+      "source": "components/message-scroller/message-scroller.component.css",
+      "target": "message-scroller/message-scroller.component.css"
+    },
+    {
+      "source": "components/message-scroller/message-scroller-item.component.css",
+      "target": "message-scroller/message-scroller-item.component.css"
+    },
+    { "source": "components/message-scroller/index.ts", "target": "message-scroller/index.ts" }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {}
+}

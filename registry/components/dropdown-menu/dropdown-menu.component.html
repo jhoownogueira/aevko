@@ -1,0 +1,10 @@
+<ng-content select="[aevkoDropdownMenuTrigger]" />
+<div
+  [id]="id()"
+  role="menu"
+  [attr.aria-label]="label()"
+  [hidden]="!open()"
+  [attr.data-align]="align()"
+>
+  <ng-content />
+</div>

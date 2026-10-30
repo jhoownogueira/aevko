@@ -1,0 +1,27 @@
+<section class="viewport" aria-label="Notifications">
+  @for (toast of store.toasts(); track toast.id) {
+    <div
+      class="toast"
+      [attr.data-tone]="toast.tone ?? 'default'"
+      [attr.role]="toast.tone === 'error' ? 'alert' : 'status'"
+    >
+      <div>
+        <strong>{{ toast.title }}</strong>
+        @if (toast.description) {
+          <p>{{ toast.description }}</p>
+        }
+      </div>
+      @if (toast.actionLabel) {
+        <button type="button" (click)="store.runAction(toast)">{{ toast.actionLabel }}</button>
+      }
+      <button
+        class="close"
+        type="button"
+        [attr.aria-label]="'Dismiss ' + toast.title"
+        (click)="store.dismiss(toast.id)"
+      >
+        ×
+      </button>
+    </div>
+  }
+</section>

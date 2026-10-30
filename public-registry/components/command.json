@@ -1,0 +1,30 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "command",
+  "title": "Command",
+  "description": "A searchable keyboard command list with controlled selection.",
+  "category": "navigation",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "target": "command/command.component.ts",
+      "content": "import {\n  ChangeDetectionStrategy,\n  Component,\n  computed,\n  input,\n  model,\n  output,\n  signal,\n} from '@angular/core';\nexport interface AevkoCommandItem {\n  id: string;\n  label: string;\n  description?: string;\n  group?: string;\n  shortcut?: string;\n  disabled?: boolean;\n  keywords?: readonly string[];\n}\n@Component({\n  selector: 'aevko-command',\n  standalone: true,\n  templateUrl: './command.component.html',\n  styleUrl: './command.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class AevkoCommand {\n  readonly label = input('Command menu');\n  readonly placeholder = input('Type a command or search…');\n  readonly items = input.required<readonly AevkoCommandItem[]>();\n  readonly query = model('');\n  readonly value = model('');\n  readonly activated = output<AevkoCommandItem>();\n  protected readonly active = signal(0);\n  protected readonly filtered = computed(() => {\n    const query = this.query().trim().toLocaleLowerCase();\n    return this.items().filter(\n      (item) =>\n        !query ||\n        [item.label, item.description, ...(item.keywords ?? [])]\n          .filter(Boolean)\n          .join(' ')\n          .toLocaleLowerCase()\n          .includes(query),\n    );\n  });\n  protected move(event: KeyboardEvent): void {\n    const items = this.filtered().filter((item) => !item.disabled);\n    if (!items.length) return;\n    if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {\n      event.preventDefault();\n      this.active.update(\n        (index) => (index + (event.key === 'ArrowUp' ? -1 : 1) + items.length) % items.length,\n      );\n    } else if (event.key === 'Enter') {\n      event.preventDefault();\n      const item = items[this.active()];\n      if (item) this.select(item);\n    }\n  }\n  protected select(item: AevkoCommandItem): void {\n    if (item.disabled) return;\n    this.value.set(item.id);\n    this.activated.emit(item);\n  }\n}\n"
+    },
+    {
+      "target": "command/command.component.html",
+      "content": "<div class=\"search\">\n  <input\n    type=\"search\"\n    [attr.aria-label]=\"label()\"\n    aria-controls=\"aevko-command-list\"\n    aria-autocomplete=\"list\"\n    [placeholder]=\"placeholder()\"\n    [value]=\"query()\"\n    (input)=\"query.set($any($event.target).value); active.set(0)\"\n    (keydown)=\"move($event)\"\n  />\n</div>\n<div id=\"aevko-command-list\" role=\"listbox\" [attr.aria-label]=\"label()\">\n  @for (item of filtered(); track item.id; let index = $index) {\n    <div\n      role=\"option\"\n      [attr.aria-selected]=\"value() === item.id\"\n      [attr.aria-disabled]=\"item.disabled || null\"\n      [attr.tabindex]=\"item.disabled ? -1 : 0\"\n      [attr.data-active]=\"active() === index\"\n      (click)=\"select(item)\"\n      (keydown.enter)=\"select(item)\"\n    >\n      <span\n        ><strong>{{ item.label }}</strong>\n        @if (item.description) {\n          <small>{{ item.description }}</small>\n        }\n      </span>\n      @if (item.shortcut) {\n        <kbd>{{ item.shortcut }}</kbd>\n      }\n    </div>\n  }\n  @if (!filtered().length) {\n    <p>No commands found.</p>\n  }\n</div>\n"
+    },
+    {
+      "target": "command/command.component.css",
+      "content": ":host {\n  background: var(--aevko-surface, #fff);\n  border: 1px solid var(--aevko-border, #d4d4d4);\n  display: grid;\n  inline-size: min(28rem, 100%);\n}\n.search {\n  border-block-end: 1px solid var(--aevko-border, #d4d4d4);\n  padding: 0.5rem;\n}\ninput {\n  background: transparent;\n  border: 0;\n  color: inherit;\n  inline-size: 100%;\n  min-block-size: 2.5rem;\n  padding: 0.5rem;\n}\ninput:focus-visible {\n  outline: 2px solid var(--aevko-ring, #a3a3a3);\n}\n[role='listbox'] {\n  display: grid;\n  max-block-size: 18rem;\n  overflow: auto;\n  padding: 0.25rem;\n}\n[role='option'] {\n  align-items: center;\n  display: flex;\n  gap: 1rem;\n  justify-content: space-between;\n  padding: 0.625rem;\n}\n[role='option'][data-active='true'],\n[role='option']:hover,\n[role='option']:focus-visible {\n  background: color-mix(in srgb, currentcolor 10%, var(--aevko-surface, #fff));\n  color: var(--aevko-surface-foreground, currentcolor);\n  outline: 0;\n}\n[role='option'][data-active='true'] small,\n[role='option']:hover small,\n[role='option']:focus-visible small {\n  color: inherit;\n  opacity: 0.72;\n}\n[role='option'][aria-disabled='true'] {\n  opacity: 0.5;\n}\nspan {\n  display: grid;\n}\nsmall {\n  color: var(--aevko-muted-foreground, #666);\n}\nkbd {\n  font: inherit;\n  font-size: 0.75rem;\n}\np {\n  color: var(--aevko-muted-foreground, #666);\n  padding: 1rem;\n  text-align: center;\n}\n@media (prefers-color-scheme: dark) {\n  :host {\n    --aevko-surface: #171717;\n    --aevko-border: #404040;\n    --aevko-muted: #2a2a2a;\n    --aevko-muted-foreground: #b3b3b3;\n    color: #f5f5f5;\n  }\n}\n"
+    },
+    {
+      "target": "command/index.ts",
+      "content": "export * from './command.component';\n"
+    }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {},
+  "integrity": "8358622108b31e751abd804225be311b12869754d0d6abad643e5f52462a1c77"
+}

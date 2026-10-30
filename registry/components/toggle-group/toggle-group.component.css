@@ -1,0 +1,10 @@
+:host {
+  display: inline-flex;
+}
+div {
+  display: flex;
+  gap: 0.5rem;
+}
+:host([data-orientation='vertical']) div {
+  flex-direction: column;
+}

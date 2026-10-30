@@ -1,0 +1,67 @@
+:host {
+  appearance: none;
+  background: var(--aevko-surface-strong, #d4d4d8);
+  border: 1px solid var(--aevko-border-strong, #a1a1aa);
+  border-radius: var(--aevko-radius, 0);
+  box-sizing: border-box;
+  cursor: pointer;
+  display: inline-block;
+  height: 1.5rem;
+  margin: 0;
+  padding: 0.1875rem;
+  width: 2.75rem;
+}
+:host::after {
+  background: var(--aevko-background, #fff);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--aevko-foreground, #09090b) 14%, transparent);
+  content: '';
+  display: block;
+  height: 1rem;
+  transform: translateX(0);
+  transition: transform 140ms ease;
+  width: 1rem;
+}
+:host-context([dir='rtl'])::after {
+  margin-inline-start: auto;
+}
+:host:checked {
+  background: var(--aevko-foreground, #09090b);
+  border-color: var(--aevko-foreground, #09090b);
+}
+:host:checked::after {
+  transform: translateX(1.25rem);
+}
+:host-context([dir='rtl']):checked::after {
+  transform: translateX(-1.25rem);
+}
+:host([data-size='sm']) {
+  height: 1.25rem;
+  padding: 0.125rem;
+  width: 2.25rem;
+}
+:host([data-size='sm'])::after {
+  height: 0.875rem;
+  width: 0.875rem;
+}
+:host([data-size='sm']:checked)::after {
+  transform: translateX(1rem);
+}
+:host-context([dir='rtl'])[data-size='sm']:checked::after {
+  transform: translateX(-1rem);
+}
+:host:focus-visible {
+  outline: 2px solid var(--aevko-focus, #a1a1aa);
+  outline-offset: 2px;
+}
+:host([data-invalid='true']) {
+  border-color: var(--aevko-danger, #3f3f3f);
+}
+:host:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+@media (prefers-reduced-motion: reduce) {
+  :host::after {
+    transition: none;
+  }
+}

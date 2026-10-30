@@ -1,0 +1,18 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "table",
+  "title": "Table",
+  "description": "Semantic native table primitives with responsive overflow and neutral styling.",
+  "category": "data",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "source": "components/table/table.component.ts",
+      "target": "table/table.component.ts"
+    },
+    { "source": "components/table/index.ts", "target": "table/index.ts" }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {}
+}

@@ -1,0 +1,38 @@
+<div class="search">
+  <input
+    type="search"
+    [attr.aria-label]="label()"
+    aria-controls="aevko-command-list"
+    aria-autocomplete="list"
+    [placeholder]="placeholder()"
+    [value]="query()"
+    (input)="query.set($any($event.target).value); active.set(0)"
+    (keydown)="move($event)"
+  />
+</div>
+<div id="aevko-command-list" role="listbox" [attr.aria-label]="label()">
+  @for (item of filtered(); track item.id; let index = $index) {
+    <div
+      role="option"
+      [attr.aria-selected]="value() === item.id"
+      [attr.aria-disabled]="item.disabled || null"
+      [attr.tabindex]="item.disabled ? -1 : 0"
+      [attr.data-active]="active() === index"
+      (click)="select(item)"
+      (keydown.enter)="select(item)"
+    >
+      <span
+        ><strong>{{ item.label }}</strong>
+        @if (item.description) {
+          <small>{{ item.description }}</small>
+        }
+      </span>
+      @if (item.shortcut) {
+        <kbd>{{ item.shortcut }}</kbd>
+      }
+    </div>
+  }
+  @if (!filtered().length) {
+    <p>No commands found.</p>
+  }
+</div>

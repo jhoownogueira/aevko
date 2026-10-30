@@ -1,0 +1,15 @@
+<div class="heading">
+  <strong>{{ label() }}</strong>
+  @if (description()) {
+    <span>{{ description() }}</span>
+  }
+</div>
+<div class="visual" aria-hidden="true"><ng-content select="[aevkoChartVisual]" /></div>
+@if (series().length) {
+  <ul class="legend" aria-label="Chart legend">
+    @for (item of series(); track item.key) {
+      <li><span class="swatch" [style.background]="item.color || null"></span>{{ item.label }}</li>
+    }
+  </ul>
+}
+<div class="data"><ng-content select="[aevkoChartData]" /></div>

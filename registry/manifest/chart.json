@@ -1,0 +1,17 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "chart",
+  "title": "Chart",
+  "description": "An accessible, engine-agnostic chart frame with legend and semantic data slots.",
+  "category": "data",
+  "angular": ">=22 <23",
+  "files": [
+    { "source": "components/chart/chart.component.ts", "target": "chart/chart.component.ts" },
+    { "source": "components/chart/chart.component.html", "target": "chart/chart.component.html" },
+    { "source": "components/chart/chart.component.css", "target": "chart/chart.component.css" },
+    { "source": "components/chart/index.ts", "target": "chart/index.ts" }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {}
+}

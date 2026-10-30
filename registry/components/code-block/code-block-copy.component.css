@@ -1,0 +1,14 @@
+:host {
+  background: transparent;
+  border: 1px solid var(--aevko-border-strong, #a1a1aa);
+  border-radius: var(--aevko-radius, 0);
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  min-height: 2rem;
+  padding-inline: 0.625rem;
+}
+:host:focus-visible {
+  outline: 2px solid var(--aevko-focus, #a1a1aa);
+  outline-offset: 1px;
+}

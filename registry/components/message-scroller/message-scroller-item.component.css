@@ -1,0 +1,6 @@
+:host {
+  content-visibility: auto;
+  display: block;
+  contain-intrinsic-size: auto 5rem;
+  scroll-margin-block: 1rem;
+}

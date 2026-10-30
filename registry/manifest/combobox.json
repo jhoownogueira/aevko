@@ -1,0 +1,26 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "combobox",
+  "title": "Combobox",
+  "description": "An autocomplete input with controlled suggestions and selection.",
+  "category": "forms",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "source": "components/combobox/combobox.component.ts",
+      "target": "combobox/combobox.component.ts"
+    },
+    {
+      "source": "components/combobox/combobox.component.html",
+      "target": "combobox/combobox.component.html"
+    },
+    {
+      "source": "components/combobox/combobox.component.css",
+      "target": "combobox/combobox.component.css"
+    },
+    { "source": "components/combobox/index.ts", "target": "combobox/index.ts" }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {}
+}

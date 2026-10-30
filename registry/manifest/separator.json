@@ -1,0 +1,22 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "separator",
+  "title": "Separator",
+  "description": "A horizontal or vertical divider with decorative and semantic modes.",
+  "category": "layout",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "source": "components/separator/separator.component.ts",
+      "target": "separator/separator.component.ts"
+    },
+    {
+      "source": "components/separator/separator.component.css",
+      "target": "separator/separator.component.css"
+    },
+    { "source": "components/separator/index.ts", "target": "separator/index.ts" }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {}
+}

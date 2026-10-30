@@ -1,0 +1,30 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "button",
+  "title": "Button",
+  "description": "A native button enhancement with variants, sizes, loading and safe submit defaults.",
+  "category": "actions",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "target": "button/button.component.ts",
+      "content": "import { ChangeDetectionStrategy, Component, booleanAttribute, input } from '@angular/core';\n\nexport const AEVKO_BUTTON_VARIANTS = ['primary', 'outline', 'ghost', 'accent', 'danger'] as const;\nexport const AEVKO_BUTTON_SIZES = ['sm', 'md', 'lg'] as const;\n\nexport type AevkoButtonVariant = (typeof AEVKO_BUTTON_VARIANTS)[number];\nexport type AevkoButtonSize = (typeof AEVKO_BUTTON_SIZES)[number];\nexport type AevkoButtonType = 'button' | 'submit' | 'reset';\n\n@Component({\n  selector: 'button[aevkoButton]',\n  standalone: true,\n  templateUrl: './button.component.html',\n  styleUrl: './button.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: {\n    '[attr.type]': 'type()',\n    '[disabled]': 'isDisabled',\n    '[attr.aria-busy]': 'loading() ? \"true\" : null',\n    '[attr.data-variant]': 'variant()',\n    '[attr.data-size]': 'size()',\n    '[attr.data-loading]': 'loading() ? \"true\" : null',\n    '(click)': 'guardActivation($event)',\n  },\n})\nexport class AevkoButton {\n  readonly variant = input<AevkoButtonVariant>('primary');\n  readonly size = input<AevkoButtonSize>('md');\n  readonly type = input<AevkoButtonType>('button');\n  readonly loading = input(false, { transform: booleanAttribute });\n  readonly disabled = input(false, { transform: booleanAttribute });\n\n  protected get isDisabled(): boolean {\n    return this.disabled() || this.loading();\n  }\n\n  protected guardActivation(event: MouseEvent): void {\n    if (!this.isDisabled) return;\n    event.preventDefault();\n    event.stopImmediatePropagation();\n  }\n}\n"
+    },
+    {
+      "target": "button/button.component.html",
+      "content": "@if (loading()) {\n  <span class=\"aevko-button__spinner\" aria-hidden=\"true\"></span>\n}\n<span class=\"aevko-button__icon\" aria-hidden=\"true\">\n  <ng-content select=\"[aevkoButtonIconStart]\" />\n</span>\n<span class=\"aevko-button__content\"><ng-content /></span>\n<span class=\"aevko-button__icon\" aria-hidden=\"true\">\n  <ng-content select=\"[aevkoButtonIconEnd]\" />\n</span>\n"
+    },
+    {
+      "target": "button/button.component.css",
+      "content": ":host {\n  align-items: center;\n  border: 1px solid transparent;\n  border-radius: var(--aevko-radius, 0);\n  box-sizing: border-box;\n  cursor: pointer;\n  display: inline-flex;\n  font: 650 0.875rem/1 var(--aevko-font-sans, sans-serif);\n  gap: 0.5rem;\n  justify-content: center;\n  letter-spacing: 0.01em;\n  min-width: 2rem;\n  padding-inline: 1rem;\n  transition:\n    background-color 120ms ease,\n    border-color 120ms ease,\n    color 120ms ease,\n    transform 120ms ease;\n}\n\n:host([data-size='sm']) {\n  min-height: 2rem;\n  padding-inline: 0.75rem;\n}\n\n:host([data-size='md']) {\n  min-height: 2.75rem;\n}\n\n:host([data-size='lg']) {\n  font-size: 1rem;\n  min-height: 3rem;\n  padding-inline: 1.25rem;\n}\n\n:host([data-variant='primary']) {\n  background: var(--aevko-foreground, #20201e);\n  color: var(--aevko-background, #ffffff);\n}\n\n:host([data-variant='outline']) {\n  background: var(--aevko-background, #ffffff);\n  border-color: var(--aevko-border, #e4e4e7);\n  color: var(--aevko-foreground, #20201e);\n}\n\n:host([data-variant='ghost']) {\n  background: transparent;\n  color: var(--aevko-foreground, #20201e);\n}\n\n:host([data-variant='accent']) {\n  background: var(--aevko-accent, #20201e);\n  color: var(--aevko-accent-foreground, #ffffff);\n}\n\n:host([data-variant='danger']) {\n  background: var(--aevko-danger, #3f3f3f);\n  color: var(--aevko-danger-foreground, #ffffff);\n}\n\n:host(:hover:not(:disabled)) {\n  filter: brightness(0.94);\n  transform: translateY(-1px);\n}\n\n:host(:focus-visible) {\n  outline: 2px solid var(--aevko-focus, #a1a1aa);\n  outline-offset: 1px;\n}\n\n:host(:disabled) {\n  cursor: not-allowed;\n  opacity: 0.55;\n}\n\n.aevko-button__content {\n  align-items: center;\n  display: inline-flex;\n  gap: inherit;\n}\n\n.aevko-button__icon {\n  align-items: center;\n  color: currentcolor;\n  display: inline-flex;\n  flex: none;\n  line-height: 0;\n}\n\n.aevko-button__icon:empty {\n  display: none;\n}\n\n.aevko-button__spinner {\n  animation: aevko-button-spin 700ms linear infinite;\n  border: 2px solid currentcolor;\n  border-right-color: transparent;\n  border-radius: 50%;\n  height: 0.875rem;\n  width: 0.875rem;\n}\n\n@keyframes aevko-button-spin {\n  to {\n    transform: rotate(1turn);\n  }\n}\n\n@media (prefers-reduced-motion: reduce) {\n  :host {\n    transition: none;\n  }\n\n  .aevko-button__spinner {\n    animation-duration: 1.8s;\n  }\n}\n"
+    },
+    {
+      "target": "button/index.ts",
+      "content": "export * from './button.component';\n"
+    }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {},
+  "integrity": "44ecec9faef4411c124115ce629c5593afb656d8ede69e580db116509e82348b"
+}

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "navigation-menu",
+  "title": "Navigation Menu",
+  "description": "A named primary navigation surface for projected links and controls.",
+  "category": "navigation",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "source": "components/navigation-menu/navigation-menu.component.ts",
+      "target": "navigation-menu/navigation-menu.component.ts"
+    },
+    {
+      "source": "components/navigation-menu/navigation-menu.component.css",
+      "target": "navigation-menu/navigation-menu.component.css"
+    },
+    { "source": "components/navigation-menu/index.ts", "target": "navigation-menu/index.ts" }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {}
+}

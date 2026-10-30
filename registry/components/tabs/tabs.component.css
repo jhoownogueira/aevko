@@ -1,0 +1,8 @@
+:host {
+  display: grid;
+  gap: 1rem;
+}
+:host([data-orientation='vertical']) {
+  align-items: start;
+  grid-template-columns: auto 1fr;
+}

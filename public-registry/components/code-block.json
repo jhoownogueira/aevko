@@ -1,0 +1,50 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "code-block",
+  "title": "Code Block",
+  "description": "Focusable LTR code output with optional line numbers, variants and copy action.",
+  "category": "content",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "target": "code-block/code-block.component.ts",
+      "content": "import { DOCUMENT } from '@angular/common';\nimport {\n  ChangeDetectionStrategy,\n  Component,\n  computed,\n  inject,\n  input,\n  output,\n  signal,\n} from '@angular/core';\n\n@Component({\n  selector: 'aevko-code-block',\n  standalone: true,\n  template: '<ng-content />',\n  styleUrl: './code-block.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: { '[attr.data-variant]': 'variant()', '[attr.data-size]': 'size()' },\n})\nexport class AevkoCodeBlock {\n  readonly variant = input<'default' | 'destructive'>('default');\n  readonly size = input<'default' | 'sm'>('default');\n}\n\n@Component({\n  selector: 'aevko-code-block-header',\n  standalone: true,\n  template: '<ng-content />',\n  styleUrl: './code-block-header.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class AevkoCodeBlockHeader {}\n\n@Component({\n  selector: 'aevko-code-block-content',\n  standalone: true,\n  templateUrl: './code-block-content.component.html',\n  styleUrl: './code-block-content.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: { '[attr.data-wrap]': 'wrap()' },\n})\nexport class AevkoCodeBlockContent {\n  readonly code = input('');\n  readonly language = input('text');\n  readonly lineNumbers = input(false);\n  readonly startLine = input(1);\n  readonly wrap = input(false);\n  protected readonly lines = computed(() => this.code().split('\\n'));\n}\n\n@Component({\n  selector: 'aevko-code-block-line',\n  standalone: true,\n  template: '<ng-content />',\n  styleUrl: './code-block-line.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: { '[attr.data-variant]': 'variant()' },\n})\nexport class AevkoCodeBlockLine {\n  readonly variant = input<'default' | 'added' | 'removed' | 'highlighted'>('default');\n}\n\n@Component({\n  selector: 'button[aevkoCodeBlockCopy]',\n  standalone: true,\n  template: '{{ copied() ? \"Copied\" : \"Copy\" }}',\n  styleUrl: './code-block-copy.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: {\n    type: 'button',\n    '[attr.aria-label]': 'copied() ? \"Code copied\" : \"Copy code\"',\n    '(click)': 'copy()',\n  },\n})\nexport class AevkoCodeBlockCopy {\n  readonly value = input.required<string>();\n  readonly copiedChange = output<void>();\n  protected readonly copied = signal(false);\n  private readonly document = inject(DOCUMENT);\n\n  protected async copy(): Promise<void> {\n    const clipboard = this.document.defaultView?.navigator.clipboard;\n    if (!clipboard) return;\n    await clipboard.writeText(this.value());\n    this.copied.set(true);\n    this.copiedChange.emit();\n    this.document.defaultView?.setTimeout(() => this.copied.set(false), 1500);\n  }\n}\n\n@Component({\n  selector: 'aevko-code-block-footer',\n  standalone: true,\n  template: '<ng-content />',\n  styleUrl: './code-block-footer.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class AevkoCodeBlockFooter {}\n"
+    },
+    {
+      "target": "code-block/code-block-content.component.html",
+      "content": "<pre\n  tabindex=\"0\"\n  dir=\"ltr\"\n><code [attr.data-language]=\"language()\">@if (lineNumbers()) {@for (line of lines(); track $index) {<span class=\"line\" [attr.data-line]=\"startLine() + $index\">{{ line }}@if (!$last) {\n}</span>}} @else {<span>{{ code() }}</span>}<ng-content /></code></pre>\n"
+    },
+    {
+      "target": "code-block/code-block.component.css",
+      "content": ":host {\n  background: var(--aevko-surface, #f4f4f5);\n  border: 1px solid var(--aevko-border, #e4e4e7);\n  border-radius: var(--aevko-radius, 0);\n  color: var(--aevko-foreground, #09090b);\n  display: block;\n  overflow: hidden;\n}\n:host([data-variant='destructive']) {\n  border-color: var(--aevko-danger, #3f3f3f);\n}\n:host([data-size='sm']) {\n  font-size: 0.8125rem;\n}\n"
+    },
+    {
+      "target": "code-block/code-block-header.component.css",
+      "content": ":host {\n  align-items: center;\n  border-bottom: 1px solid var(--aevko-border, #e4e4e7);\n  display: flex;\n  font: 650 0.8125rem/1 var(--aevko-font-sans, sans-serif);\n  justify-content: space-between;\n  min-height: 2.75rem;\n  padding-inline: 0.875rem;\n}\n"
+    },
+    {
+      "target": "code-block/code-block-content.component.css",
+      "content": ":host {\n  display: block;\n}\npre {\n  margin: 0;\n  overflow: auto;\n  padding: 1rem;\n}\npre:focus-visible {\n  outline: 2px solid var(--aevko-focus, #a1a1aa);\n  outline-offset: -3px;\n}\ncode {\n  font: 500 0.875rem/1.6 var(--aevko-font-mono, monospace);\n  white-space: pre;\n}\n:host([data-wrap='true']) code {\n  white-space: pre-wrap;\n  word-break: break-word;\n}\n.line {\n  display: block;\n}\n.line::before {\n  color: var(--aevko-muted, #71717a);\n  content: attr(data-line);\n  display: inline-block;\n  margin-inline-end: 1rem;\n  min-width: 2ch;\n  text-align: end;\n  user-select: none;\n}\n"
+    },
+    {
+      "target": "code-block/code-block-line.component.css",
+      "content": ":host {\n  display: block;\n  padding-inline: 1rem;\n}\n:host([data-variant='highlighted']) {\n  background: color-mix(in srgb, var(--aevko-foreground, #09090b) 7%, transparent);\n}\n:host([data-variant='added'])::before {\n  content: '+ ';\n}\n:host([data-variant='removed'])::before {\n  content: '- ';\n}\n"
+    },
+    {
+      "target": "code-block/code-block-copy.component.css",
+      "content": ":host {\n  background: transparent;\n  border: 1px solid var(--aevko-border-strong, #a1a1aa);\n  border-radius: var(--aevko-radius, 0);\n  color: inherit;\n  cursor: pointer;\n  font: inherit;\n  min-height: 2rem;\n  padding-inline: 0.625rem;\n}\n:host:focus-visible {\n  outline: 2px solid var(--aevko-focus, #a1a1aa);\n  outline-offset: 1px;\n}\n"
+    },
+    {
+      "target": "code-block/code-block-footer.component.css",
+      "content": ":host {\n  align-items: center;\n  border-top: 1px solid var(--aevko-border, #e4e4e7);\n  display: flex;\n  min-height: 2.75rem;\n  padding-inline: 0.875rem;\n}\n"
+    },
+    {
+      "target": "code-block/index.ts",
+      "content": "export * from './code-block.component';\n"
+    }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {},
+  "integrity": "29be2ff53d03edfef74be1364f0334dce3489a06c3ffb2620d92841da29be6c8"
+}

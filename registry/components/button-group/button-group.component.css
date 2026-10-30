@@ -1,0 +1,13 @@
+:host {
+  display: inline-flex;
+}
+
+:host([data-orientation='vertical']) {
+  align-items: stretch;
+  flex-direction: column;
+}
+
+:host([data-orientation='horizontal']) {
+  align-items: center;
+  flex-direction: row;
+}

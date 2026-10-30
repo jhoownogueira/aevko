@@ -1,0 +1,22 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "table",
+  "title": "Table",
+  "description": "Semantic native table primitives with responsive overflow and neutral styling.",
+  "category": "data",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "target": "table/table.component.ts",
+      "content": "import { ChangeDetectionStrategy, Component, input } from '@angular/core';\n\n@Component({\n  selector: 'div[aevkoTableContainer]',\n  standalone: true,\n  template: '<ng-content />',\n  styles: `\n    :host {\n      display: block;\n      max-width: 100%;\n      overflow-x: auto;\n      position: relative;\n      width: 100%;\n    }\n    :host(:focus-visible) {\n      outline: 2px solid var(--aevko-focus, #a1a1aa);\n      outline-offset: 1px;\n    }\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: {\n    role: 'region',\n    tabindex: '0',\n    '[attr.aria-label]': 'label()',\n  },\n})\nexport class AevkoTableContainer {\n  readonly label = input('Scrollable table');\n}\n\n@Component({\n  selector: 'table[aevkoTable]',\n  standalone: true,\n  template: '<ng-content />',\n  styles: `\n    :host {\n      border-collapse: collapse;\n      caption-side: bottom;\n      width: 100%;\n    }\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class AevkoTable {}\n\n@Component({\n  selector: 'thead[aevkoTableHeader]',\n  standalone: true,\n  template: '<ng-content />',\n  styles: `\n    :host {\n      background: color-mix(in srgb, var(--aevko-surface, #f4f4f5) 72%, transparent);\n    }\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class AevkoTableHeader {}\n\n@Component({\n  selector: 'tbody[aevkoTableBody]',\n  standalone: true,\n  template: '<ng-content />',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class AevkoTableBody {}\n\n@Component({\n  selector: 'tfoot[aevkoTableFooter]',\n  standalone: true,\n  template: '<ng-content />',\n  styles: `\n    :host {\n      background: var(--aevko-surface, #f4f4f5);\n      font-weight: 650;\n    }\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class AevkoTableFooter {}\n\n@Component({\n  selector: 'tr[aevkoTableRow]',\n  standalone: true,\n  template: '<ng-content />',\n  styles: `\n    :host {\n      border-bottom: 1px solid var(--aevko-border, #e4e4e7);\n      transition: background-color 120ms ease;\n    }\n    :host(:hover) {\n      background: color-mix(in srgb, var(--aevko-surface, #f4f4f5) 52%, transparent);\n    }\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class AevkoTableRow {}\n\n@Component({\n  selector: 'th[aevkoTableHead]',\n  standalone: true,\n  template: '<ng-content />',\n  styles: `\n    :host {\n      color: var(--aevko-foreground, #09090b);\n      font-weight: 650;\n      height: 2.75rem;\n      padding: 0.75rem;\n      text-align: left;\n      vertical-align: middle;\n    }\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class AevkoTableHead {}\n\n@Component({\n  selector: 'td[aevkoTableCell]',\n  standalone: true,\n  template: '<ng-content />',\n  styles: `\n    :host {\n      padding: 0.75rem;\n      vertical-align: middle;\n    }\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class AevkoTableCell {}\n\n@Component({\n  selector: 'caption[aevkoTableCaption]',\n  standalone: true,\n  template: '<ng-content />',\n  styles: `\n    :host {\n      color: var(--aevko-muted, #71717a);\n      font-size: 0.875rem;\n      margin-top: 0.9rem;\n      text-align: center;\n    }\n  `,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class AevkoTableCaption {}\n"
+    },
+    {
+      "target": "table/index.ts",
+      "content": "export * from './table.component';\n"
+    }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {},
+  "integrity": "3b4d0b44ecc224d881d59fbc43aad2b14dc06818286dc52f01645301c8c97d9a"
+}

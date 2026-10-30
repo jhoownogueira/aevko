@@ -1,0 +1,26 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "spinner",
+  "title": "Spinner",
+  "description": "A compact loading status that respects reduced motion.",
+  "category": "feedback",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "target": "spinner/spinner.component.ts",
+      "content": "import { ChangeDetectionStrategy, Component, input } from '@angular/core';\n\n@Component({\n  selector: 'aevko-spinner',\n  standalone: true,\n  template: '<span class=\"ring\" aria-hidden=\"true\"></span>',\n  styleUrl: './spinner.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: {\n    role: 'status',\n    '[attr.aria-label]': 'label()',\n    '[style.--aevko-spinner-size]': 'size()',\n  },\n})\nexport class AevkoSpinner {\n  readonly label = input('Loading');\n  readonly size = input('1rem');\n}\n"
+    },
+    {
+      "target": "spinner/spinner.component.css",
+      "content": ":host {\n  display: inline-flex;\n  line-height: 0;\n}\n.ring {\n  animation: aevko-spin 700ms linear infinite;\n  border: 2px solid currentcolor;\n  border-right-color: transparent;\n  border-radius: 50%;\n  display: block;\n  height: var(--aevko-spinner-size, 1rem);\n  width: var(--aevko-spinner-size, 1rem);\n}\n@keyframes aevko-spin {\n  to {\n    transform: rotate(1turn);\n  }\n}\n@media (prefers-reduced-motion: reduce) {\n  .ring {\n    animation-duration: 2s;\n  }\n}\n"
+    },
+    {
+      "target": "spinner/index.ts",
+      "content": "export * from './spinner.component';\n"
+    }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {},
+  "integrity": "85403be78c352c596305491fbc52cfd6f05c50669f6a0b9b040fe205f5263b76"
+}

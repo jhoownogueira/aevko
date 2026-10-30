@@ -1,0 +1,26 @@
+<button
+  type="button"
+  [disabled]="page() <= 1"
+  aria-label="Previous page"
+  (click)="select(page() - 1)"
+>
+  Previous
+</button>
+@for (item of pages(); track item) {
+  <button
+    type="button"
+    [attr.aria-current]="item === page() ? 'page' : null"
+    [attr.aria-label]="'Page ' + item"
+    (click)="select(item)"
+  >
+    {{ item }}
+  </button>
+}
+<button
+  type="button"
+  [disabled]="page() >= totalPages()"
+  aria-label="Next page"
+  (click)="select(page() + 1)"
+>
+  Next
+</button>

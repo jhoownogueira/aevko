@@ -1,0 +1,20 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "button",
+  "title": "Button",
+  "description": "A native button enhancement with variants, sizes, loading and safe submit defaults.",
+  "category": "actions",
+  "angular": ">=22 <23",
+  "files": [
+    { "source": "components/button/button.component.ts", "target": "button/button.component.ts" },
+    {
+      "source": "components/button/button.component.html",
+      "target": "button/button.component.html"
+    },
+    { "source": "components/button/button.component.css", "target": "button/button.component.css" },
+    { "source": "components/button/index.ts", "target": "button/index.ts" }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {}
+}

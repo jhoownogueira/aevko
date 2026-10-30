@@ -1,0 +1,26 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "hover-card",
+  "title": "Hover Card",
+  "description": "A delayed preview for content available through a link.",
+  "category": "overlays",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "source": "components/hover-card/hover-card.component.ts",
+      "target": "hover-card/hover-card.component.ts"
+    },
+    {
+      "source": "components/hover-card/hover-card.component.html",
+      "target": "hover-card/hover-card.component.html"
+    },
+    {
+      "source": "components/hover-card/hover-card.component.css",
+      "target": "hover-card/hover-card.component.css"
+    },
+    { "source": "components/hover-card/index.ts", "target": "hover-card/index.ts" }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {}
+}

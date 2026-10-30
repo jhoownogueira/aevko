@@ -1,0 +1,42 @@
+:host {
+  display: inline-block;
+  position: relative;
+}
+span {
+  background: var(--aevko-foreground, #171717);
+  border-radius: 0;
+  color: var(--aevko-background, #fff);
+  font-size: 0.75rem;
+  inline-size: max-content;
+  max-inline-size: 16rem;
+  padding: 0.375rem 0.625rem;
+  pointer-events: none;
+  position: absolute;
+  z-index: 40;
+}
+span[data-side='top'] {
+  inset-block-end: calc(100% + 0.375rem);
+  inset-inline-start: 50%;
+  transform: translateX(-50%);
+}
+span[data-side='bottom'] {
+  inset-block-start: calc(100% + 0.375rem);
+  inset-inline-start: 50%;
+  transform: translateX(-50%);
+}
+span[data-side='left'] {
+  inset-inline-end: calc(100% + 0.375rem);
+  inset-block-start: 50%;
+  transform: translateY(-50%);
+}
+span[data-side='right'] {
+  inset-inline-start: calc(100% + 0.375rem);
+  inset-block-start: 50%;
+  transform: translateY(-50%);
+}
+@media (prefers-color-scheme: dark) {
+  span {
+    --aevko-foreground: #f5f5f5;
+    --aevko-background: #171717;
+  }
+}

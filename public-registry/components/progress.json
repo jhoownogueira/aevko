@@ -1,0 +1,26 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "progress",
+  "title": "Progress",
+  "description": "A determinate or indeterminate progress indicator with native ARIA range semantics.",
+  "category": "feedback",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "target": "progress/progress.component.ts",
+      "content": "import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';\n\n@Component({\n  selector: 'aevko-progress',\n  standalone: true,\n  template: '<span class=\"indicator\" [style.inline-size.%]=\"percentage()\"></span>',\n  styleUrl: './progress.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: {\n    role: 'progressbar',\n    '[attr.aria-label]': 'label()',\n    '[attr.aria-valuemin]': '0',\n    '[attr.aria-valuemax]': 'max()',\n    '[attr.aria-valuenow]': 'value() === null ? null : normalized()',\n    '[attr.data-state]': 'value() === null ? \"indeterminate\" : \"determinate\"',\n  },\n})\nexport class AevkoProgress {\n  readonly label = input.required<string>();\n  readonly value = input<number | null>(null);\n  readonly max = input(100);\n  protected readonly normalized = computed(() =>\n    Math.min(Math.max(this.value() ?? 0, 0), Math.max(this.max(), 1)),\n  );\n  protected readonly percentage = computed(\n    () => (this.normalized() / Math.max(this.max(), 1)) * 100,\n  );\n}\n"
+    },
+    {
+      "target": "progress/progress.component.css",
+      "content": ":host {\n  background: var(--aevko-surface, #f4f4f5);\n  display: block;\n  height: 0.5rem;\n  overflow: hidden;\n  position: relative;\n  width: 100%;\n}\n.indicator {\n  background: var(--aevko-foreground, #09090b);\n  display: block;\n  height: 100%;\n  transition: inline-size 180ms ease;\n}\n:host([data-state='indeterminate']) .indicator {\n  animation: aevko-progress 1.2s ease-in-out infinite;\n  inline-size: 40%;\n  position: absolute;\n}\n@keyframes aevko-progress {\n  from {\n    transform: translateX(-100%);\n  }\n  to {\n    transform: translateX(250%);\n  }\n}\n@media (prefers-reduced-motion: reduce) {\n  .indicator {\n    transition: none;\n  }\n  :host([data-state='indeterminate']) .indicator {\n    animation-duration: 3s;\n  }\n}\n"
+    },
+    {
+      "target": "progress/index.ts",
+      "content": "export * from './progress.component';\n"
+    }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {},
+  "integrity": "4302861bf2923bd14f82383f42b7bdf6ddf6f015f19068da01f74f26bca3a1a8"
+}

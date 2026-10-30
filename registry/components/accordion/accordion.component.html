@@ -1,0 +1,29 @@
+@for (item of items(); track item.id) {
+  <section>
+    <div class="heading" role="heading" [attr.aria-level]="headingLevel()">
+      <button
+        type="button"
+        [disabled]="disabled() || item.disabled"
+        [attr.aria-expanded]="expanded(item)"
+        [attr.aria-controls]="id() + '-' + item.id + '-panel'"
+        [id]="id() + '-' + item.id + '-trigger'"
+        (click)="toggle(item)"
+      >
+        <span>{{ item.label }}</span
+        ><span class="indicator" [class.open]="expanded(item)" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="m9 18 6-6-6-6" />
+          </svg>
+        </span>
+      </button>
+    </div>
+    <div
+      role="region"
+      [id]="id() + '-' + item.id + '-panel'"
+      [attr.aria-labelledby]="id() + '-' + item.id + '-trigger'"
+      [hidden]="!expanded(item)"
+    >
+      <p>{{ item.content }}</p>
+    </div>
+  </section>
+}

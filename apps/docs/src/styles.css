@@ -1,0 +1,38 @@
+@import 'tailwindcss';
+@import '@fontsource/commissioner/latin.css';
+@import '../../../registry/shared/styles/aevko.css';
+
+* {
+  box-sizing: border-box;
+}
+html {
+  background: var(--aevko-background);
+  color: var(--aevko-foreground);
+  font-family: var(--aevko-font-sans);
+}
+body {
+  margin: 0;
+  min-width: 20rem;
+}
+button,
+input {
+  font: inherit;
+}
+.docs-icon {
+  color: currentcolor;
+  flex: none;
+  height: 1rem;
+  stroke-width: 1.75;
+  vertical-align: -0.125em;
+  width: 1rem;
+}
+button:focus-visible,
+input:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--aevko-focus);
+  outline-offset: 1px;
+}
+::selection {
+  background: var(--aevko-accent);
+  color: var(--aevko-accent-foreground);
+}

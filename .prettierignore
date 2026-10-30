@@ -1,0 +1,9 @@
+node_modules
+dist
+.angular
+coverage
+public-registry
+tmp
+layout
+instrucoes.md
+pnpm-lock.yaml

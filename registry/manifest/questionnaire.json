@@ -1,0 +1,26 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "questionnaire",
+  "title": "Questionnaire",
+  "description": "A multi-step native questionnaire with controlled answers and navigation.",
+  "category": "forms",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "source": "components/questionnaire/questionnaire.component.ts",
+      "target": "questionnaire/questionnaire.component.ts"
+    },
+    {
+      "source": "components/questionnaire/questionnaire.component.html",
+      "target": "questionnaire/questionnaire.component.html"
+    },
+    {
+      "source": "components/questionnaire/questionnaire.component.css",
+      "target": "questionnaire/questionnaire.component.css"
+    },
+    { "source": "components/questionnaire/index.ts", "target": "questionnaire/index.ts" }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {}
+}

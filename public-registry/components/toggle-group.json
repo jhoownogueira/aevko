@@ -1,0 +1,30 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "toggle-group",
+  "title": "Toggle Group",
+  "description": "Single or multiple pressed-state button groups with arrow-key focus movement.",
+  "category": "actions",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "target": "toggle-group/toggle-group.component.ts",
+      "content": "import {\n  ChangeDetectionStrategy,\n  Component,\n  ElementRef,\n  computed,\n  contentChildren,\n  effect,\n  inject,\n  input,\n  model,\n  signal,\n} from '@angular/core';\n\n@Component({\n  selector: 'button[aevkoToggleGroupItem]',\n  standalone: true,\n  template: '<ng-content />',\n  styleUrl: './toggle-group-item.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: {\n    type: 'button',\n    '[attr.aria-pressed]': 'selected()',\n    '[attr.data-state]': 'selected() ? \"on\" : \"off\"',\n    '[attr.data-value]': 'value()',\n  },\n})\nexport class AevkoToggleGroupItem {\n  readonly value = input.required<string>();\n  readonly selected = computed(() => this.groupValues().includes(this.value()));\n  groupValues = signal<readonly string[]>([]);\n  readonly element = inject<ElementRef<HTMLButtonElement>>(ElementRef);\n}\n\n@Component({\n  selector: 'aevko-toggle-group',\n  standalone: true,\n  template:\n    '<div role=\"group\" [attr.aria-label]=\"label()\" (click)=\"activate($event)\" (keydown)=\"navigate($event)\"><ng-content /></div>',\n  styleUrl: './toggle-group.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: { '[attr.data-orientation]': 'orientation()' },\n})\nexport class AevkoToggleGroup {\n  readonly label = input.required<string>();\n  readonly type = input<'single' | 'multiple'>('single');\n  readonly orientation = input<'horizontal' | 'vertical'>('horizontal');\n  readonly value = model<readonly string[]>([]);\n  private readonly items = contentChildren(AevkoToggleGroupItem);\n\n  constructor() {\n    effect(() => {\n      const values = this.value();\n      for (const item of this.items()) item.groupValues.set(values);\n    });\n  }\n\n  protected activate(event: MouseEvent): void {\n    const item = this.items().find(({ element }) =>\n      element.nativeElement.contains(event.target as Node),\n    );\n    if (!item || item.element.nativeElement.disabled) return;\n    const itemValue = item.value();\n    const selected = this.value().includes(itemValue);\n    this.value.set(\n      this.type() === 'single'\n        ? selected\n          ? []\n          : [itemValue]\n        : selected\n          ? this.value().filter((value) => value !== itemValue)\n          : [...this.value(), itemValue],\n    );\n  }\n\n  protected navigate(event: KeyboardEvent): void {\n    const keys =\n      this.orientation() === 'vertical' ? ['ArrowUp', 'ArrowDown'] : ['ArrowLeft', 'ArrowRight'];\n    if (![...keys, 'Home', 'End'].includes(event.key)) return;\n    const enabled = this.items().filter(({ element }) => !element.nativeElement.disabled);\n    const current = enabled.findIndex(({ element }) => element.nativeElement === event.target);\n    if (current < 0 || enabled.length === 0) return;\n    event.preventDefault();\n    const next =\n      event.key === 'Home'\n        ? 0\n        : event.key === 'End'\n          ? enabled.length - 1\n          : (current + (event.key === keys[0] ? -1 : 1) + enabled.length) % enabled.length;\n    enabled[next]?.element.nativeElement.focus();\n  }\n}\n"
+    },
+    {
+      "target": "toggle-group/toggle-group.component.css",
+      "content": ":host {\n  display: inline-flex;\n}\ndiv {\n  display: flex;\n  gap: 0.5rem;\n}\n:host([data-orientation='vertical']) div {\n  flex-direction: column;\n}\n"
+    },
+    {
+      "target": "toggle-group/toggle-group-item.component.css",
+      "content": ":host {\n  align-items: center;\n  background: transparent;\n  border: 1px solid var(--aevko-border, #e4e4e7);\n  border-radius: var(--aevko-radius, 0);\n  color: var(--aevko-foreground, #09090b);\n  cursor: pointer;\n  display: inline-flex;\n  font: 650 0.875rem/1 var(--aevko-font-sans, sans-serif);\n  justify-content: center;\n  min-height: 2.5rem;\n  min-width: 2.5rem;\n  padding-inline: 0.75rem;\n}\n:host([data-state='on']) {\n  background: var(--aevko-foreground, #09090b);\n  color: var(--aevko-background, #fff);\n}\n:host(:hover:not(:disabled)) {\n  background: var(--aevko-surface, #f4f4f5);\n  color: var(--aevko-foreground, #09090b);\n}\n:host(:focus-visible) {\n  outline: 2px solid var(--aevko-focus, #a1a1aa);\n  outline-offset: 2px;\n}\n:host(:disabled) {\n  cursor: not-allowed;\n  opacity: 0.5;\n}\n"
+    },
+    {
+      "target": "toggle-group/index.ts",
+      "content": "export * from './toggle-group.component';\n"
+    }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {},
+  "integrity": "39aaae858aeb8332123d342fdbe968a34121c4572b3ccca812f74e8653545b95"
+}

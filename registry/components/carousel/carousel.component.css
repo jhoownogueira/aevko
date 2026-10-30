@@ -1,0 +1,52 @@
+:host {
+  display: grid;
+  gap: 1rem;
+}
+.viewport {
+  overflow: hidden;
+  touch-action: pan-y;
+}
+.viewport[data-orientation='vertical'] {
+  touch-action: pan-x;
+}
+.controls {
+  align-items: center;
+  display: flex;
+  gap: 0.75rem;
+  justify-content: center;
+}
+button {
+  align-items: center;
+  background: var(--aevko-background, #fff);
+  border: 1px solid var(--aevko-foreground, #20201e);
+  border-radius: var(--aevko-radius, 0);
+  color: var(--aevko-foreground, #20201e);
+  cursor: pointer;
+  display: inline-flex;
+  justify-content: center;
+  min-height: 2.75rem;
+  min-width: 2.75rem;
+}
+button svg {
+  height: 1rem;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2;
+  width: 1rem;
+}
+.control-icon {
+  align-items: center;
+  display: inline-flex;
+  line-height: 0;
+}
+.control-icon:has(> :not(.fallback-icon)) > .fallback-icon {
+  display: none;
+}
+button:focus-visible {
+  outline: 2px solid var(--aevko-focus, #a1a1aa);
+  outline-offset: 1px;
+}
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.45;
+}

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "toggle",
+  "title": "Toggle",
+  "description": "A pressed-state native button with controlled state and variants.",
+  "category": "actions",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "target": "toggle/toggle.component.ts",
+      "content": "import { ChangeDetectionStrategy, Component, booleanAttribute, input, model } from '@angular/core';\n\nexport type AevkoToggleVariant = 'default' | 'outline';\nexport type AevkoToggleSize = 'sm' | 'md' | 'lg';\n\n@Component({\n  selector: 'button[aevkoToggle]',\n  standalone: true,\n  template: '<ng-content />',\n  styleUrl: './toggle.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: {\n    type: 'button',\n    '[attr.aria-pressed]': 'pressed()',\n    '[attr.data-state]': 'pressed() ? \"on\" : \"off\"',\n    '[attr.data-variant]': 'variant()',\n    '[attr.data-size]': 'size()',\n    '[disabled]': 'disabled()',\n    '(click)': 'toggle()',\n  },\n})\nexport class AevkoToggle {\n  readonly pressed = model(false);\n  readonly disabled = input(false, { transform: booleanAttribute });\n  readonly variant = input<AevkoToggleVariant>('default');\n  readonly size = input<AevkoToggleSize>('md');\n\n  protected toggle(): void {\n    if (!this.disabled()) this.pressed.update((value) => !value);\n  }\n}\n"
+    },
+    {
+      "target": "toggle/toggle.component.css",
+      "content": ":host {\n  align-items: center;\n  background: transparent;\n  border: 1px solid transparent;\n  border-radius: var(--aevko-radius, 0);\n  color: var(--aevko-foreground, #09090b);\n  cursor: pointer;\n  display: inline-flex;\n  font: 650 0.875rem/1 var(--aevko-font-sans, sans-serif);\n  gap: 0.5rem;\n  justify-content: center;\n  min-width: 2.25rem;\n  padding-inline: 0.75rem;\n}\n\n:host([data-size='sm']) {\n  min-height: 2rem;\n}\n:host([data-size='md']) {\n  min-height: 2.5rem;\n}\n:host([data-size='lg']) {\n  min-height: 3rem;\n  padding-inline: 1rem;\n}\n:host([data-variant='outline']) {\n  border-color: var(--aevko-border, #e4e4e7);\n}\n:host([data-state='on']) {\n  background: var(--aevko-foreground, #09090b);\n  color: var(--aevko-background, #fff);\n}\n:host(:hover:not(:disabled)) {\n  background: var(--aevko-surface, #f4f4f5);\n  color: var(--aevko-foreground, #09090b);\n}\n:host(:focus-visible) {\n  outline: 2px solid var(--aevko-focus, #a1a1aa);\n  outline-offset: 1px;\n}\n:host(:disabled) {\n  cursor: not-allowed;\n  opacity: 0.5;\n}\n"
+    },
+    {
+      "target": "toggle/index.ts",
+      "content": "export * from './toggle.component';\n"
+    }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {},
+  "integrity": "5218b8bd580e40263f09df4c2ec16b88cd57dea49fb176a77de022f3d666282c"
+}

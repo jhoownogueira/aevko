@@ -1,0 +1,16 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "slider",
+  "title": "Slider",
+  "description": "A styled native range input with keyboard, touch and Angular Forms behavior.",
+  "category": "forms",
+  "angular": ">=22 <23",
+  "files": [
+    { "source": "components/slider/slider.component.ts", "target": "slider/slider.component.ts" },
+    { "source": "components/slider/slider.component.css", "target": "slider/slider.component.css" },
+    { "source": "components/slider/index.ts", "target": "slider/index.ts" }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {}
+}

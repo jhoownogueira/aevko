@@ -1,0 +1,22 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "spinner",
+  "title": "Spinner",
+  "description": "A compact loading status that respects reduced motion.",
+  "category": "feedback",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "source": "components/spinner/spinner.component.ts",
+      "target": "spinner/spinner.component.ts"
+    },
+    {
+      "source": "components/spinner/spinner.component.css",
+      "target": "spinner/spinner.component.css"
+    },
+    { "source": "components/spinner/index.ts", "target": "spinner/index.ts" }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {}
+}

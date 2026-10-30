@@ -1,0 +1,14 @@
+<ng-content select="[aevkoSheetTrigger]" />
+<aevko-dialog
+  [title]="title()"
+  [description]="description()"
+  [(open)]="open"
+  [initialFocus]="initialFocus()"
+  [closeOnEscape]="closeOnEscape()"
+  [closeOnBackdrop]="closeOnBackdrop()"
+  [restoreFocus]="restoreFocus()"
+  [showCloseButton]="showCloseButton()"
+  [side]="side() === 'center' ? 'right' : side()"
+>
+  <ng-content />
+</aevko-dialog>

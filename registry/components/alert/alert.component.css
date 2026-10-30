@@ -1,0 +1,35 @@
+:host {
+  background: var(--aevko-background, #fff);
+  border: 1px solid var(--aevko-border, #e4e4e7);
+  color: var(--aevko-foreground, #09090b);
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: auto 1fr;
+  padding: 1rem;
+}
+:host([data-variant='muted']) {
+  background: var(--aevko-surface, #f4f4f5);
+}
+:host([data-variant='danger']) {
+  border-color: var(--aevko-danger, #3f3f3f);
+}
+.icon {
+  color: currentcolor;
+  display: inline-flex;
+  line-height: 0;
+  padding-top: 0.15rem;
+}
+.icon:empty {
+  display: none;
+}
+.title {
+  font-weight: 700;
+  margin-bottom: 0.25rem;
+}
+.title:empty,
+.description:empty {
+  display: none;
+}
+.description {
+  color: var(--aevko-muted, #71717a);
+}

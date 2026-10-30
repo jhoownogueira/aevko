@@ -1,0 +1,28 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "button-group",
+  "title": "Button Group",
+  "description": "An accessible horizontal or vertical grouping for related actions.",
+  "category": "actions",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "target": "button-group/button-group.component.ts",
+      "content": "import { ChangeDetectionStrategy, Component, input } from '@angular/core';\n\n@Component({\n  selector: 'aevko-button-group',\n  standalone: true,\n  template: '<ng-content />',\n  styleUrl: './button-group.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: {\n    role: 'group',\n    '[attr.aria-label]': 'label()',\n    '[attr.data-orientation]': 'orientation()',\n  },\n})\nexport class AevkoButtonGroup {\n  readonly label = input.required<string>();\n  readonly orientation = input<'horizontal' | 'vertical'>('horizontal');\n}\n"
+    },
+    {
+      "target": "button-group/button-group.component.css",
+      "content": ":host {\n  display: inline-flex;\n}\n\n:host([data-orientation='vertical']) {\n  align-items: stretch;\n  flex-direction: column;\n}\n\n:host([data-orientation='horizontal']) {\n  align-items: center;\n  flex-direction: row;\n}\n"
+    },
+    {
+      "target": "button-group/index.ts",
+      "content": "export * from './button-group.component';\n"
+    }
+  ],
+  "registryDependencies": [
+    "button"
+  ],
+  "npmDependencies": {},
+  "integrity": "18d00448fdc6ea3d025648e07122d2e664b2cdcb5e5ca46cb075a8c064483c0b"
+}

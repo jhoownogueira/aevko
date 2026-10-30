@@ -1,0 +1,30 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "context-menu",
+  "title": "Context Menu",
+  "description": "A right-click action menu with keyboard navigation.",
+  "category": "navigation",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "target": "context-menu/context-menu.component.ts",
+      "content": "import {\n  ChangeDetectionStrategy,\n  Component,\n  Directive,\n  ElementRef,\n  booleanAttribute,\n  contentChildren,\n  inject,\n  input,\n  model,\n} from '@angular/core';\n@Directive({ selector: '[aevkoContextMenuTrigger]', standalone: true })\nexport class AevkoContextMenuTrigger {}\n@Directive({\n  selector: 'button[aevkoContextMenuItem]',\n  standalone: true,\n  host: { type: 'button', role: 'menuitem', tabindex: '-1' },\n})\nexport class AevkoContextMenuItem {\n  readonly element = inject<ElementRef<HTMLButtonElement>>(ElementRef);\n  readonly disabled = input(false, { transform: booleanAttribute });\n}\n@Component({\n  selector: 'aevko-context-menu',\n  standalone: true,\n  templateUrl: './context-menu.component.html',\n  styleUrl: './context-menu.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: {\n    '(contextmenu)': 'openAt($event)',\n    '(click)': 'click($event)',\n    '(keydown)': 'keydown($event)',\n  },\n})\nexport class AevkoContextMenu {\n  readonly label = input.required<string>();\n  readonly open = model(false);\n  protected x = 0;\n  protected y = 0;\n  private readonly items = contentChildren(AevkoContextMenuItem, { descendants: true });\n  protected openAt(event: MouseEvent): void {\n    if (!(event.target as Element).closest('[aevkoContextMenuTrigger]')) return;\n    event.preventDefault();\n    this.x = event.clientX;\n    this.y = event.clientY;\n    this.open.set(true);\n    queueMicrotask(() => this.enabled()[0]?.element.nativeElement.focus());\n  }\n  protected click(event: MouseEvent): void {\n    if ((event.target as Element).closest('[aevkoContextMenuItem]')) this.open.set(false);\n  }\n  protected keydown(event: KeyboardEvent): void {\n    if (!this.open()) return;\n    const items = this.enabled();\n    const current = items.findIndex((item) => item.element.nativeElement === event.target);\n    if (event.key === 'Escape') {\n      event.preventDefault();\n      this.open.set(false);\n    } else if (['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) {\n      event.preventDefault();\n      const index =\n        event.key === 'Home'\n          ? 0\n          : event.key === 'End'\n            ? items.length - 1\n            : (current + (event.key === 'ArrowUp' ? -1 : 1) + items.length) % items.length;\n      items[index]?.element.nativeElement.focus();\n    }\n  }\n  private enabled(): AevkoContextMenuItem[] {\n    return this.items().filter((item) => !item.disabled() && !item.element.nativeElement.disabled);\n  }\n}\n"
+    },
+    {
+      "target": "context-menu/context-menu.component.html",
+      "content": "<ng-content select=\"[aevkoContextMenuTrigger]\" />\n<div\n  role=\"menu\"\n  [attr.aria-label]=\"label()\"\n  [hidden]=\"!open()\"\n  [style.left.px]=\"x\"\n  [style.top.px]=\"y\"\n>\n  <ng-content />\n</div>\n"
+    },
+    {
+      "target": "context-menu/context-menu.component.css",
+      "content": ":host {\n  display: block;\n}\ndiv {\n  background: var(--aevko-surface, #fff);\n  border: 1px solid var(--aevko-border, #d4d4d4);\n  border-radius: 0;\n  box-shadow: 0 12px 30px rgb(0 0 0 / 0.12);\n  display: grid;\n  gap: 0.125rem;\n  min-inline-size: 12rem;\n  padding: 0.25rem;\n  position: fixed;\n  z-index: 45;\n}\n:host ::ng-deep [aevkoContextMenuItem] {\n  background: transparent;\n  border: 0;\n  border-radius: 0;\n  color: inherit;\n  min-block-size: 2.25rem;\n  padding: 0.5rem 0.625rem;\n  text-align: start;\n}\n:host ::ng-deep [aevkoContextMenuItem]:hover,\n:host ::ng-deep [aevkoContextMenuItem]:focus-visible {\n  background: var(--aevko-muted, #eee);\n  outline: 0;\n}\n@media (prefers-color-scheme: dark) {\n  div {\n    --aevko-surface: #171717;\n    --aevko-border: #404040;\n    --aevko-muted: #2a2a2a;\n    color: #f5f5f5;\n  }\n}\n"
+    },
+    {
+      "target": "context-menu/index.ts",
+      "content": "export * from './context-menu.component';\n"
+    }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {},
+  "integrity": "2d30b761af845b49f2def9ab6371e181a5762b0bdb7b38c97dc9f0f13cb6848f"
+}

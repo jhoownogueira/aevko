@@ -1,0 +1,30 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "popover",
+  "title": "Popover",
+  "description": "A controlled non-modal surface for rich projected content.",
+  "category": "overlays",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "target": "popover/popover.component.ts",
+      "content": "import {\n  ChangeDetectionStrategy,\n  Component,\n  Directive,\n  ElementRef,\n  booleanAttribute,\n  contentChild,\n  effect,\n  inject,\n  input,\n  model,\n} from '@angular/core';\n\n@Directive({ selector: '[aevkoPopoverTrigger]', standalone: true })\nexport class AevkoPopoverTrigger {\n  readonly element = inject<ElementRef<HTMLElement>>(ElementRef);\n}\n\n@Component({\n  selector: 'aevko-popover',\n  standalone: true,\n  templateUrl: './popover.component.html',\n  styleUrl: './popover.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: { '(click)': 'click($event)', '(keydown)': 'keydown($event)' },\n})\nexport class AevkoPopover {\n  readonly label = input.required<string>();\n  readonly open = model(false);\n  readonly id = input('aevko-popover');\n  readonly side = input<'top' | 'right' | 'bottom' | 'left'>('bottom');\n  readonly align = input<'start' | 'center' | 'end'>('center');\n  readonly closeOnEscape = input(true, { transform: booleanAttribute });\n  private readonly trigger = contentChild(AevkoPopoverTrigger);\n  constructor() {\n    effect(() => {\n      const element = this.trigger()?.element.nativeElement;\n      if (!element) return;\n      element.setAttribute('aria-haspopup', 'dialog');\n      element.setAttribute('aria-expanded', String(this.open()));\n      element.setAttribute('aria-controls', this.id());\n    });\n  }\n  protected click(event: MouseEvent): void {\n    const target = event.target as Element;\n    if (target.closest('[aevkoPopoverTrigger]')) this.open.update((value) => !value);\n    else if (target.closest('[aevkoPopoverClose]')) this.open.set(false);\n  }\n  protected keydown(event: KeyboardEvent): void {\n    if (event.key === 'Escape' && this.closeOnEscape()) {\n      event.preventDefault();\n      this.open.set(false);\n    }\n  }\n}\n"
+    },
+    {
+      "target": "popover/popover.component.html",
+      "content": "<ng-content select=\"[aevkoPopoverTrigger]\" />\n<section\n  [id]=\"id()\"\n  role=\"dialog\"\n  [attr.aria-label]=\"label()\"\n  [hidden]=\"!open()\"\n  [attr.data-side]=\"side()\"\n  [attr.data-align]=\"align()\"\n>\n  <ng-content />\n</section>\n"
+    },
+    {
+      "target": "popover/popover.component.css",
+      "content": ":host {\n  display: inline-block;\n  position: relative;\n}\nsection {\n  background: var(--aevko-surface, #fff);\n  border: 1px solid var(--aevko-border, #d4d4d4);\n  border-radius: 0;\n  box-shadow: 0 12px 30px rgb(0 0 0 / 0.12);\n  color: var(--aevko-foreground, #171717);\n  inline-size: max-content;\n  max-inline-size: min(22rem, calc(100vw - 2rem));\n  padding: 1rem;\n  position: absolute;\n  z-index: 30;\n}\nsection[data-side='bottom'] {\n  inset-block-start: calc(100% + 0.5rem);\n}\nsection[data-side='top'] {\n  inset-block-end: calc(100% + 0.5rem);\n}\nsection[data-side='right'] {\n  inset-inline-start: calc(100% + 0.5rem);\n  inset-block-start: 0;\n}\nsection[data-side='left'] {\n  inset-inline-end: calc(100% + 0.5rem);\n  inset-block-start: 0;\n}\nsection[data-align='start'] {\n  inset-inline-start: 0;\n}\nsection[data-align='center'] {\n  inset-inline-start: 50%;\n  transform: translateX(-50%);\n}\nsection[data-align='end'] {\n  inset-inline-end: 0;\n}\nsection[data-side='left'][data-align],\nsection[data-side='right'][data-align] {\n  transform: none;\n}\n@media (prefers-color-scheme: dark) {\n  section {\n    --aevko-surface: #171717;\n    --aevko-foreground: #f5f5f5;\n    --aevko-border: #404040;\n  }\n}\n"
+    },
+    {
+      "target": "popover/index.ts",
+      "content": "export * from './popover.component';\n"
+    }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {},
+  "integrity": "131ffdcfffc4714970d270dc03d27458c9e2047201d085be2ad00e2187ae3610"
+}

@@ -1,0 +1,518 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "@aevko/registry",
+  "items": [
+    {
+      "name": "accordion",
+      "title": "Accordion",
+      "description": "Single or multiple expandable sections with disabled and reduced-motion behavior.",
+      "category": "layout",
+      "angular": ">=22 <23",
+      "url": "components/accordion.json"
+    },
+    {
+      "name": "alert",
+      "title": "Alert",
+      "description": "A compositional status or urgent alert with explicit live behavior.",
+      "category": "feedback",
+      "angular": ">=22 <23",
+      "url": "components/alert.json"
+    },
+    {
+      "name": "alert-dialog",
+      "title": "Alert Dialog",
+      "description": "An interruptive modal that requires an explicit projected decision.",
+      "category": "overlays",
+      "angular": ">=22 <23",
+      "url": "components/alert-dialog.json"
+    },
+    {
+      "name": "aspect-ratio",
+      "title": "Aspect Ratio",
+      "description": "A distortion-free responsive ratio container.",
+      "category": "layout",
+      "angular": ">=22 <23",
+      "url": "components/aspect-ratio.json"
+    },
+    {
+      "name": "attachment",
+      "title": "Attachment",
+      "description": "A file representation with metadata and projected actions, without implicit upload behavior.",
+      "category": "content",
+      "angular": ">=22 <23",
+      "url": "components/attachment.json"
+    },
+    {
+      "name": "avatar",
+      "title": "Avatar",
+      "description": "An image avatar with accessible initials fallback and configurable size.",
+      "category": "content",
+      "angular": ">=22 <23",
+      "url": "components/avatar.json"
+    },
+    {
+      "name": "badge",
+      "title": "Badge",
+      "description": "A compact status or metadata label with optional projected icon.",
+      "category": "content",
+      "angular": ">=22 <23",
+      "url": "components/badge.json"
+    },
+    {
+      "name": "breadcrumb",
+      "title": "Breadcrumb",
+      "description": "Hierarchical navigation with a named landmark, current page and configurable separators.",
+      "category": "content",
+      "angular": ">=22 <23",
+      "url": "components/breadcrumb.json"
+    },
+    {
+      "name": "bubble",
+      "title": "Bubble",
+      "description": "A generic aligned content bubble with neutral visual variants.",
+      "category": "content",
+      "angular": ">=22 <23",
+      "url": "components/bubble.json"
+    },
+    {
+      "name": "button",
+      "title": "Button",
+      "description": "A native button enhancement with variants, sizes, loading and safe submit defaults.",
+      "category": "actions",
+      "angular": ">=22 <23",
+      "url": "components/button.json"
+    },
+    {
+      "name": "button-group",
+      "title": "Button Group",
+      "description": "An accessible horizontal or vertical grouping for related actions.",
+      "category": "actions",
+      "angular": ">=22 <23",
+      "url": "components/button-group.json"
+    },
+    {
+      "name": "calendar",
+      "title": "Calendar",
+      "description": "A dependency-free month grid with controlled ISO date selection.",
+      "category": "forms",
+      "angular": ">=22 <23",
+      "url": "components/calendar.json"
+    },
+    {
+      "name": "card",
+      "title": "Card",
+      "description": "A compositional content surface with header, title, description, content, actions and footer.",
+      "category": "layout",
+      "angular": ">=22 <23",
+      "url": "components/card.json"
+    },
+    {
+      "name": "carousel",
+      "title": "Carousel",
+      "description": "A compositional carousel with buttons, arrows and swipe navigation.",
+      "category": "layout",
+      "angular": ">=22 <23",
+      "url": "components/carousel.json"
+    },
+    {
+      "name": "chart",
+      "title": "Chart",
+      "description": "An accessible, engine-agnostic chart frame with legend and semantic data slots.",
+      "category": "data",
+      "angular": ">=22 <23",
+      "url": "components/chart.json"
+    },
+    {
+      "name": "checkbox",
+      "title": "Checkbox",
+      "description": "A styled native checkbox with Angular Forms and indeterminate-state support.",
+      "category": "forms",
+      "angular": ">=22 <23",
+      "url": "components/checkbox.json"
+    },
+    {
+      "name": "code-block",
+      "title": "Code Block",
+      "description": "Focusable LTR code output with optional line numbers, variants and copy action.",
+      "category": "content",
+      "angular": ">=22 <23",
+      "url": "components/code-block.json"
+    },
+    {
+      "name": "collapsible",
+      "title": "Collapsible",
+      "description": "A controlled or uncontrolled disclosure with native button semantics.",
+      "category": "layout",
+      "angular": ">=22 <23",
+      "url": "components/collapsible.json"
+    },
+    {
+      "name": "combobox",
+      "title": "Combobox",
+      "description": "An autocomplete input with controlled suggestions and selection.",
+      "category": "forms",
+      "angular": ">=22 <23",
+      "url": "components/combobox.json"
+    },
+    {
+      "name": "command",
+      "title": "Command",
+      "description": "A searchable keyboard command list with controlled selection.",
+      "category": "navigation",
+      "angular": ">=22 <23",
+      "url": "components/command.json"
+    },
+    {
+      "name": "context-menu",
+      "title": "Context Menu",
+      "description": "A right-click action menu with keyboard navigation.",
+      "category": "navigation",
+      "angular": ">=22 <23",
+      "url": "components/context-menu.json"
+    },
+    {
+      "name": "data-table",
+      "title": "Data Table",
+      "description": "Typed native data table with controlled filtering, sorting, selection, pagination and loading states.",
+      "category": "data",
+      "angular": ">=22 <23",
+      "url": "components/data-table.json"
+    },
+    {
+      "name": "date-picker",
+      "title": "Date Picker",
+      "description": "A Popover and Calendar composition for controlled ISO date selection.",
+      "category": "forms",
+      "angular": ">=22 <23",
+      "url": "components/date-picker.json"
+    },
+    {
+      "name": "dialog",
+      "title": "Dialog",
+      "description": "A native modal dialog with controlled state, focus management and projected actions.",
+      "category": "overlays",
+      "angular": ">=22 <23",
+      "url": "components/dialog.json"
+    },
+    {
+      "name": "direction",
+      "title": "Direction",
+      "description": "An LTR and RTL context directive for compatible components.",
+      "category": "layout",
+      "angular": ">=22 <23",
+      "url": "components/direction.json"
+    },
+    {
+      "name": "drawer",
+      "title": "Drawer",
+      "description": "A mobile-friendly modal surface that opens from a viewport edge.",
+      "category": "overlays",
+      "angular": ">=22 <23",
+      "url": "components/drawer.json"
+    },
+    {
+      "name": "dropdown-menu",
+      "title": "Dropdown Menu",
+      "description": "A button-triggered action menu with roving keyboard focus.",
+      "category": "navigation",
+      "angular": ">=22 <23",
+      "url": "components/dropdown-menu.json"
+    },
+    {
+      "name": "empty",
+      "title": "Empty",
+      "description": "A compositional empty state with icon, copy and action slots.",
+      "category": "layout",
+      "angular": ">=22 <23",
+      "url": "components/empty.json"
+    },
+    {
+      "name": "field",
+      "title": "Field",
+      "description": "A compositional form field for labels, descriptions, controls and errors.",
+      "category": "forms",
+      "angular": ">=22 <23",
+      "url": "components/field.json"
+    },
+    {
+      "name": "hover-card",
+      "title": "Hover Card",
+      "description": "A delayed preview for content available through a link.",
+      "category": "overlays",
+      "angular": ">=22 <23",
+      "url": "components/hover-card.json"
+    },
+    {
+      "name": "input",
+      "title": "Input",
+      "description": "A styled native input that preserves browser and Angular Forms behavior.",
+      "category": "forms",
+      "angular": ">=22 <23",
+      "url": "components/input.json"
+    },
+    {
+      "name": "input-group",
+      "title": "Input Group",
+      "description": "Native input and textarea controls composed with text, icons and buttons.",
+      "category": "forms",
+      "angular": ">=22 <23",
+      "url": "components/input-group.json"
+    },
+    {
+      "name": "input-otp",
+      "title": "Input OTP",
+      "description": "An accessible one-time-code input with paste, autofill and Angular Forms support.",
+      "category": "forms",
+      "angular": ">=22 <23",
+      "url": "components/input-otp.json"
+    },
+    {
+      "name": "item",
+      "title": "Item",
+      "description": "A compositional item with icon, title, description and action slots.",
+      "category": "layout",
+      "angular": ">=22 <23",
+      "url": "components/item.json"
+    },
+    {
+      "name": "label",
+      "title": "Label",
+      "description": "A visual treatment for a native label with intact control association.",
+      "category": "forms",
+      "angular": ">=22 <23",
+      "url": "components/label.json"
+    },
+    {
+      "name": "marker",
+      "title": "Marker",
+      "description": "A generic labeled visual indicator with neutral status variants.",
+      "category": "content",
+      "angular": ">=22 <23",
+      "url": "components/marker.json"
+    },
+    {
+      "name": "menubar",
+      "title": "Menubar",
+      "description": "A persistent application command bar with roving keyboard focus.",
+      "category": "navigation",
+      "angular": ">=22 <23",
+      "url": "components/menubar.json"
+    },
+    {
+      "name": "message",
+      "title": "Message",
+      "description": "A generic compositional message with author, metadata, content, visual and actions.",
+      "category": "content",
+      "angular": ">=22 <23",
+      "url": "components/message.json"
+    },
+    {
+      "name": "message-scroller",
+      "title": "Message Scroller",
+      "description": "A keyboard-focusable transcript scroller that preserves reader position and supports controlled live following.",
+      "category": "content",
+      "angular": ">=22 <23",
+      "url": "components/message-scroller.json"
+    },
+    {
+      "name": "native-select",
+      "title": "Native Select",
+      "description": "A styled native select that keeps platform keyboard and form semantics.",
+      "category": "forms",
+      "angular": ">=22 <23",
+      "url": "components/native-select.json"
+    },
+    {
+      "name": "navigation-menu",
+      "title": "Navigation Menu",
+      "description": "A named primary navigation surface for projected links and controls.",
+      "category": "navigation",
+      "angular": ">=22 <23",
+      "url": "components/navigation-menu.json"
+    },
+    {
+      "name": "pagination",
+      "title": "Pagination",
+      "description": "Controlled page navigation with current-page and previous/next semantics.",
+      "category": "data",
+      "angular": ">=22 <23",
+      "url": "components/pagination.json"
+    },
+    {
+      "name": "popover",
+      "title": "Popover",
+      "description": "A controlled non-modal surface for rich projected content.",
+      "category": "overlays",
+      "angular": ">=22 <23",
+      "url": "components/popover.json"
+    },
+    {
+      "name": "progress",
+      "title": "Progress",
+      "description": "A determinate or indeterminate progress indicator with native ARIA range semantics.",
+      "category": "feedback",
+      "angular": ">=22 <23",
+      "url": "components/progress.json"
+    },
+    {
+      "name": "questionnaire",
+      "title": "Questionnaire",
+      "description": "A multi-step native questionnaire with controlled answers and navigation.",
+      "category": "forms",
+      "angular": ">=22 <23",
+      "url": "components/questionnaire.json"
+    },
+    {
+      "name": "radio-group",
+      "title": "Radio Group",
+      "description": "Native radio primitives grouped by a fieldset with horizontal and vertical layouts.",
+      "category": "forms",
+      "angular": ">=22 <23",
+      "url": "components/radio-group.json"
+    },
+    {
+      "name": "resizable",
+      "title": "Resizable",
+      "description": "Two resizable panels with pointer, keyboard, limits and optional persistence.",
+      "category": "layout",
+      "angular": ">=22 <23",
+      "url": "components/resizable.json"
+    },
+    {
+      "name": "scroll-area",
+      "title": "Scroll Area",
+      "description": "A focusable native scroll container with optional scrollbar treatments.",
+      "category": "layout",
+      "angular": ">=22 <23",
+      "url": "components/scroll-area.json"
+    },
+    {
+      "name": "select",
+      "title": "Select",
+      "description": "A controlled button-triggered listbox for one option.",
+      "category": "forms",
+      "angular": ">=22 <23",
+      "url": "components/select.json"
+    },
+    {
+      "name": "separator",
+      "title": "Separator",
+      "description": "A horizontal or vertical divider with decorative and semantic modes.",
+      "category": "layout",
+      "angular": ">=22 <23",
+      "url": "components/separator.json"
+    },
+    {
+      "name": "sheet",
+      "title": "Sheet",
+      "description": "A dialog surface anchored to a viewport edge.",
+      "category": "overlays",
+      "angular": ">=22 <23",
+      "url": "components/sheet.json"
+    },
+    {
+      "name": "sidebar",
+      "title": "Sidebar",
+      "description": "A collapsible navigation sidebar with a responsive mobile drawer.",
+      "category": "layout",
+      "angular": ">=22 <23",
+      "url": "components/sidebar.json"
+    },
+    {
+      "name": "skeleton",
+      "title": "Skeleton",
+      "description": "A decorative loading placeholder with flexible sizing and reduced-motion support.",
+      "category": "feedback",
+      "angular": ">=22 <23",
+      "url": "components/skeleton.json"
+    },
+    {
+      "name": "slider",
+      "title": "Slider",
+      "description": "A styled native range input with keyboard, touch and Angular Forms behavior.",
+      "category": "forms",
+      "angular": ">=22 <23",
+      "url": "components/slider.json"
+    },
+    {
+      "name": "spinner",
+      "title": "Spinner",
+      "description": "A compact loading status that respects reduced motion.",
+      "category": "feedback",
+      "angular": ">=22 <23",
+      "url": "components/spinner.json"
+    },
+    {
+      "name": "switch",
+      "title": "Switch",
+      "description": "A native checkbox switch with size, validation and Angular Forms support.",
+      "category": "forms",
+      "angular": ">=22 <23",
+      "url": "components/switch.json"
+    },
+    {
+      "name": "table",
+      "title": "Table",
+      "description": "Semantic native table primitives with responsive overflow and neutral styling.",
+      "category": "data",
+      "angular": ">=22 <23",
+      "url": "components/table.json"
+    },
+    {
+      "name": "tabs",
+      "title": "Tabs",
+      "description": "Layered tab panels with controlled value, orientation and keyboard activation.",
+      "category": "content",
+      "angular": ">=22 <23",
+      "url": "components/tabs.json"
+    },
+    {
+      "name": "textarea",
+      "title": "Textarea",
+      "description": "A native multiline input with optional content-driven resizing.",
+      "category": "forms",
+      "angular": ">=22 <23",
+      "url": "components/textarea.json"
+    },
+    {
+      "name": "toast",
+      "title": "Toast",
+      "description": "A local notification store and accessible toaster viewport.",
+      "category": "feedback",
+      "angular": ">=22 <23",
+      "url": "components/toast.json"
+    },
+    {
+      "name": "toggle",
+      "title": "Toggle",
+      "description": "A pressed-state native button with controlled state and variants.",
+      "category": "actions",
+      "angular": ">=22 <23",
+      "url": "components/toggle.json"
+    },
+    {
+      "name": "toggle-group",
+      "title": "Toggle Group",
+      "description": "Single or multiple pressed-state button groups with arrow-key focus movement.",
+      "category": "actions",
+      "angular": ">=22 <23",
+      "url": "components/toggle-group.json"
+    },
+    {
+      "name": "tooltip",
+      "title": "Tooltip",
+      "description": "Supplementary text shown on hover and keyboard focus.",
+      "category": "overlays",
+      "angular": ">=22 <23",
+      "url": "components/tooltip.json"
+    },
+    {
+      "name": "trace",
+      "title": "Trace",
+      "description": "A generic ordered event trail with complete, current and pending states.",
+      "category": "content",
+      "angular": ">=22 <23",
+      "url": "components/trace.json"
+    }
+  ]
+}

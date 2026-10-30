@@ -1,0 +1,26 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "skeleton",
+  "title": "Skeleton",
+  "description": "A decorative loading placeholder with flexible sizing and reduced-motion support.",
+  "category": "feedback",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "target": "skeleton/skeleton.component.ts",
+      "content": "import { ChangeDetectionStrategy, Component } from '@angular/core';\n\n@Component({\n  selector: 'aevko-skeleton',\n  standalone: true,\n  template: '',\n  styleUrl: './skeleton.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: { 'aria-hidden': 'true' },\n})\nexport class AevkoSkeleton {}\n"
+    },
+    {
+      "target": "skeleton/skeleton.component.css",
+      "content": ":host {\n  animation: aevko-pulse 1.8s ease-in-out infinite;\n  background: var(--aevko-surface, #f4f4f5);\n  display: block;\n  min-height: 1rem;\n}\n@keyframes aevko-pulse {\n  0%,\n  100% {\n    opacity: 1;\n  }\n  50% {\n    opacity: 0.48;\n  }\n}\n@media (prefers-reduced-motion: reduce) {\n  :host {\n    animation: none;\n  }\n}\n"
+    },
+    {
+      "target": "skeleton/index.ts",
+      "content": "export * from './skeleton.component';\n"
+    }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {},
+  "integrity": "1849f0f07ea137fd2341bb6f7d0905363e9a041dd2b77ae1f5b26deab2e98526"
+}

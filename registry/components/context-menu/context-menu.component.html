@@ -1,0 +1,10 @@
+<ng-content select="[aevkoContextMenuTrigger]" />
+<div
+  role="menu"
+  [attr.aria-label]="label()"
+  [hidden]="!open()"
+  [style.left.px]="x"
+  [style.top.px]="y"
+>
+  <ng-content />
+</div>

@@ -1,0 +1,30 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "hover-card",
+  "title": "Hover Card",
+  "description": "A delayed preview for content available through a link.",
+  "category": "overlays",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "target": "hover-card/hover-card.component.ts",
+      "content": "import {\n  ChangeDetectionStrategy,\n  Component,\n  Directive,\n  ElementRef,\n  contentChild,\n  effect,\n  inject,\n  input,\n  model,\n} from '@angular/core';\n\n@Directive({ selector: '[aevkoHoverCardTrigger]', standalone: true })\nexport class AevkoHoverCardTrigger {\n  readonly element = inject<ElementRef<HTMLElement>>(ElementRef);\n}\n\n@Component({\n  selector: 'aevko-hover-card',\n  standalone: true,\n  templateUrl: './hover-card.component.html',\n  styleUrl: './hover-card.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: {\n    '(mouseenter)': 'schedule(true)',\n    '(mouseleave)': 'schedule(false)',\n    '(focusin)': 'schedule(true)',\n    '(focusout)': 'schedule(false)',\n    '(keydown.escape)': 'open.set(false)',\n  },\n})\nexport class AevkoHoverCard {\n  readonly id = input('aevko-hover-card');\n  readonly open = model(false);\n  readonly side = input<'top' | 'right' | 'bottom' | 'left'>('bottom');\n  readonly align = input<'start' | 'center' | 'end'>('center');\n  readonly delay = input(150);\n  readonly closeDelay = input(200);\n  private timer?: ReturnType<typeof setTimeout>;\n  private readonly trigger = contentChild(AevkoHoverCardTrigger);\n  constructor() {\n    effect(() => {\n      const element = this.trigger()?.element.nativeElement;\n      if (!element) return;\n      element.setAttribute('aria-describedby', this.id());\n    });\n  }\n  protected schedule(value: boolean): void {\n    clearTimeout(this.timer);\n    this.timer = setTimeout(() => this.open.set(value), value ? this.delay() : this.closeDelay());\n  }\n}\n"
+    },
+    {
+      "target": "hover-card/hover-card.component.html",
+      "content": "<ng-content select=\"[aevkoHoverCardTrigger]\" />\n<aside [id]=\"id()\" [hidden]=\"!open()\" [attr.data-side]=\"side()\" [attr.data-align]=\"align()\">\n  <ng-content />\n</aside>\n"
+    },
+    {
+      "target": "hover-card/hover-card.component.css",
+      "content": ":host {\n  display: inline-block;\n  position: relative;\n}\naside {\n  background: var(--aevko-surface, #fff);\n  border: 1px solid var(--aevko-border, #d4d4d4);\n  border-radius: 0;\n  box-shadow: 0 12px 30px rgb(0 0 0 / 0.12);\n  color: var(--aevko-foreground, #171717);\n  inline-size: min(20rem, calc(100vw - 2rem));\n  padding: 1rem;\n  position: absolute;\n  z-index: 30;\n}\naside[data-side='bottom'] {\n  inset-block-start: calc(100% + 0.5rem);\n}\naside[data-side='top'] {\n  inset-block-end: calc(100% + 0.5rem);\n}\naside[data-side='right'] {\n  inset-inline-start: calc(100% + 0.5rem);\n  inset-block-start: 0;\n}\naside[data-side='left'] {\n  inset-inline-end: calc(100% + 0.5rem);\n  inset-block-start: 0;\n}\naside[data-align='start'] {\n  inset-inline-start: 0;\n}\naside[data-align='center'] {\n  inset-inline-start: 50%;\n  transform: translateX(-50%);\n}\naside[data-align='end'] {\n  inset-inline-end: 0;\n}\naside[data-side='left'],\naside[data-side='right'] {\n  transform: none;\n}\n@media (prefers-color-scheme: dark) {\n  aside {\n    --aevko-surface: #171717;\n    --aevko-foreground: #f5f5f5;\n    --aevko-border: #404040;\n  }\n}\n"
+    },
+    {
+      "target": "hover-card/index.ts",
+      "content": "export * from './hover-card.component';\n"
+    }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {},
+  "integrity": "5ece83e13d961402d73b9418a224222aa4c965962a832d37075bdced1909ccfb"
+}

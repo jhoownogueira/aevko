@@ -1,0 +1,30 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "dropdown-menu",
+  "title": "Dropdown Menu",
+  "description": "A button-triggered action menu with roving keyboard focus.",
+  "category": "navigation",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "target": "dropdown-menu/dropdown-menu.component.ts",
+      "content": "import {\n  ChangeDetectionStrategy,\n  Component,\n  Directive,\n  ElementRef,\n  booleanAttribute,\n  contentChild,\n  contentChildren,\n  effect,\n  inject,\n  input,\n  model,\n} from '@angular/core';\n\n@Directive({ selector: '[aevkoDropdownMenuTrigger]', standalone: true })\nexport class AevkoDropdownMenuTrigger {\n  readonly element = inject<ElementRef<HTMLElement>>(ElementRef);\n}\n@Directive({\n  selector: 'button[aevkoDropdownMenuItem]',\n  standalone: true,\n  host: { type: 'button', role: 'menuitem', tabindex: '-1' },\n})\nexport class AevkoDropdownMenuItem {\n  readonly element = inject<ElementRef<HTMLButtonElement>>(ElementRef);\n  readonly disabled = input(false, { transform: booleanAttribute });\n}\n\n@Component({\n  selector: 'aevko-dropdown-menu',\n  standalone: true,\n  templateUrl: './dropdown-menu.component.html',\n  styleUrl: './dropdown-menu.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: { '(click)': 'click($event)', '(keydown)': 'keydown($event)' },\n})\nexport class AevkoDropdownMenu {\n  readonly label = input.required<string>();\n  readonly id = input('aevko-dropdown-menu');\n  readonly open = model(false);\n  readonly align = input<'start' | 'end'>('start');\n  private readonly trigger = contentChild(AevkoDropdownMenuTrigger);\n  private readonly items = contentChildren(AevkoDropdownMenuItem, { descendants: true });\n  constructor() {\n    effect(() => {\n      const trigger = this.trigger()?.element.nativeElement;\n      if (!trigger) return;\n      trigger.setAttribute('aria-haspopup', 'menu');\n      trigger.setAttribute('aria-expanded', String(this.open()));\n      trigger.setAttribute('aria-controls', this.id());\n    });\n  }\n  protected click(event: MouseEvent): void {\n    const target = event.target as Element;\n    if (target.closest('[aevkoDropdownMenuTrigger]')) {\n      this.open.update((v) => !v);\n      if (this.open()) setTimeout(() => this.focus(0));\n    } else if (target.closest('[aevkoDropdownMenuItem]')) this.open.set(false);\n  }\n  protected keydown(event: KeyboardEvent): void {\n    if (\n      !this.open() &&\n      ['ArrowDown', 'Enter', ' '].includes(event.key) &&\n      (event.target as Element).closest('[aevkoDropdownMenuTrigger]')\n    ) {\n      event.preventDefault();\n      this.open.set(true);\n      setTimeout(() => this.focus(0));\n      return;\n    }\n    if (!this.open()) return;\n    const enabled = this.items().filter(\n      (item) => !item.disabled() && !item.element.nativeElement.disabled,\n    );\n    const current = enabled.findIndex((item) => item.element.nativeElement === event.target);\n    if (event.key === 'Escape') {\n      event.preventDefault();\n      this.open.set(false);\n      this.trigger()?.element.nativeElement.focus();\n    } else if (['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) {\n      event.preventDefault();\n      const index =\n        event.key === 'Home'\n          ? 0\n          : event.key === 'End'\n            ? enabled.length - 1\n            : (current + (event.key === 'ArrowUp' ? -1 : 1) + enabled.length) % enabled.length;\n      enabled[index]?.element.nativeElement.focus();\n    }\n  }\n  private focus(index: number): void {\n    this.items()\n      .filter((item) => !item.disabled() && !item.element.nativeElement.disabled)\n      [index]?.element.nativeElement.focus();\n  }\n}\n"
+    },
+    {
+      "target": "dropdown-menu/dropdown-menu.component.html",
+      "content": "<ng-content select=\"[aevkoDropdownMenuTrigger]\" />\n<div\n  [id]=\"id()\"\n  role=\"menu\"\n  [attr.aria-label]=\"label()\"\n  [hidden]=\"!open()\"\n  [attr.data-align]=\"align()\"\n>\n  <ng-content />\n</div>\n"
+    },
+    {
+      "target": "dropdown-menu/dropdown-menu.component.css",
+      "content": ":host {\n  display: inline-block;\n  position: relative;\n}\ndiv {\n  background: var(--aevko-surface, #fff);\n  border: 1px solid var(--aevko-border, #d4d4d4);\n  border-radius: 0;\n  box-shadow: 0 12px 30px rgb(0 0 0 / 0.12);\n  display: grid;\n  gap: 0.125rem;\n  inline-size: max-content;\n  min-inline-size: 12rem;\n  padding: 0.25rem;\n  position: absolute;\n  inset-block-start: calc(100% + 0.375rem);\n  z-index: 35;\n}\ndiv[data-align='start'] {\n  inset-inline-start: 0;\n}\ndiv[data-align='end'] {\n  inset-inline-end: 0;\n}\n:host ::ng-deep [aevkoDropdownMenuItem] {\n  background: transparent;\n  border: 0;\n  border-radius: 0;\n  color: inherit;\n  min-block-size: 2.25rem;\n  padding: 0.5rem 0.625rem;\n  text-align: start;\n}\n:host ::ng-deep [aevkoDropdownMenuItem]:hover,\n:host ::ng-deep [aevkoDropdownMenuItem]:focus-visible {\n  background: var(--aevko-muted, #eee);\n  outline: 0;\n}\n@media (prefers-color-scheme: dark) {\n  div {\n    --aevko-surface: #171717;\n    --aevko-border: #404040;\n    --aevko-muted: #2a2a2a;\n    color: #f5f5f5;\n  }\n}\n"
+    },
+    {
+      "target": "dropdown-menu/index.ts",
+      "content": "export * from './dropdown-menu.component';\n"
+    }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {},
+  "integrity": "f6debb1b23b1aecbf9c3a6190e6d0bc6b48f4b4318af0bf7e3f7e3db379bd87c"
+}

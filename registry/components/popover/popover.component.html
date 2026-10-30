@@ -1,0 +1,11 @@
+<ng-content select="[aevkoPopoverTrigger]" />
+<section
+  [id]="id()"
+  role="dialog"
+  [attr.aria-label]="label()"
+  [hidden]="!open()"
+  [attr.data-side]="side()"
+  [attr.data-align]="align()"
+>
+  <ng-content />
+</section>

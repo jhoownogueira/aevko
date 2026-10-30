@@ -1,0 +1,30 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "toast",
+  "title": "Toast",
+  "description": "A local notification store and accessible toaster viewport.",
+  "category": "feedback",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "target": "toast/toast.component.ts",
+      "content": "import { ChangeDetectionStrategy, Component, Injectable, computed, signal } from '@angular/core';\n\nexport type AevkoToastTone = 'default' | 'success' | 'info' | 'warning' | 'error';\nexport interface AevkoToastOptions {\n  description?: string;\n  tone?: AevkoToastTone;\n  duration?: number;\n  actionLabel?: string;\n  action?: () => void;\n}\nexport interface AevkoToastItem extends AevkoToastOptions {\n  id: string;\n  title: string;\n}\n\n@Injectable({ providedIn: 'root' })\nexport class AevkoToastStore {\n  private readonly state = signal<readonly AevkoToastItem[]>([]);\n  private nextId = 0;\n  readonly toasts = computed(() => this.state());\n  show(title: string, options: AevkoToastOptions = {}): string {\n    const id = `aevko-toast-${++this.nextId}`;\n    this.state.update((items) => [...items, { id, title, ...options }]);\n    const duration = options.duration ?? 5000;\n    if (duration > 0) setTimeout(() => this.dismiss(id), duration);\n    return id;\n  }\n  dismiss(id: string): void {\n    this.state.update((items) => items.filter((item) => item.id !== id));\n  }\n  clear(): void {\n    this.state.set([]);\n  }\n  runAction(toast: AevkoToastItem): void {\n    toast.action?.();\n    this.dismiss(toast.id);\n  }\n}\n\n@Component({\n  selector: 'aevko-toaster',\n  standalone: true,\n  templateUrl: './toast.component.html',\n  styleUrl: './toast.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class AevkoToaster {\n  constructor(protected readonly store: AevkoToastStore) {}\n}\n"
+    },
+    {
+      "target": "toast/toast.component.html",
+      "content": "<section class=\"viewport\" aria-label=\"Notifications\">\n  @for (toast of store.toasts(); track toast.id) {\n    <div\n      class=\"toast\"\n      [attr.data-tone]=\"toast.tone ?? 'default'\"\n      [attr.role]=\"toast.tone === 'error' ? 'alert' : 'status'\"\n    >\n      <div>\n        <strong>{{ toast.title }}</strong>\n        @if (toast.description) {\n          <p>{{ toast.description }}</p>\n        }\n      </div>\n      @if (toast.actionLabel) {\n        <button type=\"button\" (click)=\"store.runAction(toast)\">{{ toast.actionLabel }}</button>\n      }\n      <button\n        class=\"close\"\n        type=\"button\"\n        [attr.aria-label]=\"'Dismiss ' + toast.title\"\n        (click)=\"store.dismiss(toast.id)\"\n      >\n        ×\n      </button>\n    </div>\n  }\n</section>\n"
+    },
+    {
+      "target": "toast/toast.component.css",
+      "content": ":host {\n  display: contents;\n}\n.viewport {\n  align-items: end;\n  display: flex;\n  flex-direction: column;\n  gap: 0.5rem;\n  inset-block-end: 1rem;\n  inset-inline-end: 1rem;\n  max-inline-size: calc(100vw - 2rem);\n  position: fixed;\n  z-index: 60;\n}\n.toast {\n  align-items: start;\n  background: var(--aevko-surface, #fff);\n  border: 1px solid var(--aevko-border, #d4d4d4);\n  border-inline-start-width: 0.25rem;\n  border-radius: 0;\n  box-shadow: 0 12px 30px rgb(0 0 0 / 0.12);\n  color: var(--aevko-foreground, #171717);\n  display: grid;\n  gap: 0.75rem;\n  grid-template-columns: 1fr auto auto;\n  inline-size: min(24rem, calc(100vw - 2rem));\n  padding: 0.875rem;\n}\n.toast[data-tone='error'] {\n  border-inline-start-color: var(--aevko-danger, #b42318);\n}\n.toast[data-tone='warning'] {\n  border-inline-start-color: #737373;\n}\np {\n  color: var(--aevko-muted-foreground, #666);\n  margin: 0.25rem 0 0;\n}\nbutton {\n  background: transparent;\n  border: 1px solid var(--aevko-border, #d4d4d4);\n  border-radius: 0;\n  color: inherit;\n  min-block-size: 2rem;\n  padding: 0.25rem 0.5rem;\n}\nbutton:focus-visible {\n  outline: 2px solid var(--aevko-ring, #a3a3a3);\n  outline-offset: 2px;\n}\n.close {\n  border: 0;\n  font-size: 1.125rem;\n  padding: 0 0.25rem;\n}\n@media (prefers-reduced-motion: no-preference) {\n  .toast {\n    animation: aevko-toast-in 160ms ease-out;\n  }\n}\n@keyframes aevko-toast-in {\n  from {\n    opacity: 0;\n    transform: translateY(0.5rem);\n  }\n}\n@media (prefers-color-scheme: dark) {\n  .toast {\n    --aevko-surface: #171717;\n    --aevko-foreground: #f5f5f5;\n    --aevko-border: #404040;\n    --aevko-muted-foreground: #b3b3b3;\n  }\n}\n"
+    },
+    {
+      "target": "toast/index.ts",
+      "content": "export * from './toast.component';\n"
+    }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {},
+  "integrity": "feaeb28d9e6a19c93bc3a422993111d4c551a0a30ac53570595332e86142dea8"
+}

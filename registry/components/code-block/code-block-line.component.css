@@ -1,0 +1,13 @@
+:host {
+  display: block;
+  padding-inline: 1rem;
+}
+:host([data-variant='highlighted']) {
+  background: color-mix(in srgb, var(--aevko-foreground, #09090b) 7%, transparent);
+}
+:host([data-variant='added'])::before {
+  content: '+ ';
+}
+:host([data-variant='removed'])::before {
+  content: '- ';
+}

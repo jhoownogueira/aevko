@@ -1,0 +1,20 @@
+:host {
+  appearance: none;
+  background: transparent;
+  border: 0;
+  color: var(--aevko-foreground, #09090b);
+  flex: 1 1 10rem;
+  font: 500 1rem/1.4 var(--aevko-font-sans, sans-serif);
+  min-height: 2.625rem;
+  min-width: 0;
+  outline: 0;
+  padding: 0.625rem 0.75rem;
+  resize: vertical;
+}
+:host::placeholder {
+  color: var(--aevko-muted, #71717a);
+}
+:host:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}

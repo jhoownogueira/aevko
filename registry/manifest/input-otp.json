@@ -1,0 +1,26 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "input-otp",
+  "title": "Input OTP",
+  "description": "An accessible one-time-code input with paste, autofill and Angular Forms support.",
+  "category": "forms",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "source": "components/input-otp/input-otp.component.ts",
+      "target": "input-otp/input-otp.component.ts"
+    },
+    {
+      "source": "components/input-otp/input-otp.component.html",
+      "target": "input-otp/input-otp.component.html"
+    },
+    {
+      "source": "components/input-otp/input-otp.component.css",
+      "target": "input-otp/input-otp.component.css"
+    },
+    { "source": "components/input-otp/index.ts", "target": "input-otp/index.ts" }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {}
+}

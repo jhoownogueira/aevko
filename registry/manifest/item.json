@@ -1,0 +1,17 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "item",
+  "title": "Item",
+  "description": "A compositional item with icon, title, description and action slots.",
+  "category": "layout",
+  "angular": ">=22 <23",
+  "files": [
+    { "source": "components/item/item.component.ts", "target": "item/item.component.ts" },
+    { "source": "components/item/item.component.html", "target": "item/item.component.html" },
+    { "source": "components/item/item.component.css", "target": "item/item.component.css" },
+    { "source": "components/item/index.ts", "target": "item/index.ts" }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {}
+}

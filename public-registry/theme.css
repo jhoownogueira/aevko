@@ -1,0 +1,47 @@
+@theme {
+  --font-sans: 'Commissioner', 'Avenir Next', 'Segoe UI', sans-serif;
+}
+
+:root {
+  color-scheme: light;
+  --aevko-background: #ffffff;
+  --aevko-foreground: #09090b;
+  --aevko-surface: #f4f4f5;
+  --aevko-surface-foreground: #18181b;
+  --aevko-border: #e4e4e7;
+  --aevko-muted: #71717a;
+  --aevko-accent: #18181b;
+  --aevko-accent-foreground: #ffffff;
+  --aevko-danger: #3f3f3f;
+  --aevko-danger-foreground: #ffffff;
+  --aevko-focus: #a1a1aa;
+  --aevko-code-background: #fafafa;
+  --aevko-radius: 0;
+  --aevko-font-sans: 'Commissioner', 'Avenir Next', 'Segoe UI', sans-serif;
+  --aevko-shadow: 4px 4px 0 rgb(0 0 0 / 16%);
+}
+
+[data-theme='dark'] {
+  color-scheme: dark;
+  --aevko-background: #09090b;
+  --aevko-foreground: #fafafa;
+  --aevko-surface: #27272a;
+  --aevko-surface-foreground: #fafafa;
+  --aevko-border: #2e2e32;
+  --aevko-muted: #a1a1aa;
+  --aevko-accent: #fafafa;
+  --aevko-accent-foreground: #18181b;
+  --aevko-danger: #d4d4d8;
+  --aevko-danger-foreground: #18181b;
+  --aevko-focus: #71717a;
+  --aevko-code-background: #18181b;
+  --aevko-shadow: 4px 4px 0 rgb(255 255 255 / 12%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto;
+  }
+}

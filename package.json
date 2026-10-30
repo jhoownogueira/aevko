@@ -1,0 +1,33 @@
+{
+  "name": "aevko-ui-workspace",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "packageManager": "pnpm@12.16.1",
+  "engines": {
+    "node": "^22.22.3 || ^24.15.0 || ^26.0.0"
+  },
+  "scripts": {
+    "build": "pnpm registry:build && pnpm --filter aevko-ui build && pnpm --filter @aevko/docs build",
+    "build:packages": "pnpm registry:build && pnpm --filter aevko-ui build",
+    "docs:dev": "pnpm --filter @aevko/docs start",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "pages:build": "pnpm registry:build && pnpm --filter @aevko/docs build && node scripts/prepare-pages.mjs",
+    "registry:build": "pnpm --filter @aevko/registry build",
+    "registry:check": "pnpm --filter @aevko/registry check",
+    "test": "pnpm registry:check && node tests/integration/icon-boundary.mjs && pnpm --filter aevko-ui test && pnpm --filter @aevko/docs test --watch=false",
+    "test:consumer": "pnpm build:packages && node tests/integration/consumer-smoke.mjs",
+    "test:package": "pnpm build:packages && node tests/integration/package-smoke.mjs",
+    "test:e2e": "playwright test"
+  },
+  "devDependencies": {
+    "@angular/forms": "^22.2.0",
+    "@types/node": "^24.10.0",
+    "@axe-core/playwright": "^4.14.0",
+    "@playwright/test": "^1.64.1",
+    "prettier": "^3.6.2",
+    "typescript": "~6.0.2",
+    "vitest": "^4.0.4"
+  }
+}

@@ -1,0 +1,27 @@
+:host {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}
+:host ::ng-deep a,
+:host ::ng-deep button {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  border-radius: 0;
+  color: inherit;
+  display: inline-flex;
+  min-block-size: 2.5rem;
+  padding: 0.5rem 0.75rem;
+  text-decoration: none;
+}
+:host ::ng-deep a:hover,
+:host ::ng-deep button:hover {
+  background: var(--aevko-muted, #eee);
+}
+:host ::ng-deep a:focus-visible,
+:host ::ng-deep button:focus-visible {
+  outline: 2px solid var(--aevko-ring, #a3a3a3);
+  outline-offset: 2px;
+}

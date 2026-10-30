@@ -1,0 +1,17 @@
+:host {
+  align-items: center;
+  display: inline-flex;
+  font: 600 0.8rem/1 var(--aevko-font-sans, sans-serif);
+  gap: 0.4rem;
+}
+.dot {
+  background: var(--aevko-foreground, #09090b);
+  height: 0.5rem;
+  width: 0.5rem;
+}
+:host([data-variant='muted']) .dot {
+  background: var(--aevko-muted, #71717a);
+}
+:host([data-variant='danger']) .dot {
+  background: var(--aevko-danger, #3f3f3f);
+}

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "context-menu",
+  "title": "Context Menu",
+  "description": "A right-click action menu with keyboard navigation.",
+  "category": "navigation",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "source": "components/context-menu/context-menu.component.ts",
+      "target": "context-menu/context-menu.component.ts"
+    },
+    {
+      "source": "components/context-menu/context-menu.component.html",
+      "target": "context-menu/context-menu.component.html"
+    },
+    {
+      "source": "components/context-menu/context-menu.component.css",
+      "target": "context-menu/context-menu.component.css"
+    },
+    { "source": "components/context-menu/index.ts", "target": "context-menu/index.ts" }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {}
+}

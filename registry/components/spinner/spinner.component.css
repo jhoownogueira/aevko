@@ -1,0 +1,23 @@
+:host {
+  display: inline-flex;
+  line-height: 0;
+}
+.ring {
+  animation: aevko-spin 700ms linear infinite;
+  border: 2px solid currentcolor;
+  border-right-color: transparent;
+  border-radius: 50%;
+  display: block;
+  height: var(--aevko-spinner-size, 1rem);
+  width: var(--aevko-spinner-size, 1rem);
+}
+@keyframes aevko-spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ring {
+    animation-duration: 2s;
+  }
+}

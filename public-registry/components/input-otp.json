@@ -1,0 +1,30 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "input-otp",
+  "title": "Input OTP",
+  "description": "An accessible one-time-code input with paste, autofill and Angular Forms support.",
+  "category": "forms",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "target": "input-otp/input-otp.component.ts",
+      "content": "import {\n  ChangeDetectionStrategy,\n  Component,\n  booleanAttribute,\n  computed,\n  forwardRef,\n  input,\n  model,\n  signal,\n} from '@angular/core';\nimport { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';\n\n@Component({\n  selector: 'aevko-input-otp',\n  standalone: true,\n  templateUrl: './input-otp.component.html',\n  styleUrl: './input-otp.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  providers: [\n    {\n      provide: NG_VALUE_ACCESSOR,\n      useExisting: forwardRef(() => AevkoInputOtp),\n      multi: true,\n    },\n  ],\n  host: {\n    '[attr.data-disabled]': 'isDisabled() ? \"true\" : null',\n    '[attr.data-invalid]': 'invalid() ? \"true\" : null',\n  },\n})\nexport class AevkoInputOtp implements ControlValueAccessor {\n  readonly label = input.required<string>();\n  readonly maxLength = input(6);\n  readonly disabled = input(false, { transform: booleanAttribute });\n  readonly invalid = input(false, { transform: booleanAttribute });\n  readonly characters = input<RegExp>(/[0-9A-Za-z]/);\n  readonly value = model('');\n  protected readonly formDisabled = signal(false);\n  protected readonly isDisabled = computed(() => this.disabled() || this.formDisabled());\n  protected readonly slots = computed(() =>\n    Array.from({ length: Math.max(1, this.maxLength()) }, (_, index) => this.value()[index] ?? ''),\n  );\n  private onChange: (value: string) => void = () => undefined;\n  private onTouched: () => void = () => undefined;\n\n  protected update(event: Event): void {\n    const input = event.target as HTMLInputElement;\n    const value = [...input.value]\n      .filter((character) => {\n        const characters = this.characters();\n        characters.lastIndex = 0;\n        return characters.test(character);\n      })\n      .join('')\n      .slice(0, this.maxLength());\n    input.value = value;\n    this.value.set(value);\n    this.onChange(value);\n  }\n\n  protected touch(): void {\n    this.onTouched();\n  }\n\n  writeValue(value: string | null): void {\n    this.value.set((value ?? '').slice(0, this.maxLength()));\n  }\n\n  registerOnChange(fn: (value: string) => void): void {\n    this.onChange = fn;\n  }\n\n  registerOnTouched(fn: () => void): void {\n    this.onTouched = fn;\n  }\n\n  setDisabledState(disabled: boolean): void {\n    this.formDisabled.set(disabled);\n  }\n}\n"
+    },
+    {
+      "target": "input-otp/input-otp.component.html",
+      "content": "<input\n  [attr.aria-invalid]=\"invalid() ? 'true' : null\"\n  [attr.aria-label]=\"label()\"\n  [attr.maxlength]=\"maxLength()\"\n  [disabled]=\"isDisabled()\"\n  [value]=\"value()\"\n  autocomplete=\"one-time-code\"\n  inputmode=\"numeric\"\n  type=\"text\"\n  (blur)=\"touch()\"\n  (input)=\"update($event)\"\n/>\n<div class=\"slots\" aria-hidden=\"true\">\n  @for (character of slots(); track $index) {\n    <span [attr.data-active]=\"$index === value().length ? 'true' : null\">{{ character }}</span>\n  }\n</div>\n"
+    },
+    {
+      "target": "input-otp/input-otp.component.css",
+      "content": ":host {\n  display: inline-grid;\n  position: relative;\n}\ninput {\n  cursor: text;\n  inset: 0;\n  opacity: 0;\n  position: absolute;\n  z-index: 1;\n}\n.slots {\n  display: flex;\n  gap: 0.5rem;\n}\n.slots span {\n  align-items: center;\n  background: var(--aevko-background, #fff);\n  border: 1px solid var(--aevko-border-strong, #a1a1aa);\n  border-radius: var(--aevko-radius, 0);\n  color: var(--aevko-foreground, #09090b);\n  display: inline-flex;\n  font: 650 1rem/1 var(--aevko-font-mono, monospace);\n  height: 2.75rem;\n  justify-content: center;\n  width: 2.5rem;\n}\n:host:focus-within .slots span[data-active='true'] {\n  outline: 2px solid var(--aevko-focus, #a1a1aa);\n  outline-offset: 1px;\n}\n:host([data-invalid='true']) .slots span {\n  border-color: var(--aevko-danger, #3f3f3f);\n}\n:host([data-disabled='true']) {\n  cursor: not-allowed;\n  opacity: 0.5;\n}\n"
+    },
+    {
+      "target": "input-otp/index.ts",
+      "content": "export * from './input-otp.component';\n"
+    }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {},
+  "integrity": "e4b37bfbf087a4a58b0217960c427bb7048c9968596e8d51032c949b6cef5e0e"
+}

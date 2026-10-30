@@ -1,0 +1,26 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "accordion",
+  "title": "Accordion",
+  "description": "Single or multiple expandable sections with disabled and reduced-motion behavior.",
+  "category": "layout",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "source": "components/accordion/accordion.component.ts",
+      "target": "accordion/accordion.component.ts"
+    },
+    {
+      "source": "components/accordion/accordion.component.html",
+      "target": "accordion/accordion.component.html"
+    },
+    {
+      "source": "components/accordion/accordion.component.css",
+      "target": "accordion/accordion.component.css"
+    },
+    { "source": "components/accordion/index.ts", "target": "accordion/index.ts" }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {}
+}

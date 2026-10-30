@@ -1,0 +1,11 @@
+<aevko-popover [label]="label()" [(open)]="open" align="start"
+  ><button aevkoPopoverTrigger type="button" [attr.aria-label]="display() + ', ' + label()">
+    {{ display() }}</button
+  ><aevko-calendar
+    [label]="label()"
+    [(month)]="month"
+    [value]="value()"
+    [min]="min()"
+    [max]="max()"
+    (valueChange)="select($event)"
+/></aevko-popover>

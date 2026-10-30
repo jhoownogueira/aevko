@@ -1,0 +1,4 @@
+interface:
+  display_name: 'Aevko Verification'
+  short_description: 'Audit Aevko readiness with real evidence'
+  default_prompt: 'Use $aevko-verification to audit this Aevko change and report only evidence-backed readiness.'

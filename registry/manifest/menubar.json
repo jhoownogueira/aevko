@@ -1,0 +1,22 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "menubar",
+  "title": "Menubar",
+  "description": "A persistent application command bar with roving keyboard focus.",
+  "category": "navigation",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "source": "components/menubar/menubar.component.ts",
+      "target": "menubar/menubar.component.ts"
+    },
+    {
+      "source": "components/menubar/menubar.component.css",
+      "target": "menubar/menubar.component.css"
+    },
+    { "source": "components/menubar/index.ts", "target": "menubar/index.ts" }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {}
+}

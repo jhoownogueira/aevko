@@ -1,0 +1,5 @@
+<pre
+  tabindex="0"
+  dir="ltr"
+><code [attr.data-language]="language()">@if (lineNumbers()) {@for (line of lines(); track $index) {<span class="line" [attr.data-line]="startLine() + $index">{{ line }}@if (!$last) {
+}</span>}} @else {<span>{{ code() }}</span>}<ng-content /></code></pre>

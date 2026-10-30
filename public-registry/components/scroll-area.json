@@ -1,0 +1,26 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "scroll-area",
+  "title": "Scroll Area",
+  "description": "A focusable native scroll container with optional scrollbar treatments.",
+  "category": "layout",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "target": "scroll-area/scroll-area.component.ts",
+      "content": "import { ChangeDetectionStrategy, Component, input } from '@angular/core';\n\n@Component({\n  selector: 'aevko-scroll-area',\n  standalone: true,\n  template: '<ng-content />',\n  styleUrl: './scroll-area.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: { '[attr.tabindex]': 'tabIndex()', '[attr.data-scrollbar]': 'scrollbar()' },\n})\nexport class AevkoScrollArea {\n  readonly tabIndex = input(0);\n  readonly scrollbar = input<'auto' | 'thin' | 'hidden'>('auto');\n}\n"
+    },
+    {
+      "target": "scroll-area/scroll-area.component.css",
+      "content": ":host {\n  display: block;\n  max-height: inherit;\n  max-width: 100%;\n  overflow: auto;\n  overscroll-behavior: contain;\n  scrollbar-color: var(--aevko-muted, #5f5f5f) transparent;\n}\n:host([data-scrollbar='thin']) {\n  scrollbar-width: thin;\n}\n:host([data-scrollbar='hidden']) {\n  scrollbar-width: none;\n}\n:host([data-scrollbar='hidden'])::-webkit-scrollbar {\n  display: none;\n}\n:host(:focus-visible) {\n  outline: 2px solid var(--aevko-focus, #a1a1aa);\n  outline-offset: 1px;\n}\n"
+    },
+    {
+      "target": "scroll-area/index.ts",
+      "content": "export * from './scroll-area.component';\n"
+    }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {},
+  "integrity": "2354f8d037f1afb0f5010c6d23380364cedb42a33bb2da84b3ec0541f0bcbcd2"
+}

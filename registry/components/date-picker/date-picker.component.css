@@ -1,0 +1,17 @@
+:host {
+  display: inline-block;
+}
+button {
+  background: var(--aevko-surface, #fff);
+  border: 1px solid var(--aevko-border, #a3a3a3);
+  border-radius: 0;
+  color: inherit;
+  min-block-size: 2.5rem;
+  min-inline-size: 14rem;
+  padding: 0.5rem 0.75rem;
+  text-align: start;
+}
+button:focus-visible {
+  outline: 2px solid var(--aevko-ring, #a3a3a3);
+  outline-offset: 2px;
+}

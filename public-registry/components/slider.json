@@ -1,0 +1,26 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "slider",
+  "title": "Slider",
+  "description": "A styled native range input with keyboard, touch and Angular Forms behavior.",
+  "category": "forms",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "target": "slider/slider.component.ts",
+      "content": "import { ChangeDetectionStrategy, Component, booleanAttribute, input } from '@angular/core';\n\n@Component({\n  selector: 'input[aevkoSlider][type=\"range\"]',\n  standalone: true,\n  template: '',\n  styleUrl: './slider.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: {\n    '[attr.aria-invalid]': 'invalid() ? \"true\" : null',\n    '[attr.data-orientation]': 'orientation()',\n  },\n})\nexport class AevkoSlider {\n  readonly invalid = input(false, { transform: booleanAttribute });\n  readonly orientation = input<'horizontal' | 'vertical'>('horizontal');\n}\n"
+    },
+    {
+      "target": "slider/slider.component.css",
+      "content": ":host {\n  appearance: none;\n  background: transparent;\n  cursor: pointer;\n  height: 1.5rem;\n  margin: 0;\n  width: 100%;\n}\n:host::-webkit-slider-runnable-track {\n  background: var(--aevko-surface-strong, #d4d4d8);\n  height: 0.25rem;\n}\n:host::-moz-range-track {\n  background: var(--aevko-surface-strong, #d4d4d8);\n  height: 0.25rem;\n}\n:host::-webkit-slider-thumb {\n  appearance: none;\n  background: var(--aevko-foreground, #09090b);\n  border: 0;\n  border-radius: var(--aevko-radius, 0);\n  height: 1rem;\n  margin-top: -0.375rem;\n  width: 1rem;\n}\n:host::-moz-range-thumb {\n  background: var(--aevko-foreground, #09090b);\n  border: 0;\n  border-radius: var(--aevko-radius, 0);\n  height: 1rem;\n  width: 1rem;\n}\n:host:focus-visible {\n  outline: 2px solid var(--aevko-focus, #a1a1aa);\n  outline-offset: 2px;\n}\n:host:disabled {\n  cursor: not-allowed;\n  opacity: 0.5;\n}\n:host([data-orientation='vertical']) {\n  height: 10rem;\n  width: 1.5rem;\n  writing-mode: vertical-lr;\n  direction: rtl;\n}\n"
+    },
+    {
+      "target": "slider/index.ts",
+      "content": "export * from './slider.component';\n"
+    }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {},
+  "integrity": "0e3bc4c5a977b721cc903c444e1a89884a06569162a07f545111bf3c08761c1c"
+}

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "input",
+  "title": "Input",
+  "description": "A styled native input that preserves browser and Angular Forms behavior.",
+  "category": "forms",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "target": "input/input.directive.ts",
+      "content": "import { ChangeDetectionStrategy, Component, booleanAttribute, input } from '@angular/core';\n\n@Component({\n  selector: 'input[aevkoInput]',\n  standalone: true,\n  template: '',\n  styleUrl: './input.directive.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: {\n    '[attr.aria-invalid]': 'invalid() ? \"true\" : null',\n    '[attr.data-invalid]': 'invalid() ? \"true\" : null',\n  },\n})\nexport class AevkoInput {\n  readonly invalid = input(false, { transform: booleanAttribute });\n}\n"
+    },
+    {
+      "target": "input/input.directive.css",
+      "content": ":host {\n  appearance: none;\n  background: var(--aevko-background, #ffffff);\n  border: 1px solid color-mix(in srgb, var(--aevko-foreground, #20201e) 45%, transparent);\n  border-radius: var(--aevko-radius, 0);\n  box-sizing: border-box;\n  color: var(--aevko-foreground, #20201e);\n  font: 500 1rem/1.4 var(--aevko-font-sans, sans-serif);\n  min-height: 2.75rem;\n  padding: 0.625rem 0.75rem;\n  width: 100%;\n}\n\n:host::placeholder {\n  color: color-mix(in srgb, var(--aevko-foreground, #20201e) 58%, transparent);\n}\n:host:hover:not(:disabled) {\n  border-color: var(--aevko-foreground, #20201e);\n}\n:host:focus-visible {\n  border-color: var(--aevko-focus, #a1a1aa);\n  outline: 2px solid var(--aevko-focus, #a1a1aa);\n  outline-offset: 1px;\n}\n:host([data-invalid='true']) {\n  border-color: var(--aevko-danger, #3f3f3f);\n}\n:host:disabled {\n  cursor: not-allowed;\n  opacity: 0.55;\n}\n"
+    },
+    {
+      "target": "input/index.ts",
+      "content": "export * from './input.directive';\n"
+    }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {},
+  "integrity": "fcefc199e6bcb44c39eae8daba4a33bbcfbbc663ec4fcfddcea574b1662044bf"
+}

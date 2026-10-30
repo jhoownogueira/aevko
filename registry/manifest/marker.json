@@ -1,0 +1,16 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "marker",
+  "title": "Marker",
+  "description": "A generic labeled visual indicator with neutral status variants.",
+  "category": "content",
+  "angular": ">=22 <23",
+  "files": [
+    { "source": "components/marker/marker.component.ts", "target": "marker/marker.component.ts" },
+    { "source": "components/marker/marker.component.css", "target": "marker/marker.component.css" },
+    { "source": "components/marker/index.ts", "target": "marker/index.ts" }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {}
+}

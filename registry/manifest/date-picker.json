@@ -1,0 +1,26 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "date-picker",
+  "title": "Date Picker",
+  "description": "A Popover and Calendar composition for controlled ISO date selection.",
+  "category": "forms",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "source": "components/date-picker/date-picker.component.ts",
+      "target": "date-picker/date-picker.component.ts"
+    },
+    {
+      "source": "components/date-picker/date-picker.component.html",
+      "target": "date-picker/date-picker.component.html"
+    },
+    {
+      "source": "components/date-picker/date-picker.component.css",
+      "target": "date-picker/date-picker.component.css"
+    },
+    { "source": "components/date-picker/index.ts", "target": "date-picker/index.ts" }
+  ],
+  "registryDependencies": ["calendar", "popover"],
+  "npmDependencies": {}
+}

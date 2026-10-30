@@ -1,0 +1,30 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "chart",
+  "title": "Chart",
+  "description": "An accessible, engine-agnostic chart frame with legend and semantic data slots.",
+  "category": "data",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "target": "chart/chart.component.ts",
+      "content": "import { ChangeDetectionStrategy, Component, input } from '@angular/core';\n\nexport interface AevkoChartSeries {\n  readonly key: string;\n  readonly label: string;\n  readonly color?: string;\n}\n\n@Component({\n  selector: 'aevko-chart',\n  standalone: true,\n  templateUrl: './chart.component.html',\n  styleUrl: './chart.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: { role: 'figure', '[attr.aria-label]': 'label()' },\n})\nexport class AevkoChart {\n  readonly label = input.required<string>();\n  readonly description = input('');\n  readonly series = input<readonly AevkoChartSeries[]>([]);\n}\n"
+    },
+    {
+      "target": "chart/chart.component.html",
+      "content": "<div class=\"heading\">\n  <strong>{{ label() }}</strong>\n  @if (description()) {\n    <span>{{ description() }}</span>\n  }\n</div>\n<div class=\"visual\" aria-hidden=\"true\"><ng-content select=\"[aevkoChartVisual]\" /></div>\n@if (series().length) {\n  <ul class=\"legend\" aria-label=\"Chart legend\">\n    @for (item of series(); track item.key) {\n      <li><span class=\"swatch\" [style.background]=\"item.color || null\"></span>{{ item.label }}</li>\n    }\n  </ul>\n}\n<div class=\"data\"><ng-content select=\"[aevkoChartData]\" /></div>\n"
+    },
+    {
+      "target": "chart/chart.component.css",
+      "content": ":host {\n  border: 1px solid var(--aevko-border, #e4e4e7);\n  border-radius: var(--aevko-radius, 0);\n  display: grid;\n  gap: 1rem;\n  padding: 1rem;\n}\n.heading {\n  display: grid;\n  gap: 0.25rem;\n}\n.heading span {\n  color: var(--aevko-muted, #71717a);\n}\n.visual {\n  min-height: 12rem;\n  min-width: 0;\n}\n.legend {\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.75rem 1rem;\n  list-style: none;\n  margin: 0;\n  padding: 0;\n}\n.legend li {\n  align-items: center;\n  display: inline-flex;\n  font-size: 0.8125rem;\n  gap: 0.375rem;\n}\n.swatch {\n  background: var(--aevko-foreground, #09090b);\n  height: 0.625rem;\n  width: 0.625rem;\n}\n.data:empty {\n  display: none;\n}\n"
+    },
+    {
+      "target": "chart/index.ts",
+      "content": "export * from './chart.component';\n"
+    }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {},
+  "integrity": "cce7af8b954315e33059d6d6cd29edc3943df7c1bb897995311860148c472724"
+}

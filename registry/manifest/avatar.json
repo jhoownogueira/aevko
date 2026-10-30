@@ -1,0 +1,20 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "avatar",
+  "title": "Avatar",
+  "description": "An image avatar with accessible initials fallback and configurable size.",
+  "category": "content",
+  "angular": ">=22 <23",
+  "files": [
+    { "source": "components/avatar/avatar.component.ts", "target": "avatar/avatar.component.ts" },
+    {
+      "source": "components/avatar/avatar.component.html",
+      "target": "avatar/avatar.component.html"
+    },
+    { "source": "components/avatar/avatar.component.css", "target": "avatar/avatar.component.css" },
+    { "source": "components/avatar/index.ts", "target": "avatar/index.ts" }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {}
+}

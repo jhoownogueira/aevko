@@ -1,0 +1,22 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "direction",
+  "title": "Direction",
+  "description": "An LTR and RTL context directive for compatible components.",
+  "category": "layout",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "target": "direction/direction.directive.ts",
+      "content": "import { Directive, InjectionToken, forwardRef, input } from '@angular/core';\n\nexport type AevkoDirectionValue = 'ltr' | 'rtl';\nexport const AEVKO_DIRECTION = new InjectionToken<AevkoDirection>('AEVKO_DIRECTION');\n\n@Directive({\n  selector: '[aevkoDirection]',\n  standalone: true,\n  host: { '[attr.dir]': 'aevkoDirection()' },\n  providers: [{ provide: AEVKO_DIRECTION, useExisting: forwardRef(() => AevkoDirection) }],\n})\nexport class AevkoDirection {\n  readonly aevkoDirection = input<AevkoDirectionValue>('ltr');\n}\n"
+    },
+    {
+      "target": "direction/index.ts",
+      "content": "export * from './direction.directive';\n"
+    }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {},
+  "integrity": "29f8fe50a40ca2a821b16e34fcb739ef79db4bcbbc8ee19712aa2d3a95577a0e"
+}

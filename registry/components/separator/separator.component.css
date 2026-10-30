@@ -1,0 +1,16 @@
+:host {
+  background: var(--aevko-border, #c7c7c7);
+  display: block;
+  flex: none;
+}
+
+:host([data-orientation='horizontal']) {
+  height: 1px;
+  width: 100%;
+}
+
+:host([data-orientation='vertical']) {
+  align-self: stretch;
+  min-height: 1rem;
+  width: 1px;
+}

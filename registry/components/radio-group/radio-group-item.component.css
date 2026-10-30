@@ -1,0 +1,34 @@
+:host {
+  appearance: none;
+  background: var(--aevko-background, #fff);
+  border: 1px solid var(--aevko-border-strong, #a1a1aa);
+  border-radius: var(--aevko-radius, 0);
+  box-sizing: border-box;
+  cursor: pointer;
+  display: inline-grid;
+  height: 1rem;
+  margin: 0;
+  place-content: center;
+  width: 1rem;
+}
+:host::after {
+  background: var(--aevko-foreground, #09090b);
+  content: '';
+  height: 0.5rem;
+  transform: scale(0);
+  width: 0.5rem;
+}
+:host:checked::after {
+  transform: scale(1);
+}
+:host:focus-visible {
+  outline: 2px solid var(--aevko-focus, #a1a1aa);
+  outline-offset: 2px;
+}
+:host[aria-invalid='true'] {
+  border-color: var(--aevko-danger, #3f3f3f);
+}
+:host:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "button-group",
+  "title": "Button Group",
+  "description": "An accessible horizontal or vertical grouping for related actions.",
+  "category": "actions",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "source": "components/button-group/button-group.component.ts",
+      "target": "button-group/button-group.component.ts"
+    },
+    {
+      "source": "components/button-group/button-group.component.css",
+      "target": "button-group/button-group.component.css"
+    },
+    { "source": "components/button-group/index.ts", "target": "button-group/index.ts" }
+  ],
+  "registryDependencies": ["button"],
+  "npmDependencies": {}
+}

@@ -1,0 +1,4 @@
+:host {
+  color: color-mix(in srgb, var(--aevko-foreground, #20201e) 70%, transparent);
+  font-size: 0.875rem;
+}

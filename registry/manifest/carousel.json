@@ -1,0 +1,30 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "carousel",
+  "title": "Carousel",
+  "description": "A compositional carousel with buttons, arrows and swipe navigation.",
+  "category": "layout",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "source": "components/carousel/carousel.component.ts",
+      "target": "carousel/carousel.component.ts"
+    },
+    {
+      "source": "components/carousel/carousel.component.html",
+      "target": "carousel/carousel.component.html"
+    },
+    {
+      "source": "components/carousel/carousel.component.css",
+      "target": "carousel/carousel.component.css"
+    },
+    {
+      "source": "components/carousel/carousel-slide.component.css",
+      "target": "carousel/carousel-slide.component.css"
+    },
+    { "source": "components/carousel/index.ts", "target": "carousel/index.ts" }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {}
+}

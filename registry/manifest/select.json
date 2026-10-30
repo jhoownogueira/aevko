@@ -1,0 +1,20 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "select",
+  "title": "Select",
+  "description": "A controlled button-triggered listbox for one option.",
+  "category": "forms",
+  "angular": ">=22 <23",
+  "files": [
+    { "source": "components/select/select.component.ts", "target": "select/select.component.ts" },
+    {
+      "source": "components/select/select.component.html",
+      "target": "select/select.component.html"
+    },
+    { "source": "components/select/select.component.css", "target": "select/select.component.css" },
+    { "source": "components/select/index.ts", "target": "select/index.ts" }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {}
+}

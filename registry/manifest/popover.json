@@ -1,0 +1,26 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "popover",
+  "title": "Popover",
+  "description": "A controlled non-modal surface for rich projected content.",
+  "category": "overlays",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "source": "components/popover/popover.component.ts",
+      "target": "popover/popover.component.ts"
+    },
+    {
+      "source": "components/popover/popover.component.html",
+      "target": "popover/popover.component.html"
+    },
+    {
+      "source": "components/popover/popover.component.css",
+      "target": "popover/popover.component.css"
+    },
+    { "source": "components/popover/index.ts", "target": "popover/index.ts" }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {}
+}

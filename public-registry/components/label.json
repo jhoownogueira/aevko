@@ -1,0 +1,26 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "label",
+  "title": "Label",
+  "description": "A visual treatment for a native label with intact control association.",
+  "category": "forms",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "target": "label/label.directive.ts",
+      "content": "import { ChangeDetectionStrategy, Component } from '@angular/core';\n\n@Component({\n  selector: 'label[aevkoLabel]',\n  standalone: true,\n  template: '<ng-content />',\n  styleUrl: './label.directive.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class AevkoLabel {}\n"
+    },
+    {
+      "target": "label/label.directive.css",
+      "content": ":host {\n  color: var(--aevko-foreground, #20201e);\n  display: inline-block;\n  font: 650 0.875rem/1.4 var(--aevko-font-sans, sans-serif);\n  margin-block-end: 0.375rem;\n}\n:host:has(+ :disabled) {\n  cursor: not-allowed;\n  opacity: 0.55;\n}\n"
+    },
+    {
+      "target": "label/index.ts",
+      "content": "export * from './label.directive';\n"
+    }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {},
+  "integrity": "73f05689bf1a7ba988d8836dc28d4919dd56d85478999cf2cf41689945b2fb76"
+}

@@ -1,0 +1,32 @@
+:host {
+  display: block;
+}
+pre {
+  margin: 0;
+  overflow: auto;
+  padding: 1rem;
+}
+pre:focus-visible {
+  outline: 2px solid var(--aevko-focus, #a1a1aa);
+  outline-offset: -3px;
+}
+code {
+  font: 500 0.875rem/1.6 var(--aevko-font-mono, monospace);
+  white-space: pre;
+}
+:host([data-wrap='true']) code {
+  white-space: pre-wrap;
+  word-break: break-word;
+}
+.line {
+  display: block;
+}
+.line::before {
+  color: var(--aevko-muted, #71717a);
+  content: attr(data-line);
+  display: inline-block;
+  margin-inline-end: 1rem;
+  min-width: 2ch;
+  text-align: end;
+  user-select: none;
+}

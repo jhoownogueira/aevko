@@ -1,0 +1,25 @@
+<button
+  type="button"
+  aria-haspopup="listbox"
+  [attr.aria-label]="(selected()?.label ?? placeholder()) + ', ' + label()"
+  [attr.aria-expanded]="open()"
+  aria-controls="aevko-select-list"
+  [disabled]="disabled()"
+  (click)="toggle()"
+  (keydown)="keydown($event)"
+>
+  {{ selected()?.label ?? placeholder() }}<span aria-hidden="true">⌄</span>
+</button>
+<div id="aevko-select-list" role="listbox" [attr.aria-label]="label()" [hidden]="!open()">
+  @for (item of items(); track item.value; let index = $index) {
+    <div
+      role="option"
+      [attr.aria-selected]="value() === item.value"
+      [attr.aria-disabled]="item.disabled || null"
+      [attr.data-active]="active() === index"
+      (click)="choose(item)"
+    >
+      {{ item.label }}
+    </div>
+  }
+</div>

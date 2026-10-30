@@ -1,0 +1,26 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "data-table",
+  "title": "Data Table",
+  "description": "Typed native data table with controlled filtering, sorting, selection, pagination and loading states.",
+  "category": "data",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "source": "components/data-table/data-table.component.ts",
+      "target": "data-table/data-table.component.ts"
+    },
+    {
+      "source": "components/data-table/data-table.component.html",
+      "target": "data-table/data-table.component.html"
+    },
+    {
+      "source": "components/data-table/data-table.component.css",
+      "target": "data-table/data-table.component.css"
+    },
+    { "source": "components/data-table/index.ts", "target": "data-table/index.ts" }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {}
+}

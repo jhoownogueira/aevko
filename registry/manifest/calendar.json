@@ -1,0 +1,26 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "calendar",
+  "title": "Calendar",
+  "description": "A dependency-free month grid with controlled ISO date selection.",
+  "category": "forms",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "source": "components/calendar/calendar.component.ts",
+      "target": "calendar/calendar.component.ts"
+    },
+    {
+      "source": "components/calendar/calendar.component.html",
+      "target": "calendar/calendar.component.html"
+    },
+    {
+      "source": "components/calendar/calendar.component.css",
+      "target": "calendar/calendar.component.css"
+    },
+    { "source": "components/calendar/index.ts", "target": "calendar/index.ts" }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {}
+}

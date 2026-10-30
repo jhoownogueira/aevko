@@ -1,0 +1,22 @@
+<div
+  #viewport
+  class="viewport"
+  role="region"
+  [attr.aria-label]="label()"
+  tabindex="0"
+  (scroll)="updateScrollState()"
+>
+  <div #content class="content" role="log" aria-live="polite" aria-relevant="additions">
+    <ng-content />
+  </div>
+</div>
+<button
+  class="jump"
+  type="button"
+  [attr.data-active]="canScrollToEnd()"
+  [attr.inert]="canScrollToEnd() ? null : ''"
+  [attr.tabindex]="canScrollToEnd() ? 0 : -1"
+  (click)="scrollToEnd()"
+>
+  Jump to latest
+</button>

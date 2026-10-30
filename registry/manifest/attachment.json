@@ -1,0 +1,26 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "attachment",
+  "title": "Attachment",
+  "description": "A file representation with metadata and projected actions, without implicit upload behavior.",
+  "category": "content",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "source": "components/attachment/attachment.component.ts",
+      "target": "attachment/attachment.component.ts"
+    },
+    {
+      "source": "components/attachment/attachment.component.html",
+      "target": "attachment/attachment.component.html"
+    },
+    {
+      "source": "components/attachment/attachment.component.css",
+      "target": "attachment/attachment.component.css"
+    },
+    { "source": "components/attachment/index.ts", "target": "attachment/index.ts" }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {}
+}

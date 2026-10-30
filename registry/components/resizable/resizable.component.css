@@ -1,0 +1,45 @@
+:host {
+  display: grid;
+  min-height: 10rem;
+}
+:host([data-orientation='horizontal']) {
+  grid-template-columns: var(--aevko-resizable-grid, 1fr auto 1fr);
+}
+:host([data-orientation='vertical']) {
+  grid-template-rows: var(--aevko-resizable-grid, 1fr auto 1fr);
+}
+.panel {
+  min-height: 0;
+  min-width: 0;
+  overflow: auto;
+}
+.handle {
+  align-items: center;
+  background: var(--aevko-border, #c7c7c7);
+  display: flex;
+  justify-content: center;
+  touch-action: none;
+}
+:host([data-orientation='horizontal']) .handle {
+  cursor: col-resize;
+  width: 0.5rem;
+}
+:host([data-orientation='vertical']) .handle {
+  cursor: row-resize;
+  height: 0.5rem;
+}
+.handle span {
+  background: var(--aevko-foreground, #20201e);
+  border-radius: 0;
+  display: block;
+  height: 2rem;
+  width: 2px;
+}
+:host([data-orientation='vertical']) .handle span {
+  height: 2px;
+  width: 2rem;
+}
+.handle:focus-visible {
+  outline: 2px solid var(--aevko-focus, #a1a1aa);
+  outline-offset: 1px;
+}

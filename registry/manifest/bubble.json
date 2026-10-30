@@ -1,0 +1,16 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "bubble",
+  "title": "Bubble",
+  "description": "A generic aligned content bubble with neutral visual variants.",
+  "category": "content",
+  "angular": ">=22 <23",
+  "files": [
+    { "source": "components/bubble/bubble.component.ts", "target": "bubble/bubble.component.ts" },
+    { "source": "components/bubble/bubble.component.css", "target": "bubble/bubble.component.css" },
+    { "source": "components/bubble/index.ts", "target": "bubble/index.ts" }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {}
+}

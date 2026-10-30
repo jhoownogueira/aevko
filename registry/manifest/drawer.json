@@ -1,0 +1,20 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "drawer",
+  "title": "Drawer",
+  "description": "A mobile-friendly modal surface that opens from a viewport edge.",
+  "category": "overlays",
+  "angular": ">=22 <23",
+  "files": [
+    { "source": "components/drawer/drawer.component.ts", "target": "drawer/drawer.component.ts" },
+    {
+      "source": "components/drawer/drawer.component.html",
+      "target": "drawer/drawer.component.html"
+    },
+    { "source": "components/drawer/drawer.component.css", "target": "drawer/drawer.component.css" },
+    { "source": "components/drawer/index.ts", "target": "drawer/index.ts" }
+  ],
+  "registryDependencies": ["dialog"],
+  "npmDependencies": {}
+}

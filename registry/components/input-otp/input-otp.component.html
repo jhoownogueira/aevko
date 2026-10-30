@@ -1,0 +1,17 @@
+<input
+  [attr.aria-invalid]="invalid() ? 'true' : null"
+  [attr.aria-label]="label()"
+  [attr.maxlength]="maxLength()"
+  [disabled]="isDisabled()"
+  [value]="value()"
+  autocomplete="one-time-code"
+  inputmode="numeric"
+  type="text"
+  (blur)="touch()"
+  (input)="update($event)"
+/>
+<div class="slots" aria-hidden="true">
+  @for (character of slots(); track $index) {
+    <span [attr.data-active]="$index === value().length ? 'true' : null">{{ character }}</span>
+  }
+</div>

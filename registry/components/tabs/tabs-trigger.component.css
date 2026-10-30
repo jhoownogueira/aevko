@@ -1,0 +1,22 @@
+:host {
+  background: transparent;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  color: var(--aevko-muted, #71717a);
+  cursor: pointer;
+  font: 650 0.875rem/1 var(--aevko-font-sans, sans-serif);
+  min-height: 2.5rem;
+  padding-inline: 0.75rem;
+}
+:host([data-state='active']) {
+  border-color: var(--aevko-foreground, #09090b);
+  color: var(--aevko-foreground, #09090b);
+}
+:host:focus-visible {
+  outline: 2px solid var(--aevko-focus, #a1a1aa);
+  outline-offset: 1px;
+}
+:host:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}

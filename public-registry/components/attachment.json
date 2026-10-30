@@ -1,0 +1,30 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "attachment",
+  "title": "Attachment",
+  "description": "A file representation with metadata and projected actions, without implicit upload behavior.",
+  "category": "content",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "target": "attachment/attachment.component.ts",
+      "content": "import { ChangeDetectionStrategy, Component, input } from '@angular/core';\n\n@Component({\n  selector: 'aevko-attachment',\n  standalone: true,\n  templateUrl: './attachment.component.html',\n  styleUrl: './attachment.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class AevkoAttachment {\n  readonly name = input.required<string>();\n  readonly metadata = input<string>();\n}\n"
+    },
+    {
+      "target": "attachment/attachment.component.html",
+      "content": "<span class=\"visual\" aria-hidden=\"true\"><ng-content select=\"[aevkoAttachmentIcon]\" /></span>\n<span class=\"copy\"\n  ><strong>{{ name() }}</strong>\n  @if (metadata()) {\n    <small>{{ metadata() }}</small>\n  }\n</span>\n<span class=\"actions\"><ng-content select=\"[aevkoAttachmentAction]\" /></span>\n"
+    },
+    {
+      "target": "attachment/attachment.component.css",
+      "content": ":host {\n  align-items: center;\n  border: 1px solid var(--aevko-border, #e4e4e7);\n  display: grid;\n  gap: 0.75rem;\n  grid-template-columns: auto 1fr auto;\n  padding: 0.75rem;\n}\n.visual {\n  align-items: center;\n  display: inline-flex;\n  line-height: 0;\n}\n.visual:empty {\n  display: none;\n}\n.copy {\n  display: grid;\n  gap: 0.2rem;\n  min-width: 0;\n}\n.copy strong {\n  overflow: hidden;\n  text-overflow: ellipsis;\n  white-space: nowrap;\n}\n.copy small {\n  color: var(--aevko-muted, #71717a);\n}\n.actions {\n  align-items: center;\n  display: inline-flex;\n  gap: 0.5rem;\n}\n"
+    },
+    {
+      "target": "attachment/index.ts",
+      "content": "export * from './attachment.component';\n"
+    }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {},
+  "integrity": "cd425277226d3f83f7bdd8db94102b2fb1b71ade2966ee8dea9e482cfb5b38b2"
+}

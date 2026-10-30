@@ -1,0 +1,34 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "carousel",
+  "title": "Carousel",
+  "description": "A compositional carousel with buttons, arrows and swipe navigation.",
+  "category": "layout",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "target": "carousel/carousel.component.ts",
+      "content": "import {\n  ChangeDetectionStrategy,\n  Component,\n  booleanAttribute,\n  contentChildren,\n  effect,\n  input,\n  model,\n  signal,\n} from '@angular/core';\n\n@Component({\n  selector: 'aevko-carousel-slide',\n  standalone: true,\n  template: '<ng-content />',\n  styleUrl: './carousel-slide.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: {\n    role: 'group',\n    '[hidden]': '!active()',\n    '[attr.aria-roledescription]': '\"slide\"',\n    '[attr.aria-label]': 'label()',\n  },\n})\nexport class AevkoCarouselSlide {\n  readonly label = input<string>();\n  readonly active = signal(false);\n}\n\n@Component({\n  selector: 'aevko-carousel',\n  standalone: true,\n  templateUrl: './carousel.component.html',\n  styleUrl: './carousel.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: {\n    role: 'region',\n    '[attr.aria-roledescription]': '\"carousel\"',\n    '[attr.aria-label]': 'label()',\n    '(keydown)': 'keyboard($event)',\n  },\n})\nexport class AevkoCarousel {\n  readonly label = input.required<string>();\n  readonly index = model(0);\n  readonly loop = input(false, { transform: booleanAttribute });\n  readonly orientation = input<'horizontal' | 'vertical'>('horizontal');\n  protected readonly slides = contentChildren(AevkoCarouselSlide);\n  private pointerStart = 0;\n\n  constructor() {\n    effect(() => {\n      const slides = this.slides();\n      const safeIndex = Math.min(Math.max(this.index(), 0), Math.max(slides.length - 1, 0));\n      if (safeIndex !== this.index()) this.index.set(safeIndex);\n      slides.forEach((slide, index) => slide.active.set(index === safeIndex));\n    });\n  }\n  protected previous(): void {\n    this.go(this.index() - 1);\n  }\n  protected next(): void {\n    this.go(this.index() + 1);\n  }\n  protected keyboard(event: KeyboardEvent): void {\n    const previous = event.key === (this.orientation() === 'horizontal' ? 'ArrowLeft' : 'ArrowUp');\n    const next = event.key === (this.orientation() === 'horizontal' ? 'ArrowRight' : 'ArrowDown');\n    if (!previous && !next) return;\n    event.preventDefault();\n    previous ? this.previous() : this.next();\n  }\n  protected pointerDown(event: PointerEvent): void {\n    this.pointerStart = this.orientation() === 'horizontal' ? event.clientX : event.clientY;\n  }\n  protected pointerUp(event: PointerEvent): void {\n    const end = this.orientation() === 'horizontal' ? event.clientX : event.clientY;\n    const delta = end - this.pointerStart;\n    if (Math.abs(delta) >= 40) delta > 0 ? this.previous() : this.next();\n  }\n  private go(index: number): void {\n    const count = this.slides().length;\n    if (count === 0) return;\n    if (this.loop()) this.index.set((index + count) % count);\n    else this.index.set(Math.min(Math.max(index, 0), count - 1));\n  }\n}\n"
+    },
+    {
+      "target": "carousel/carousel.component.html",
+      "content": "<div\n  class=\"viewport\"\n  [attr.data-orientation]=\"orientation()\"\n  (pointerdown)=\"pointerDown($event)\"\n  (pointerup)=\"pointerUp($event)\"\n>\n  <ng-content />\n</div>\n<div class=\"controls\">\n  <button\n    type=\"button\"\n    aria-label=\"Previous slide\"\n    [disabled]=\"!loop() && index() === 0\"\n    (click)=\"previous()\"\n  >\n    <span class=\"control-icon\" aria-hidden=\"true\">\n      <svg class=\"fallback-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\">\n        <path d=\"m15 18-6-6 6-6\" />\n      </svg>\n      <ng-content select=\"[aevkoCarouselPreviousIcon]\" />\n    </span></button\n  ><span aria-live=\"polite\">{{ index() + 1 }} / {{ slides().length }}</span\n  ><button\n    type=\"button\"\n    aria-label=\"Next slide\"\n    [disabled]=\"!loop() && index() >= slides().length - 1\"\n    (click)=\"next()\"\n  >\n    <span class=\"control-icon\" aria-hidden=\"true\">\n      <svg class=\"fallback-icon\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\">\n        <path d=\"m9 18 6-6-6-6\" />\n      </svg>\n      <ng-content select=\"[aevkoCarouselNextIcon]\" />\n    </span>\n  </button>\n</div>\n"
+    },
+    {
+      "target": "carousel/carousel.component.css",
+      "content": ":host {\n  display: grid;\n  gap: 1rem;\n}\n.viewport {\n  overflow: hidden;\n  touch-action: pan-y;\n}\n.viewport[data-orientation='vertical'] {\n  touch-action: pan-x;\n}\n.controls {\n  align-items: center;\n  display: flex;\n  gap: 0.75rem;\n  justify-content: center;\n}\nbutton {\n  align-items: center;\n  background: var(--aevko-background, #fff);\n  border: 1px solid var(--aevko-foreground, #20201e);\n  border-radius: var(--aevko-radius, 0);\n  color: var(--aevko-foreground, #20201e);\n  cursor: pointer;\n  display: inline-flex;\n  justify-content: center;\n  min-height: 2.75rem;\n  min-width: 2.75rem;\n}\nbutton svg {\n  height: 1rem;\n  stroke-linecap: round;\n  stroke-linejoin: round;\n  stroke-width: 2;\n  width: 1rem;\n}\n.control-icon {\n  align-items: center;\n  display: inline-flex;\n  line-height: 0;\n}\n.control-icon:has(> :not(.fallback-icon)) > .fallback-icon {\n  display: none;\n}\nbutton:focus-visible {\n  outline: 2px solid var(--aevko-focus, #a1a1aa);\n  outline-offset: 1px;\n}\nbutton:disabled {\n  cursor: not-allowed;\n  opacity: 0.45;\n}\n"
+    },
+    {
+      "target": "carousel/carousel-slide.component.css",
+      "content": ":host {\n  display: block;\n}\n:host([hidden]) {\n  display: none;\n}\n"
+    },
+    {
+      "target": "carousel/index.ts",
+      "content": "export * from './carousel.component';\n"
+    }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {},
+  "integrity": "b8219aa24fcfd8c8d8731423aab9d8ddfb84a563fb65701c3d741ce0ba397b38"
+}

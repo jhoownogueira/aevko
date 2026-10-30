@@ -1,0 +1,31 @@
+:host {
+  appearance: none;
+  background: var(--aevko-background, #ffffff);
+  border: 1px solid color-mix(in srgb, var(--aevko-foreground, #20201e) 45%, transparent);
+  border-radius: var(--aevko-radius, 0);
+  box-sizing: border-box;
+  color: var(--aevko-foreground, #20201e);
+  font: 500 1rem/1.4 var(--aevko-font-sans, sans-serif);
+  min-height: 2.75rem;
+  padding: 0.625rem 0.75rem;
+  width: 100%;
+}
+
+:host::placeholder {
+  color: color-mix(in srgb, var(--aevko-foreground, #20201e) 58%, transparent);
+}
+:host:hover:not(:disabled) {
+  border-color: var(--aevko-foreground, #20201e);
+}
+:host:focus-visible {
+  border-color: var(--aevko-focus, #a1a1aa);
+  outline: 2px solid var(--aevko-focus, #a1a1aa);
+  outline-offset: 1px;
+}
+:host([data-invalid='true']) {
+  border-color: var(--aevko-danger, #3f3f3f);
+}
+:host:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}

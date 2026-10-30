@@ -1,0 +1,19 @@
+:host {
+  display: inline-flex;
+}
+.item {
+  align-items: center;
+  color: var(--aevko-muted, #71717a);
+  display: inline-flex;
+  gap: 0.5rem;
+}
+:host([aria-current='page']) .item {
+  color: var(--aevko-foreground, #09090b);
+  font-weight: 650;
+}
+.separator {
+  color: var(--aevko-muted, #71717a);
+}
+.separator:has(> :not(.fallback)) .fallback {
+  display: none;
+}

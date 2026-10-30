@@ -1,0 +1,26 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "message",
+  "title": "Message",
+  "description": "A generic compositional message with author, metadata, content, visual and actions.",
+  "category": "content",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "source": "components/message/message.component.ts",
+      "target": "message/message.component.ts"
+    },
+    {
+      "source": "components/message/message.component.html",
+      "target": "message/message.component.html"
+    },
+    {
+      "source": "components/message/message.component.css",
+      "target": "message/message.component.css"
+    },
+    { "source": "components/message/index.ts", "target": "message/index.ts" }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {}
+}

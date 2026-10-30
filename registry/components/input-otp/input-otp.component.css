@@ -1,0 +1,38 @@
+:host {
+  display: inline-grid;
+  position: relative;
+}
+input {
+  cursor: text;
+  inset: 0;
+  opacity: 0;
+  position: absolute;
+  z-index: 1;
+}
+.slots {
+  display: flex;
+  gap: 0.5rem;
+}
+.slots span {
+  align-items: center;
+  background: var(--aevko-background, #fff);
+  border: 1px solid var(--aevko-border-strong, #a1a1aa);
+  border-radius: var(--aevko-radius, 0);
+  color: var(--aevko-foreground, #09090b);
+  display: inline-flex;
+  font: 650 1rem/1 var(--aevko-font-mono, monospace);
+  height: 2.75rem;
+  justify-content: center;
+  width: 2.5rem;
+}
+:host:focus-within .slots span[data-active='true'] {
+  outline: 2px solid var(--aevko-focus, #a1a1aa);
+  outline-offset: 1px;
+}
+:host([data-invalid='true']) .slots span {
+  border-color: var(--aevko-danger, #3f3f3f);
+}
+:host([data-disabled='true']) {
+  cursor: not-allowed;
+  opacity: 0.5;
+}

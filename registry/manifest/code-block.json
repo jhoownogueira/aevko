@@ -1,0 +1,46 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "code-block",
+  "title": "Code Block",
+  "description": "Focusable LTR code output with optional line numbers, variants and copy action.",
+  "category": "content",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "source": "components/code-block/code-block.component.ts",
+      "target": "code-block/code-block.component.ts"
+    },
+    {
+      "source": "components/code-block/code-block-content.component.html",
+      "target": "code-block/code-block-content.component.html"
+    },
+    {
+      "source": "components/code-block/code-block.component.css",
+      "target": "code-block/code-block.component.css"
+    },
+    {
+      "source": "components/code-block/code-block-header.component.css",
+      "target": "code-block/code-block-header.component.css"
+    },
+    {
+      "source": "components/code-block/code-block-content.component.css",
+      "target": "code-block/code-block-content.component.css"
+    },
+    {
+      "source": "components/code-block/code-block-line.component.css",
+      "target": "code-block/code-block-line.component.css"
+    },
+    {
+      "source": "components/code-block/code-block-copy.component.css",
+      "target": "code-block/code-block-copy.component.css"
+    },
+    {
+      "source": "components/code-block/code-block-footer.component.css",
+      "target": "code-block/code-block-footer.component.css"
+    },
+    { "source": "components/code-block/index.ts", "target": "code-block/index.ts" }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {}
+}

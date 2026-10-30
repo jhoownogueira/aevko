@@ -1,0 +1,26 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "sidebar",
+  "title": "Sidebar",
+  "description": "A collapsible navigation sidebar with a responsive mobile drawer.",
+  "category": "layout",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "source": "components/sidebar/sidebar.component.ts",
+      "target": "sidebar/sidebar.component.ts"
+    },
+    {
+      "source": "components/sidebar/sidebar.component.html",
+      "target": "sidebar/sidebar.component.html"
+    },
+    {
+      "source": "components/sidebar/sidebar.component.css",
+      "target": "sidebar/sidebar.component.css"
+    },
+    { "source": "components/sidebar/index.ts", "target": "sidebar/index.ts" }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {}
+}

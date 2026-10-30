@@ -1,0 +1,105 @@
+:host {
+  display: block;
+}
+aside {
+  background: var(--aevko-background, #fff);
+  border-inline-end: 1px solid var(--aevko-border, #c7c7c7);
+  display: grid;
+  grid-template-rows: auto 1fr auto;
+  height: 100%;
+  min-height: 20rem;
+  overflow: hidden;
+  transition: width 180ms ease;
+  width: 17rem;
+}
+aside.collapsed {
+  width: 4rem;
+}
+.header,
+.footer {
+  align-items: center;
+  display: flex;
+  gap: 0.75rem;
+  justify-content: space-between;
+  padding: 1rem;
+}
+nav {
+  display: grid;
+  gap: 0.25rem;
+  overflow: auto;
+  padding: 0.5rem;
+}
+.collapse,
+.mobile-trigger {
+  align-items: center;
+  background: transparent;
+  border: 1px solid var(--aevko-border, #c7c7c7);
+  border-radius: var(--aevko-radius, 0);
+  color: inherit;
+  cursor: pointer;
+  display: inline-flex;
+  gap: 0.5rem;
+  justify-content: center;
+  min-height: 2.75rem;
+  min-width: 2.75rem;
+}
+.collapse svg,
+.mobile-trigger svg {
+  height: 1rem;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2;
+  width: 1rem;
+}
+.control-icon {
+  align-items: center;
+  display: inline-flex;
+  line-height: 0;
+}
+.control-icon:has(> :not(.fallback-icon)) > .fallback-icon {
+  display: none;
+}
+.mobile-trigger,
+.backdrop {
+  display: none;
+}
+button:focus-visible,
+nav:focus-visible {
+  outline: 2px solid var(--aevko-focus, #a1a1aa);
+  outline-offset: 1px;
+}
+@media (max-width: 760px) {
+  .mobile-trigger {
+    display: inline-flex;
+  }
+  .backdrop {
+    background: rgb(0 0 0 / 65%);
+    border: 0;
+    display: block;
+    inset: 0;
+    position: fixed;
+    z-index: 39;
+  }
+  aside {
+    bottom: 0;
+    left: 0;
+    max-width: 85vw;
+    position: fixed;
+    top: 0;
+    transform: translateX(-105%);
+    transition: transform 180ms ease;
+    width: 17rem;
+    z-index: 40;
+  }
+  aside.open {
+    transform: translateX(0);
+  }
+  aside.collapsed {
+    width: 17rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  aside {
+    transition: none;
+  }
+}

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "switch",
+  "title": "Switch",
+  "description": "A native checkbox switch with size, validation and Angular Forms support.",
+  "category": "forms",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "target": "switch/switch.component.ts",
+      "content": "import { ChangeDetectionStrategy, Component, booleanAttribute, input } from '@angular/core';\n\n@Component({\n  selector: 'input[aevkoSwitch][type=\"checkbox\"]',\n  standalone: true,\n  template: '',\n  styleUrl: './switch.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: {\n    role: 'switch',\n    '[attr.aria-invalid]': 'invalid() ? \"true\" : null',\n    '[attr.data-invalid]': 'invalid() ? \"true\" : null',\n    '[attr.data-size]': 'size()',\n  },\n})\nexport class AevkoSwitch {\n  readonly invalid = input(false, { transform: booleanAttribute });\n  readonly size = input<'sm' | 'md'>('md');\n}\n"
+    },
+    {
+      "target": "switch/switch.component.css",
+      "content": ":host {\n  appearance: none;\n  background: var(--aevko-surface-strong, #d4d4d8);\n  border: 1px solid var(--aevko-border-strong, #a1a1aa);\n  border-radius: var(--aevko-radius, 0);\n  box-sizing: border-box;\n  cursor: pointer;\n  display: inline-block;\n  height: 1.5rem;\n  margin: 0;\n  padding: 0.1875rem;\n  width: 2.75rem;\n}\n:host::after {\n  background: var(--aevko-background, #fff);\n  box-shadow: 0 0 0 1px color-mix(in srgb, var(--aevko-foreground, #09090b) 14%, transparent);\n  content: '';\n  display: block;\n  height: 1rem;\n  transform: translateX(0);\n  transition: transform 140ms ease;\n  width: 1rem;\n}\n:host-context([dir='rtl'])::after {\n  margin-inline-start: auto;\n}\n:host:checked {\n  background: var(--aevko-foreground, #09090b);\n  border-color: var(--aevko-foreground, #09090b);\n}\n:host:checked::after {\n  transform: translateX(1.25rem);\n}\n:host-context([dir='rtl']):checked::after {\n  transform: translateX(-1.25rem);\n}\n:host([data-size='sm']) {\n  height: 1.25rem;\n  padding: 0.125rem;\n  width: 2.25rem;\n}\n:host([data-size='sm'])::after {\n  height: 0.875rem;\n  width: 0.875rem;\n}\n:host([data-size='sm']:checked)::after {\n  transform: translateX(1rem);\n}\n:host-context([dir='rtl'])[data-size='sm']:checked::after {\n  transform: translateX(-1rem);\n}\n:host:focus-visible {\n  outline: 2px solid var(--aevko-focus, #a1a1aa);\n  outline-offset: 2px;\n}\n:host([data-invalid='true']) {\n  border-color: var(--aevko-danger, #3f3f3f);\n}\n:host:disabled {\n  cursor: not-allowed;\n  opacity: 0.5;\n}\n@media (prefers-reduced-motion: reduce) {\n  :host::after {\n    transition: none;\n  }\n}\n"
+    },
+    {
+      "target": "switch/index.ts",
+      "content": "export * from './switch.component';\n"
+    }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {},
+  "integrity": "1e149d1c21bfcbb81f04370cf19ff33f5ef1510ea18c382a337fc4ca36bec070"
+}

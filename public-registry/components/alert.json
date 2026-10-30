@@ -1,0 +1,26 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "alert",
+  "title": "Alert",
+  "description": "A compositional status or urgent alert with explicit live behavior.",
+  "category": "feedback",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "target": "alert/alert.component.ts",
+      "content": "import { ChangeDetectionStrategy, Component, input } from '@angular/core';\n\nexport type AevkoAlertVariant = 'default' | 'muted' | 'danger';\n\n@Component({\n  selector: 'aevko-alert',\n  standalone: true,\n  template: `<span class=\"icon\" aria-hidden=\"true\"><ng-content select=\"[aevkoAlertIcon]\" /></span>\n    <div>\n      <div class=\"title\"><ng-content select=\"[aevkoAlertTitle]\" /></div>\n      <div class=\"description\"><ng-content select=\"[aevkoAlertDescription]\" /></div>\n      <ng-content />\n    </div>`,\n  styleUrl: './alert.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: {\n    '[attr.role]': 'live() === \"assertive\" ? \"alert\" : \"status\"',\n    '[attr.data-variant]': 'variant()',\n  },\n})\nexport class AevkoAlert {\n  readonly variant = input<AevkoAlertVariant>('default');\n  readonly live = input<'polite' | 'assertive'>('polite');\n}\n"
+    },
+    {
+      "target": "alert/alert.component.css",
+      "content": ":host {\n  background: var(--aevko-background, #fff);\n  border: 1px solid var(--aevko-border, #e4e4e7);\n  color: var(--aevko-foreground, #09090b);\n  display: grid;\n  gap: 0.75rem;\n  grid-template-columns: auto 1fr;\n  padding: 1rem;\n}\n:host([data-variant='muted']) {\n  background: var(--aevko-surface, #f4f4f5);\n}\n:host([data-variant='danger']) {\n  border-color: var(--aevko-danger, #3f3f3f);\n}\n.icon {\n  color: currentcolor;\n  display: inline-flex;\n  line-height: 0;\n  padding-top: 0.15rem;\n}\n.icon:empty {\n  display: none;\n}\n.title {\n  font-weight: 700;\n  margin-bottom: 0.25rem;\n}\n.title:empty,\n.description:empty {\n  display: none;\n}\n.description {\n  color: var(--aevko-muted, #71717a);\n}\n"
+    },
+    {
+      "target": "alert/index.ts",
+      "content": "export * from './alert.component';\n"
+    }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {},
+  "integrity": "5ba8ffa9fd4b56a46812f90a356746ebae55d5de58952e0fe513da55257eb4b8"
+}

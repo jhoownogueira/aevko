@@ -1,0 +1,14 @@
+:host {
+  background: var(--aevko-surface, #f4f4f5);
+  border: 1px solid var(--aevko-border, #e4e4e7);
+  border-radius: var(--aevko-radius, 0);
+  color: var(--aevko-foreground, #09090b);
+  display: block;
+  overflow: hidden;
+}
+:host([data-variant='destructive']) {
+  border-color: var(--aevko-danger, #3f3f3f);
+}
+:host([data-size='sm']) {
+  font-size: 0.8125rem;
+}

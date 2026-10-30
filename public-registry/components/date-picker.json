@@ -1,0 +1,33 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "date-picker",
+  "title": "Date Picker",
+  "description": "A Popover and Calendar composition for controlled ISO date selection.",
+  "category": "forms",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "target": "date-picker/date-picker.component.ts",
+      "content": "import { ChangeDetectionStrategy, Component, computed, input, model } from '@angular/core';\nimport { AevkoCalendar } from '../calendar';\nimport { AevkoPopover, AevkoPopoverTrigger } from '../popover';\n@Component({\n  selector: 'aevko-date-picker',\n  standalone: true,\n  imports: [AevkoCalendar, AevkoPopover, AevkoPopoverTrigger],\n  templateUrl: './date-picker.component.html',\n  styleUrl: './date-picker.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class AevkoDatePicker {\n  readonly label = input.required<string>();\n  readonly placeholder = input('Pick a date');\n  readonly value = model('');\n  readonly month = model('2026-01');\n  readonly open = model(false);\n  readonly min = input('');\n  readonly max = input('');\n  protected readonly display = computed(() =>\n    this.value()\n      ? new Intl.DateTimeFormat('en', { dateStyle: 'long', timeZone: 'UTC' }).format(\n          new Date(`${this.value()}T00:00:00Z`),\n        )\n      : this.placeholder(),\n  );\n  protected select(value: string): void {\n    this.value.set(value);\n    this.open.set(false);\n  }\n}\n"
+    },
+    {
+      "target": "date-picker/date-picker.component.html",
+      "content": "<aevko-popover [label]=\"label()\" [(open)]=\"open\" align=\"start\"\n  ><button aevkoPopoverTrigger type=\"button\" [attr.aria-label]=\"display() + ', ' + label()\">\n    {{ display() }}</button\n  ><aevko-calendar\n    [label]=\"label()\"\n    [(month)]=\"month\"\n    [value]=\"value()\"\n    [min]=\"min()\"\n    [max]=\"max()\"\n    (valueChange)=\"select($event)\"\n/></aevko-popover>\n"
+    },
+    {
+      "target": "date-picker/date-picker.component.css",
+      "content": ":host {\n  display: inline-block;\n}\nbutton {\n  background: var(--aevko-surface, #fff);\n  border: 1px solid var(--aevko-border, #a3a3a3);\n  border-radius: 0;\n  color: inherit;\n  min-block-size: 2.5rem;\n  min-inline-size: 14rem;\n  padding: 0.5rem 0.75rem;\n  text-align: start;\n}\nbutton:focus-visible {\n  outline: 2px solid var(--aevko-ring, #a3a3a3);\n  outline-offset: 2px;\n}\n"
+    },
+    {
+      "target": "date-picker/index.ts",
+      "content": "export * from './date-picker.component';\n"
+    }
+  ],
+  "registryDependencies": [
+    "calendar",
+    "popover"
+  ],
+  "npmDependencies": {},
+  "integrity": "c2279a839732ecf2491c4eab7c56de3aef843212fa5ef7e1695975924bf5843d"
+}

@@ -1,0 +1,26 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "pagination",
+  "title": "Pagination",
+  "description": "Controlled page navigation with current-page and previous/next semantics.",
+  "category": "data",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "source": "components/pagination/pagination.component.ts",
+      "target": "pagination/pagination.component.ts"
+    },
+    {
+      "source": "components/pagination/pagination.component.html",
+      "target": "pagination/pagination.component.html"
+    },
+    {
+      "source": "components/pagination/pagination.component.css",
+      "target": "pagination/pagination.component.css"
+    },
+    { "source": "components/pagination/index.ts", "target": "pagination/index.ts" }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {}
+}

@@ -1,0 +1,29 @@
+<input
+  type="text"
+  role="combobox"
+  aria-autocomplete="list"
+  [attr.aria-label]="label()"
+  [attr.aria-expanded]="open()"
+  aria-controls="aevko-combobox-list"
+  [placeholder]="placeholder()"
+  [value]="query()"
+  (focus)="open.set(true)"
+  (input)="inputValue($any($event.target).value)"
+  (keydown)="keydown($event)"
+/>
+<div id="aevko-combobox-list" role="listbox" [attr.aria-label]="label()" [hidden]="!open()">
+  @for (item of filtered(); track item.value; let index = $index) {
+    <div
+      role="option"
+      [attr.aria-selected]="value() === item.value"
+      [attr.aria-disabled]="item.disabled || null"
+      [attr.data-active]="active() === index"
+      (click)="choose(item)"
+    >
+      {{ item.label }}
+    </div>
+  }
+  @if (!filtered().length) {
+    <p>{{ emptyMessage() }}</p>
+  }
+</div>

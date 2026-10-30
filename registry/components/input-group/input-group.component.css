@@ -1,0 +1,18 @@
+:host {
+  align-items: stretch;
+  background: var(--aevko-background, #fff);
+  border: 1px solid var(--aevko-border-strong, #a1a1aa);
+  border-radius: var(--aevko-radius, 0);
+  display: flex;
+  flex-wrap: wrap;
+  min-height: 2.75rem;
+  width: 100%;
+}
+:host:focus-within {
+  border-color: var(--aevko-focus, #a1a1aa);
+  outline: 2px solid var(--aevko-focus, #a1a1aa);
+  outline-offset: 1px;
+}
+:host:has([aria-invalid='true']) {
+  border-color: var(--aevko-danger, #3f3f3f);
+}

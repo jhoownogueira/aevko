@@ -1,0 +1,17 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "empty",
+  "title": "Empty",
+  "description": "A compositional empty state with icon, copy and action slots.",
+  "category": "layout",
+  "angular": ">=22 <23",
+  "files": [
+    { "source": "components/empty/empty.component.ts", "target": "empty/empty.component.ts" },
+    { "source": "components/empty/empty.component.html", "target": "empty/empty.component.html" },
+    { "source": "components/empty/empty.component.css", "target": "empty/empty.component.css" },
+    { "source": "components/empty/index.ts", "target": "empty/index.ts" }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {}
+}

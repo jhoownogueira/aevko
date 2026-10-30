@@ -1,0 +1,17 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "toast",
+  "title": "Toast",
+  "description": "A local notification store and accessible toaster viewport.",
+  "category": "feedback",
+  "angular": ">=22 <23",
+  "files": [
+    { "source": "components/toast/toast.component.ts", "target": "toast/toast.component.ts" },
+    { "source": "components/toast/toast.component.html", "target": "toast/toast.component.html" },
+    { "source": "components/toast/toast.component.css", "target": "toast/toast.component.css" },
+    { "source": "components/toast/index.ts", "target": "toast/index.ts" }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {}
+}

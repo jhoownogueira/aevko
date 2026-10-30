@@ -1,0 +1,51 @@
+:host {
+  display: inline-block;
+  position: relative;
+}
+section {
+  background: var(--aevko-surface, #fff);
+  border: 1px solid var(--aevko-border, #d4d4d4);
+  border-radius: 0;
+  box-shadow: 0 12px 30px rgb(0 0 0 / 0.12);
+  color: var(--aevko-foreground, #171717);
+  inline-size: max-content;
+  max-inline-size: min(22rem, calc(100vw - 2rem));
+  padding: 1rem;
+  position: absolute;
+  z-index: 30;
+}
+section[data-side='bottom'] {
+  inset-block-start: calc(100% + 0.5rem);
+}
+section[data-side='top'] {
+  inset-block-end: calc(100% + 0.5rem);
+}
+section[data-side='right'] {
+  inset-inline-start: calc(100% + 0.5rem);
+  inset-block-start: 0;
+}
+section[data-side='left'] {
+  inset-inline-end: calc(100% + 0.5rem);
+  inset-block-start: 0;
+}
+section[data-align='start'] {
+  inset-inline-start: 0;
+}
+section[data-align='center'] {
+  inset-inline-start: 50%;
+  transform: translateX(-50%);
+}
+section[data-align='end'] {
+  inset-inline-end: 0;
+}
+section[data-side='left'][data-align],
+section[data-side='right'][data-align] {
+  transform: none;
+}
+@media (prefers-color-scheme: dark) {
+  section {
+    --aevko-surface: #171717;
+    --aevko-foreground: #f5f5f5;
+    --aevko-border: #404040;
+  }
+}

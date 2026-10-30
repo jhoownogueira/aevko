@@ -1,0 +1,86 @@
+:host {
+  display: block;
+  inline-size: min(42rem, 100%);
+}
+section {
+  border: 1px solid var(--aevko-border, #d4d4d4);
+  padding: 1.25rem;
+}
+.progress {
+  color: var(--aevko-muted-foreground, #666);
+  font-size: 0.875rem;
+}
+fieldset {
+  border: 0;
+  margin: 0;
+  padding: 0;
+}
+legend {
+  font-size: 1.25rem;
+  font-weight: 650;
+}
+.choices {
+  display: grid;
+  gap: 0.5rem;
+  margin-block: 1rem;
+}
+.choices label {
+  align-items: start;
+  border: 1px solid var(--aevko-border, #d4d4d4);
+  display: grid;
+  gap: 0.75rem;
+  grid-template-columns: auto 1fr auto;
+  padding: 0.75rem;
+}
+.choices label:has(input:checked) {
+  border-color: var(--aevko-foreground, #171717);
+  background: var(--aevko-muted, #f1f1f1);
+}
+.choices span {
+  display: grid;
+}
+small {
+  color: var(--aevko-muted-foreground, #666);
+}
+.freeform {
+  grid-template-columns: 1fr !important;
+}
+.freeform input {
+  min-block-size: 2.5rem;
+  padding: 0.5rem;
+}
+.actions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: end;
+}
+button {
+  background: transparent;
+  border: 1px solid var(--aevko-border, #a3a3a3);
+  border-radius: 0;
+  color: inherit;
+  min-block-size: 2.5rem;
+  padding: 0.5rem 0.75rem;
+}
+button:last-child {
+  background: var(--aevko-foreground, #171717);
+  color: var(--aevko-background, #fff);
+}
+button:focus-visible,
+input:focus-visible {
+  outline: 2px solid var(--aevko-ring, #a3a3a3);
+  outline-offset: 2px;
+}
+.error {
+  color: var(--aevko-danger, #b42318);
+}
+@media (prefers-color-scheme: dark) {
+  :host {
+    --aevko-border: #404040;
+    --aevko-muted: #262626;
+    --aevko-foreground: #f5f5f5;
+    --aevko-background: #171717;
+    --aevko-muted-foreground: #b3b3b3;
+    color: #f5f5f5;
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "card",
+  "title": "Card",
+  "description": "A compositional content surface with header, title, description, content, actions and footer.",
+  "category": "layout",
+  "angular": ">=22 <23",
+  "files": [
+    { "source": "components/card/card.component.ts", "target": "card/card.component.ts" },
+    { "source": "components/card/card.component.css", "target": "card/card.component.css" },
+    {
+      "source": "components/card/card-header.component.css",
+      "target": "card/card-header.component.css"
+    },
+    {
+      "source": "components/card/card-title.component.css",
+      "target": "card/card-title.component.css"
+    },
+    {
+      "source": "components/card/card-description.component.css",
+      "target": "card/card-description.component.css"
+    },
+    {
+      "source": "components/card/card-content.component.css",
+      "target": "card/card-content.component.css"
+    },
+    {
+      "source": "components/card/card-footer.component.css",
+      "target": "card/card-footer.component.css"
+    },
+    {
+      "source": "components/card/card-actions.component.css",
+      "target": "card/card-actions.component.css"
+    },
+    { "source": "components/card/index.ts", "target": "card/index.ts" }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {}
+}

@@ -1,0 +1,38 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "tabs",
+  "title": "Tabs",
+  "description": "Layered tab panels with controlled value, orientation and keyboard activation.",
+  "category": "content",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "target": "tabs/tabs.component.ts",
+      "content": "import {\n  ChangeDetectionStrategy,\n  Component,\n  ElementRef,\n  computed,\n  contentChildren,\n  effect,\n  inject,\n  input,\n  model,\n  signal,\n} from '@angular/core';\n\n@Component({\n  selector: 'button[aevkoTabsTrigger]',\n  standalone: true,\n  template: '<ng-content />',\n  styleUrl: './tabs-trigger.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: {\n    type: 'button',\n    role: 'tab',\n    '[attr.id]': 'rootId() + \"-tab-\" + value()',\n    '[attr.aria-controls]': 'rootId() + \"-panel-\" + value()',\n    '[attr.aria-selected]': 'selected()',\n    '[attr.tabindex]': 'selected() ? 0 : -1',\n    '[attr.data-state]': 'selected() ? \"active\" : \"inactive\"',\n  },\n})\nexport class AevkoTabsTrigger {\n  readonly value = input.required<string>();\n  readonly groupValue = signal('');\n  readonly rootId = signal('aevko-tabs');\n  readonly selected = computed(() => this.groupValue() === this.value());\n  readonly element = inject<ElementRef<HTMLButtonElement>>(ElementRef);\n}\n\n@Component({\n  selector: 'aevko-tabs-content',\n  standalone: true,\n  template: '<ng-content />',\n  styleUrl: './tabs-content.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: {\n    role: 'tabpanel',\n    '[attr.id]': 'rootId() + \"-panel-\" + value()',\n    '[attr.aria-labelledby]': 'rootId() + \"-tab-\" + value()',\n    '[attr.tabindex]': 'selected() ? 0 : -1',\n    '[hidden]': '!selected()',\n  },\n})\nexport class AevkoTabsContent {\n  readonly value = input.required<string>();\n  readonly groupValue = signal('');\n  readonly rootId = signal('aevko-tabs');\n  readonly selected = computed(() => this.groupValue() === this.value());\n}\n\n@Component({\n  selector: 'aevko-tabs-list',\n  standalone: true,\n  template: '<ng-content />',\n  styleUrl: './tabs-list.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: {\n    role: 'tablist',\n    '[attr.aria-label]': 'label()',\n    '[attr.aria-orientation]': 'orientation()',\n    '[attr.data-orientation]': 'orientation()',\n  },\n})\nexport class AevkoTabsList {\n  readonly label = signal('Tabs');\n  readonly orientation = signal<'horizontal' | 'vertical'>('horizontal');\n}\n\n@Component({\n  selector: 'aevko-tabs',\n  standalone: true,\n  template: '<ng-content />',\n  styleUrl: './tabs.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: {\n    '[attr.data-orientation]': 'orientation()',\n    '(click)': 'activate($event)',\n    '(keydown)': 'navigate($event)',\n  },\n})\nexport class AevkoTabs {\n  readonly label = input.required<string>();\n  readonly id = input('aevko-tabs');\n  readonly orientation = input<'horizontal' | 'vertical'>('horizontal');\n  readonly activation = input<'automatic' | 'manual'>('automatic');\n  readonly value = model('');\n  private readonly triggers = contentChildren(AevkoTabsTrigger, { descendants: true });\n  private readonly panels = contentChildren(AevkoTabsContent);\n  private readonly lists = contentChildren(AevkoTabsList);\n\n  constructor() {\n    effect(() => {\n      const triggers = this.triggers();\n      const selected = this.value() || triggers[0]?.value() || '';\n      if (!this.value() && selected) this.value.set(selected);\n      for (const trigger of triggers) {\n        trigger.groupValue.set(selected);\n        trigger.rootId.set(this.id());\n      }\n      for (const panel of this.panels()) {\n        panel.groupValue.set(selected);\n        panel.rootId.set(this.id());\n      }\n      for (const list of this.lists()) {\n        list.label.set(this.label());\n        list.orientation.set(this.orientation());\n      }\n    });\n  }\n\n  protected activate(event: MouseEvent): void {\n    const trigger = this.triggers().find(({ element }) =>\n      element.nativeElement.contains(event.target as Node),\n    );\n    if (trigger && !trigger.element.nativeElement.disabled) this.value.set(trigger.value());\n  }\n\n  protected navigate(event: KeyboardEvent): void {\n    const axis =\n      this.orientation() === 'vertical' ? ['ArrowUp', 'ArrowDown'] : ['ArrowLeft', 'ArrowRight'];\n    if (![...axis, 'Home', 'End', 'Enter', ' '].includes(event.key)) return;\n    const enabled = this.triggers().filter(({ element }) => !element.nativeElement.disabled);\n    const current = enabled.findIndex(({ element }) => element.nativeElement === event.target);\n    if (current < 0) return;\n    if (event.key === 'Enter' || event.key === ' ') {\n      event.preventDefault();\n      this.value.set(enabled[current]!.value());\n      return;\n    }\n    event.preventDefault();\n    const next =\n      event.key === 'Home'\n        ? 0\n        : event.key === 'End'\n          ? enabled.length - 1\n          : (current + (event.key === axis[0] ? -1 : 1) + enabled.length) % enabled.length;\n    const target = enabled[next];\n    target?.element.nativeElement.focus();\n    if (target && this.activation() === 'automatic') this.value.set(target.value());\n  }\n}\n"
+    },
+    {
+      "target": "tabs/tabs.component.css",
+      "content": ":host {\n  display: grid;\n  gap: 1rem;\n}\n:host([data-orientation='vertical']) {\n  align-items: start;\n  grid-template-columns: auto 1fr;\n}\n"
+    },
+    {
+      "target": "tabs/tabs-list.component.css",
+      "content": ":host {\n  align-items: center;\n  display: flex;\n  gap: 0.25rem;\n}\n:host([data-orientation='vertical']) {\n  align-items: stretch;\n  flex-direction: column;\n}\n"
+    },
+    {
+      "target": "tabs/tabs-trigger.component.css",
+      "content": ":host {\n  background: transparent;\n  border: 0;\n  border-bottom: 2px solid transparent;\n  color: var(--aevko-muted, #71717a);\n  cursor: pointer;\n  font: 650 0.875rem/1 var(--aevko-font-sans, sans-serif);\n  min-height: 2.5rem;\n  padding-inline: 0.75rem;\n}\n:host([data-state='active']) {\n  border-color: var(--aevko-foreground, #09090b);\n  color: var(--aevko-foreground, #09090b);\n}\n:host:focus-visible {\n  outline: 2px solid var(--aevko-focus, #a1a1aa);\n  outline-offset: 1px;\n}\n:host:disabled {\n  cursor: not-allowed;\n  opacity: 0.5;\n}\n"
+    },
+    {
+      "target": "tabs/tabs-content.component.css",
+      "content": ":host {\n  display: block;\n  min-width: 0;\n}\n:host:focus-visible {\n  outline: 2px solid var(--aevko-focus, #a1a1aa);\n  outline-offset: 2px;\n}\n:host[hidden] {\n  display: none;\n}\n"
+    },
+    {
+      "target": "tabs/index.ts",
+      "content": "export * from './tabs.component';\n"
+    }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {},
+  "integrity": "d0502a2e57dab5905f6d6b323b2ea8b9ff5f6a171a8411d4254e65bd2370a848"
+}

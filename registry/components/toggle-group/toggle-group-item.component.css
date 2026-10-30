@@ -1,0 +1,30 @@
+:host {
+  align-items: center;
+  background: transparent;
+  border: 1px solid var(--aevko-border, #e4e4e7);
+  border-radius: var(--aevko-radius, 0);
+  color: var(--aevko-foreground, #09090b);
+  cursor: pointer;
+  display: inline-flex;
+  font: 650 0.875rem/1 var(--aevko-font-sans, sans-serif);
+  justify-content: center;
+  min-height: 2.5rem;
+  min-width: 2.5rem;
+  padding-inline: 0.75rem;
+}
+:host([data-state='on']) {
+  background: var(--aevko-foreground, #09090b);
+  color: var(--aevko-background, #fff);
+}
+:host(:hover:not(:disabled)) {
+  background: var(--aevko-surface, #f4f4f5);
+  color: var(--aevko-foreground, #09090b);
+}
+:host(:focus-visible) {
+  outline: 2px solid var(--aevko-focus, #a1a1aa);
+  outline-offset: 2px;
+}
+:host(:disabled) {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
