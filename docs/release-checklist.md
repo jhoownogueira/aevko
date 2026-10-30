@@ -28,6 +28,8 @@ a release or changing external infrastructure.
       runs the packaged binary, installs Button and completes a production build.
 - [x] The GitHub Pages artifact contains the prerendered documentation, generated
       registry, SPA fallback, license and `.nojekyll` marker.
+- [x] `aevko-ui@0.1.0` is publicly installable and exposes both documented CLI
+      binaries.
 
 ## Dependencies, licenses and assets
 
@@ -48,9 +50,9 @@ a release or changing external infrastructure.
 - [x] Release builds validate the versioned documentation assets and never
       reconstruct them.
 
-## Release hold
+## Future releases
 
-No publish or release action is authorized. Before a future release, confirm the
-brand-asset provenance item above, choose a version, review generated artifacts,
-recheck the upstream Angular peer mismatch, run CI from a clean checkout and
-obtain explicit publication authorization.
+Release Please prepares version and changelog pull requests. Merging one is the
+explicit authorization to create its GitHub Release and publish the verified npm
+artifact through Trusted Publishing. Manual package publication and long-lived
+npm tokens are not part of the maintained release path.

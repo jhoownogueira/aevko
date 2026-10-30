@@ -1,0 +1,12 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "bootstrap-sha": "fc5a37e54f5dc8f1ff05dc409c6bcf58c26184c8",
+  "packages": {
+    "packages/cli": {
+      "release-type": "node",
+      "package-name": "aevko-ui",
+      "include-component-in-tag": false,
+      "changelog-path": "CHANGELOG.md"
+    }
+  }
+}

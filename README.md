@@ -142,6 +142,7 @@ one-time repository and DNS setup.
 - [`docs/architecture.md`](docs/architecture.md)
 - [`docs/component-status.md`](docs/component-status.md)
 - [`docs/release-checklist.md`](docs/release-checklist.md)
+- [`docs/releasing.md`](docs/releasing.md)
 - [`docs/deployment.md`](docs/deployment.md)
 - [`docs/agent-guide.md`](docs/agent-guide.md)
 - [`AGENTS.md`](AGENTS.md)

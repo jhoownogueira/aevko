@@ -70,6 +70,8 @@ CLI. Use `aevko-verification` before status or release-readiness claims.
   repository.
 - Prefer npm Trusted Publishing with GitHub OIDC for releases after the first
   package version exists.
+- `.github/workflows/release.yml` owns version pull requests, GitHub Releases and
+  OIDC publication. Do not bypass it with manual tags or duplicate workflows.
 - The GitHub Pages artifact serves the generated registry at `/registry`.
 - Treat `public-registry` and npm package contents as public data.
 
