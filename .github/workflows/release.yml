@@ -5,6 +5,11 @@ on:
     workflows: [CI]
     types: [completed]
   workflow_dispatch:
+    inputs:
+      tag:
+        description: Existing release tag to publish after a recoverable failure
+        required: false
+        type: string
 
 jobs:
   release:
@@ -18,11 +23,12 @@ jobs:
       pull-requests: write
     runs-on: ubuntu-latest
     outputs:
-      created: ${{ steps.release.outputs['packages/cli--release_created'] }}
-      tag: ${{ steps.release.outputs['packages/cli--tag_name'] }}
+      created: ${{ steps.release.outputs['packages/cli--release_created'] || (github.event_name == 'workflow_dispatch' && inputs.tag != '') }}
+      tag: ${{ steps.release.outputs['packages/cli--tag_name'] || inputs.tag }}
     steps:
       - name: Create or update release pull request
         id: release
+        if: inputs.tag == ''
         uses: googleapis/release-please-action@v4
         with:
           config-file: release-please-config.json
@@ -52,7 +58,6 @@ jobs:
         run: npm install --global npm@latest
       - run: npm --version
       - run: pnpm install --frozen-lockfile
-      - run: pnpm format:check
       - run: pnpm test
       - run: pnpm build
       - run: pnpm test:package

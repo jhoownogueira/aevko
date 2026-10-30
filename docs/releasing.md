@@ -62,6 +62,11 @@ npm view aevko-ui dist-tags --prefer-online
 npx --yes aevko-ui@latest --help
 ```
 
+If a GitHub Release exists but publishing failed before `npm publish`, run the
+**Release** workflow manually and provide the existing tag, such as `v0.1.1`.
+The recovery path checks out that immutable tag and repeats the test, build,
+package smoke and OIDC publish steps without recreating the release.
+
 If the npm publisher configuration is created but does not complete a successful
 publish within two days, delete the expired publisher and create it again before
 merging the next release pull request.

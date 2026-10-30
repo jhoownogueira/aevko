@@ -7,3 +7,4 @@ tmp
 layout
 instrucoes.md
 pnpm-lock.yaml
+packages/cli/CHANGELOG.md
