@@ -21,6 +21,14 @@
       "source": "components/field/field-error.directive.css",
       "target": "field/field-error.directive.css"
     },
+    {
+      "source": "components/field/field-content.component.css",
+      "target": "field/field-content.component.css"
+    },
+    {
+      "source": "components/field/field-group.component.css",
+      "target": "field/field-group.component.css"
+    },
     { "source": "components/field/index.ts", "target": "field/index.ts" }
   ],
   "registryDependencies": [],

@@ -9,7 +9,7 @@
 }
 :host([aria-current='page']) .item {
   color: var(--aevko-foreground, #09090b);
-  font-weight: 650;
+  font-weight: 500;
 }
 .separator {
   color: var(--aevko-muted, #71717a);

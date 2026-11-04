@@ -2,7 +2,7 @@
   class="mobile-trigger"
   type="button"
   [attr.aria-expanded]="open()"
-  aria-controls="aevko-sidebar-panel"
+  [attr.aria-controls]="id()"
   (click)="open.update((value) => !value)"
 >
   <span class="control-icon" aria-hidden="true">
@@ -17,13 +17,14 @@
   <button class="backdrop" type="button" aria-label="Close navigation" (click)="close()"></button>
 }
 <aside
-  id="aevko-sidebar-panel"
+  [id]="id()"
   [class.open]="open()"
   [class.collapsed]="collapsed()"
   [attr.aria-label]="label()"
 >
   <div class="header">
-    <ng-content select="[aevkoSidebarHeader]" /><button
+    <div class="header-content"><ng-content select="[aevkoSidebarHeader]" /></div>
+    <button
       class="collapse"
       type="button"
       [attr.aria-expanded]="!collapsed()"
@@ -47,6 +48,6 @@
       }
     </button>
   </div>
-  <nav [attr.aria-label]="label()" (click)="closeOnNavigate() && close()"><ng-content /></nav>
+  <nav [attr.aria-label]="label()" (click)="navigate($event)"><ng-content /></nav>
   <div class="footer"><ng-content select="[aevkoSidebarFooter]" /></div>
 </aside>

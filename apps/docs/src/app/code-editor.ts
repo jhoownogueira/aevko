@@ -1,3 +1,4 @@
+import { copyDocumentationText } from './clipboard';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -129,6 +130,7 @@ function loadMonaco(): Promise<typeof MonacoApi> {
           </button>
         </div>
       </header>
+      <span class="sr-only" role="status">{{ copyStatus() }}</span>
       <div #container class="monaco-host" [style.height.px]="height()"></div>
       @if (!ready()) {
         <pre tabindex="0"><code>{{ displayedValue() }}</code></pre>
@@ -237,6 +239,7 @@ export class CodeEditor {
   private monaco?: typeof MonacoApi;
   private themeObserver?: MutationObserver;
   private resizeObserver?: ResizeObserver;
+  protected readonly copyStatus = signal('');
   private copyReset?: ReturnType<typeof setTimeout>;
 
   readonly value = input.required<string>();
@@ -323,8 +326,11 @@ export class CodeEditor {
   }
 
   protected async copy(): Promise<void> {
-    await navigator.clipboard.writeText(this.displayedValue());
-    this.copied.set(true);
+    const success = await copyDocumentationText(this.displayedValue());
+    this.copied.set(success);
+    this.copyStatus.set(
+      success ? 'Code copied.' : 'Unable to copy. Select the code and copy it manually.',
+    );
     if (this.copyReset) clearTimeout(this.copyReset);
     this.copyReset = setTimeout(() => this.copied.set(false), 1600);
   }

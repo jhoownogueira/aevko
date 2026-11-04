@@ -18,11 +18,21 @@
     "registry:check": "pnpm --filter @aevko/registry check",
     "test": "pnpm registry:check && node tests/integration/icon-boundary.mjs && pnpm --filter aevko-ui test && pnpm --filter @aevko/docs test --watch=false",
     "test:consumer": "pnpm build:packages && node tests/integration/consumer-smoke.mjs",
-    "test:package": "pnpm build:packages && node tests/integration/package-smoke.mjs"
+    "test:blocks": "pnpm build:packages && node tests/integration/block-consumer-smoke.mjs",
+    "test:package": "pnpm build:packages && node tests/integration/package-smoke.mjs",
+    "test:browser": "node tests/browser/components.mjs && node tests/browser/navigation.mjs",
+    "test:docs-controls": "node tests/browser/accordion-documentation.mjs && node tests/browser/documentation-controls.mjs",
+    "test:examples": "node tests/browser/component-examples.mjs && node tests/browser/example-interactions.mjs && node tests/browser/example-source.mjs",
+    "test:charts": "node tests/browser/charts.mjs",
+    "test:release-pages": "node tests/browser/release-review.mjs",
+    "test:release-actions": "node tests/browser/release-actions.mjs",
+    "docs:preview": "node scripts/serve-preview.mjs"
   },
   "devDependencies": {
     "@angular/forms": "^22.2.0",
     "@types/node": "^24.10.0",
+    "chart.js": "^4.6.1",
+    "playwright": "^1.64.1",
     "prettier": "^3.6.2",
     "typescript": "~6.0.2",
     "vitest": "^4.0.4"

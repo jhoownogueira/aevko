@@ -9,7 +9,7 @@
   "files": [
     {
       "target": "skeleton/skeleton.component.ts",
-      "content": "import { ChangeDetectionStrategy, Component } from '@angular/core';\n\n@Component({\n  selector: 'aevko-skeleton',\n  standalone: true,\n  template: '',\n  styleUrl: './skeleton.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: { 'aria-hidden': 'true' },\n})\nexport class AevkoSkeleton {}\n"
+      "content": "import { ChangeDetectionStrategy, Component } from '@angular/core';\n\n@Component({\n  selector: 'aevko-skeleton',\n  standalone: true,\n  template: '',\n  styleUrl: './skeleton.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: { 'aria-hidden': 'true', 'data-slot': 'skeleton' },\n})\nexport class AevkoSkeleton {}\n"
     },
     {
       "target": "skeleton/skeleton.component.css",
@@ -22,5 +22,5 @@
   ],
   "registryDependencies": [],
   "npmDependencies": {},
-  "integrity": "1849f0f07ea137fd2341bb6f7d0905363e9a041dd2b77ae1f5b26deab2e98526"
+  "integrity": "acb1231aafde5fef09dd60a56085f9b3b1ed8a95b9d6833af016ede52b9a8ac2"
 }

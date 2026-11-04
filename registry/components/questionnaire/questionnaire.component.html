@@ -1,14 +1,16 @@
-<section [attr.aria-label]="label()">
+<section data-slot="questionnaire-content" [attr.aria-label]="label()">
   @if (current(); as item) {
-    <p class="progress">Question {{ active() + 1 }} of {{ enabled().length }}</p>
-    <fieldset>
+    <p class="progress" data-slot="questionnaire-progress">
+      Question {{ active() + 1 }} of {{ enabled().length }}
+    </p>
+    <fieldset data-slot="questionnaire-fieldset" [disabled]="isDisabled()">
       <legend>{{ item.prompt }}</legend>
       @if (item.description) {
         <p>{{ item.description }}</p>
       }
       <div class="choices">
         @for (choice of item.choices ?? []; track choice.value) {
-          <label
+          <label data-slot="questionnaire-choice"
             ><input
               [type]="item.multiple ? 'checkbox' : 'radio'"
               [name]="item.name"
@@ -38,15 +40,19 @@
         }
       </div>
       @if (error()) {
-        <p class="error" role="alert">{{ error() }}</p>
+        <p class="error" data-slot="questionnaire-error" role="alert">{{ error() }}</p>
       }
     </fieldset>
-    <div class="actions">
-      <button type="button" [disabled]="active() === 0" (click)="previous()">Previous</button>
+    <div class="actions" data-slot="questionnaire-actions">
+      <button type="button" [disabled]="isDisabled() || active() === 0" (click)="previous()">
+        Previous
+      </button>
       @if (item.skippable) {
-        <button type="button" (click)="skip()">Skip</button>
+        <button type="button" [disabled]="isDisabled()" (click)="skip()">Skip</button>
       }
-      <button type="button" (click)="next()">{{ last() ? 'Submit' : 'Next' }}</button>
+      <button type="button" [disabled]="isDisabled()" (click)="next()">
+        {{ last() ? 'Submit' : 'Next' }}
+      </button>
     </div>
   }
 </section>

@@ -1,2 +1,10 @@
 <ng-content select="[aevkoTooltipTrigger]" />
-<span [id]="id()" role="tooltip" [hidden]="!open()" [attr.data-side]="side()"><ng-content /></span>
+<span
+  data-slot="tooltip-content"
+  aevkoFloating
+  [id]="id()"
+  role="tooltip"
+  [hidden]="!open()"
+  [attr.data-side]="side()"
+  ><ng-content
+/></span>

@@ -1,4 +1,18 @@
 :host {
   display: grid;
   gap: 0.375rem;
+  width: 100%;
+}
+:host([data-orientation='horizontal']) {
+  align-items: start;
+  grid-template-columns: minmax(8rem, 0.45fr) minmax(0, 1fr);
+}
+:host([data-orientation='responsive']) {
+  grid-template-columns: 1fr;
+}
+@media (min-width: 40rem) {
+  :host([data-orientation='responsive']) {
+    align-items: start;
+    grid-template-columns: minmax(8rem, 0.45fr) minmax(0, 1fr);
+  }
 }

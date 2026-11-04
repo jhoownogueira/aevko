@@ -9,11 +9,11 @@
   "files": [
     {
       "target": "badge/badge.component.ts",
-      "content": "import { ChangeDetectionStrategy, Component, input } from '@angular/core';\n\nexport type AevkoBadgeVariant = 'default' | 'outline' | 'muted' | 'danger';\n\n@Component({\n  selector: 'aevko-badge',\n  standalone: true,\n  template: '<span class=\"icon\"><ng-content select=\"[aevkoBadgeIcon]\" /></span><ng-content />',\n  styleUrl: './badge.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: { '[attr.data-variant]': 'variant()' },\n})\nexport class AevkoBadge {\n  readonly variant = input<AevkoBadgeVariant>('default');\n}\n"
+      "content": "import { ChangeDetectionStrategy, Component, input } from '@angular/core';\n\nexport type AevkoBadgeVariant =\n  'default' | 'secondary' | 'outline' | 'muted' | 'danger' | 'destructive' | 'ghost' | 'link';\n\n@Component({\n  selector: 'aevko-badge, a[aevkoBadge]',\n  standalone: true,\n  template: '<span class=\"icon\"><ng-content select=\"[aevkoBadgeIcon]\" /></span><ng-content />',\n  styleUrl: './badge.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: { 'data-slot': 'badge', '[attr.data-variant]': 'variant()' },\n})\nexport class AevkoBadge {\n  readonly variant = input<AevkoBadgeVariant>('default');\n}\n"
     },
     {
       "target": "badge/badge.component.css",
-      "content": ":host {\n  align-items: center;\n  background: var(--aevko-foreground, #09090b);\n  border: 1px solid transparent;\n  border-radius: var(--aevko-radius, 0);\n  color: var(--aevko-background, #fff);\n  display: inline-flex;\n  font: 650 0.75rem/1 var(--aevko-font-sans, sans-serif);\n  gap: 0.3rem;\n  min-height: 1.5rem;\n  padding-inline: 0.5rem;\n  width: fit-content;\n}\n:host([data-variant='outline']) {\n  background: transparent;\n  border-color: var(--aevko-border, #e4e4e7);\n  color: var(--aevko-foreground, #09090b);\n}\n:host([data-variant='muted']) {\n  background: var(--aevko-surface, #f4f4f5);\n  color: var(--aevko-foreground, #09090b);\n}\n:host([data-variant='danger']) {\n  background: var(--aevko-danger, #3f3f3f);\n  color: var(--aevko-danger-foreground, #fff);\n}\n.icon {\n  align-items: center;\n  color: currentcolor;\n  display: inline-flex;\n  line-height: 0;\n}\n.icon:empty {\n  display: none;\n}\n"
+      "content": ":host {\n  align-items: center;\n  background: var(--aevko-foreground, #09090b);\n  border: 1px solid transparent;\n  border-radius: var(--aevko-radius, 0);\n  color: var(--aevko-background, #fff);\n  display: inline-flex;\n  font: 500 0.75rem/1 var(--aevko-font-sans, sans-serif);\n  gap: 0.3rem;\n  min-height: 1.5rem;\n  padding-inline: 0.5rem;\n  width: fit-content;\n}\n:host([data-variant='outline']) {\n  background: transparent;\n  border-color: var(--aevko-border, #e4e4e7);\n  color: var(--aevko-foreground, #09090b);\n}\n:host([data-variant='muted']) {\n  background: var(--aevko-surface, #f4f4f5);\n  color: var(--aevko-foreground, #09090b);\n}\n:host([data-variant='secondary']) {\n  background: var(--aevko-surface, #f4f4f5);\n  color: var(--aevko-surface-foreground, #09090b);\n}\n:host([data-variant='danger']),\n:host([data-variant='destructive']) {\n  background: var(--aevko-danger, #3f3f3f);\n  color: var(--aevko-danger-foreground, #fff);\n}\n:host([data-variant='ghost']) {\n  background: transparent;\n  color: var(--aevko-foreground, #09090b);\n}\n:host([data-variant='link']) {\n  background: transparent;\n  color: var(--aevko-foreground, #09090b);\n  padding-inline: 0;\n  text-decoration: underline;\n  text-underline-offset: 0.2em;\n}\n.icon {\n  align-items: center;\n  color: currentcolor;\n  display: inline-flex;\n  line-height: 0;\n}\n.icon:empty {\n  display: none;\n}\n"
     },
     {
       "target": "badge/index.ts",
@@ -22,5 +22,5 @@
   ],
   "registryDependencies": [],
   "npmDependencies": {},
-  "integrity": "cec8e25cb3a8598aaa53fbf96db3469b82d50fe31da4a6ae6116b3d48fca8f58"
+  "integrity": "8e83d7eaa21c50372b238e1bdcec87ff449847e9ebc91f926b0d1810f4e364d9"
 }

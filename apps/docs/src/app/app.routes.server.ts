@@ -12,6 +12,7 @@ export const serverRoutes: ServerRoute[] = [
         'button-group',
         'toggle',
         'badge',
+        'kbd',
         'alert',
         'progress',
         'spinner',

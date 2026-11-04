@@ -4,7 +4,7 @@ Aevko UI is a source-owned Angular component system. The CLI copies accessible,
 editable component source into an application instead of adding a UI runtime that
 the application must keep forever.
 
-- 64 documented Angular components
+- 65 documented Angular components and 27 editable application blocks
 - Angular 22, standalone APIs and strict TypeScript
 - Tailwind CSS 4 initialization with semantic CSS variables
 - Light, dark and RTL behavior
@@ -22,6 +22,7 @@ From an Angular 22 standalone application:
 ```sh
 npx aevko-ui@latest init --yes
 npx aevko-ui@latest add button --yes
+npx aevko-ui@latest add dashboard-01 --yes
 ```
 
 Import the generated source from your application:
@@ -53,7 +54,7 @@ passes.
 | `npx aevko-ui@latest init --yes`             | Create `aevko.json` and merge theme tooling. |
 | `npx aevko-ui@latest add button --yes`       | Install one component and dependencies.      |
 | `npx aevko-ui@latest add button card --yes`  | Install several components.                  |
-| `npx aevko-ui@latest list`                   | List registry components.                    |
+| `npx aevko-ui@latest list`                   | List registry components and blocks.         |
 | `npx aevko-ui@latest diff button`            | Compare installed and canonical source.      |
 | `npx aevko-ui@latest add button --dry-run`   | Preview changes without writing.             |
 | `npx aevko-ui@latest add button --overwrite` | Explicitly replace conflicting files.        |
@@ -81,6 +82,7 @@ packages/cli              Published aevko-ui CLI
 packages/registry         Registry validation and generation
 registry/components       Canonical installable Angular source
 registry/manifest         Component files and dependency metadata
+registry/block-manifest   Composed block files and dependency metadata
 public-registry           Generated HTTP registry
 tests/integration         Clean Angular consumer and package tests
 docs                      Architecture, ADRs, status and release guidance
@@ -118,11 +120,29 @@ This command runs `npm pack`, checks the tarball allowlist, installs it in a cle
 Angular 22 application, initializes Aevko, installs Button and performs a
 production build.
 
-Run all 64 isolated component consumers with:
+Run all 65 isolated component consumers with:
 
 ```sh
 pnpm test:consumer
 ```
+
+Run all 27 isolated block consumers with:
+
+```sh
+pnpm test:blocks
+```
+
+## Charts and live blocks
+
+The `/charts` gallery includes 12 interactive Chart.js examples with complete
+Angular source. Install `chart` to use `AevkoChartCanvas`, its keyboard-operable
+legend and automatically generated data table. Chart.js is loaded on demand in
+the browser and stays out of the SSR rendering path.
+
+The `/blocks` gallery previews all 27 canonical compositions with desktop,
+tablet and mobile widths, installation commands and complete source. The
+`dashboard-01` block includes Chart.js analytics, period selection, project
+search/creation and CSV export. See [Charts and blocks](docs/charts-and-blocks.md).
 
 ## Documentation deployment
 
@@ -142,7 +162,9 @@ one-time repository and DNS setup.
 - [`docs/architecture.md`](docs/architecture.md)
 - [`docs/component-status.md`](docs/component-status.md)
 - [`docs/release-checklist.md`](docs/release-checklist.md)
+- [`docs/version-1.0.md`](docs/version-1.0.md)
 - [`docs/releasing.md`](docs/releasing.md)
+- [`THIRD_PARTY_NOTICES.md`](THIRD_PARTY_NOTICES.md)
 - [`docs/deployment.md`](docs/deployment.md)
 - [`docs/agent-guide.md`](docs/agent-guide.md)
 - [`AGENTS.md`](AGENTS.md)

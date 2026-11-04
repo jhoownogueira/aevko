@@ -13,6 +13,7 @@ export interface AevkoAccordionItem {
   templateUrl: './accordion.component.html',
   styleUrl: './accordion.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { 'data-slot': 'accordion' },
 })
 export class AevkoAccordion {
   readonly items = input.required<readonly AevkoAccordionItem[]>();
@@ -21,6 +22,7 @@ export class AevkoAccordion {
   readonly collapsible = input(true, { transform: booleanAttribute });
   readonly disabled = input(false, { transform: booleanAttribute });
   readonly id = input('aevko-accordion');
+  readonly label = input('');
   readonly headingLevel = input<2 | 3 | 4 | 5 | 6>(2);
 
   protected expanded(item: AevkoAccordionItem): boolean {

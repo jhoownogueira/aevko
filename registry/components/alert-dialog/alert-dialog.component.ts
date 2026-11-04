@@ -8,7 +8,7 @@ import { AevkoDialog, AevkoDialogBase } from '../dialog';
   templateUrl: './alert-dialog.component.html',
   styleUrl: './alert-dialog.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { '(click)': 'handleClick($event)' },
+  host: { 'data-slot': 'alert-dialog-root', '(click)': 'handleClick($event)' },
 })
 export class AevkoAlertDialog extends AevkoDialogBase {
   constructor() {

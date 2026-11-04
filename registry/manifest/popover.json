@@ -19,7 +19,14 @@
       "source": "components/popover/popover.component.css",
       "target": "popover/popover.component.css"
     },
-    { "source": "components/popover/index.ts", "target": "popover/index.ts" }
+    {
+      "source": "components/popover/index.ts",
+      "target": "popover/index.ts"
+    },
+    {
+      "source": "components/shared/floating.directive.ts",
+      "target": "shared/floating.directive.ts"
+    }
   ],
   "registryDependencies": [],
   "npmDependencies": {}

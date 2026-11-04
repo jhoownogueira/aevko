@@ -1,0 +1,48 @@
+<section class="auth-shell centered" data-slot="login-01-block">
+  <div class="auth-panel">
+    <div class="auth-card">
+      <p class="auth-brand">Aevko.</p>
+      <h1>Welcome back</h1>
+      <p class="auth-intro">Sign in to continue to your workspace.</p>
+      <form (submit)="submit($event)">
+        <div class="auth-field">
+          <label aevkoLabel for="login-01-email">Email</label
+          ><input
+            aevkoInput
+            id="login-01-email"
+            name="email"
+            type="email"
+            autocomplete="email"
+            required
+          />
+        </div>
+        <div class="auth-field">
+          <label aevkoLabel for="login-01-password">Password</label
+          ><input
+            aevkoInput
+            id="login-01-password"
+            name="password"
+            type="password"
+            autocomplete="current-password"
+            required
+          />
+        </div>
+        <div class="auth-row">
+          <label class="auth-check"
+            ><input aevkoCheckbox type="checkbox" name="remember" /> <span>Remember me</span></label
+          >
+          @if (recoveryUrl()) {
+            <a [href]="recoveryUrl()">Forgot password?</a>
+          }
+        </div>
+        <button aevkoButton type="submit">Sign in</button>
+      </form>
+      <p role="status">{{ status() }}</p>
+      <p class="auth-meta">Form preview. Authentication is not connected.</p>
+      @if (alternateUrl()) {
+        <p class="auth-meta">New to Aevko? <a [href]="alternateUrl()">Create one</a></p>
+      }
+    </div>
+  </div>
+</section>
+<!-- Editable Aevko block source. -->

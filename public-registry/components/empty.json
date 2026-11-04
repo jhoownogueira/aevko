@@ -9,7 +9,7 @@
   "files": [
     {
       "target": "empty/empty.component.ts",
-      "content": "import { ChangeDetectionStrategy, Component } from '@angular/core';\n\n@Component({\n  selector: 'aevko-empty',\n  standalone: true,\n  templateUrl: './empty.component.html',\n  styleUrl: './empty.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class AevkoEmpty {}\n"
+      "content": "import { ChangeDetectionStrategy, Component } from '@angular/core';\n\n@Component({\n  selector: 'aevko-empty',\n  standalone: true,\n  templateUrl: './empty.component.html',\n  styleUrl: './empty.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: { 'data-slot': 'empty' },\n})\nexport class AevkoEmpty {}\n"
     },
     {
       "target": "empty/empty.component.html",
@@ -17,7 +17,7 @@
     },
     {
       "target": "empty/empty.component.css",
-      "content": ":host {\n  align-items: center;\n  border: 1px dashed var(--aevko-border, #c7c7c7);\n  display: grid;\n  gap: 1rem;\n  justify-items: center;\n  padding: 3rem 1.5rem;\n  text-align: center;\n}\n.icon {\n  color: var(--aevko-accent, #20201e);\n  font-size: 2rem;\n}\n.copy {\n  display: grid;\n  gap: 0.5rem;\n  max-width: 32rem;\n}\n.copy :where([aevkoEmptyTitle]) {\n  font-size: 1.25rem;\n  font-weight: 700;\n}\n.copy :where([aevkoEmptyDescription]) {\n  color: var(--aevko-muted, #5f5f5f);\n  line-height: 1.5;\n}\n.action {\n  display: flex;\n  gap: 0.75rem;\n}\n"
+      "content": ":host {\n  align-items: center;\n  border: 1px dashed var(--aevko-border, #e4e4e7);\n  display: grid;\n  gap: 1rem;\n  justify-items: center;\n  padding: 3rem 1.5rem;\n  text-align: center;\n}\n.icon {\n  color: var(--aevko-accent, #20201e);\n  font-size: 2rem;\n}\n.copy {\n  display: grid;\n  gap: 0.5rem;\n  max-width: 32rem;\n}\n.copy :where([aevkoEmptyTitle]) {\n  font-size: 1.25rem;\n  font-weight: 600;\n}\n.copy :where([aevkoEmptyDescription]) {\n  color: var(--aevko-muted, #5f5f5f);\n  line-height: 1.5;\n}\n.action {\n  display: flex;\n  gap: 0.75rem;\n}\n"
     },
     {
       "target": "empty/index.ts",
@@ -26,5 +26,5 @@
   ],
   "registryDependencies": [],
   "npmDependencies": {},
-  "integrity": "f012ee9a00a7a1a1256ef7c7f8ff8f95cbaa94a627dcdff76a5535a44dd6ea22"
+  "integrity": "bc6fe92cd3d9cedd5edd6dc12fc79f760ce611e3cf67fa16f5fa7492dcd6f26d"
 }

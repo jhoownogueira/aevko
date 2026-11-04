@@ -8,6 +8,7 @@ import { ChangeDetectionStrategy, Component, booleanAttribute, input } from '@an
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     role: 'switch',
+    'data-slot': 'switch',
     '[attr.aria-invalid]': 'invalid() ? "true" : null',
     '[attr.data-invalid]': 'invalid() ? "true" : null',
     '[attr.data-size]': 'size()',

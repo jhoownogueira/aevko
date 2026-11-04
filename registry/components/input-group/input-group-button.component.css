@@ -4,9 +4,30 @@
   border: 0;
   color: inherit;
   cursor: pointer;
-  font: 650 0.8125rem/1 var(--aevko-font-sans, sans-serif);
+  font: 500 0.8125rem/1 var(--aevko-font-sans, sans-serif);
   min-height: 2rem;
   padding-inline: 0.625rem;
+}
+:host([data-size='sm']) {
+  min-height: 2.25rem;
+  padding-inline: 0.75rem;
+}
+:host([data-size='icon-xs']),
+:host([data-size='icon-sm']) {
+  aspect-ratio: 1;
+  padding: 0;
+}
+:host([data-size='icon-xs']) {
+  min-height: 1.75rem;
+}
+:host([data-size='icon-sm']) {
+  min-height: 2.25rem;
+}
+:host([data-variant='outline']) {
+  border: 1px solid var(--aevko-border-strong, #a1a1aa);
+}
+:host(:hover:not(:disabled)) {
+  background: var(--aevko-surface, #f4f4f5);
 }
 :host:focus-visible {
   outline: 2px solid var(--aevko-focus, #a1a1aa);

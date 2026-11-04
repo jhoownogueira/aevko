@@ -6,6 +6,7 @@ import { ChangeDetectionStrategy, Component, booleanAttribute, input, model } fr
   templateUrl: './collapsible.component.html',
   styleUrl: './collapsible.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { 'data-slot': 'collapsible' },
 })
 export class AevkoCollapsible {
   readonly label = input.required<string>();

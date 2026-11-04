@@ -19,7 +19,14 @@
       "source": "components/combobox/combobox.component.css",
       "target": "combobox/combobox.component.css"
     },
-    { "source": "components/combobox/index.ts", "target": "combobox/index.ts" }
+    {
+      "source": "components/combobox/index.ts",
+      "target": "combobox/index.ts"
+    },
+    {
+      "source": "components/shared/floating.directive.ts",
+      "target": "shared/floating.directive.ts"
+    }
   ],
   "registryDependencies": [],
   "npmDependencies": {}

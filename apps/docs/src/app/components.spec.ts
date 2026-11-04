@@ -79,8 +79,10 @@ import { AevkoSelect } from '../../../../registry/components/select';
 import { AevkoCard, AevkoCardContent, AevkoCardTitle } from '../../../../registry/components/card';
 import {
   AevkoField,
+  AevkoFieldContent,
   AevkoFieldDescription,
   AevkoFieldError,
+  AevkoFieldGroup,
   AevkoFieldLabel,
 } from '../../../../registry/components/field';
 import { AevkoInput } from '../../../../registry/components/input';
@@ -102,7 +104,10 @@ import {
 @Component({
   standalone: true,
   imports: [AevkoButton],
-  template: '<button aevkoButton [loading]="loading" (click)="clicks += 1">Save</button>',
+  template: `
+    <button aevkoButton [loading]="loading" (click)="clicks += 1">Save</button>
+    <button aevkoButton variant="secondary" size="icon" aria-label="Duplicate">+</button>
+  `,
 })
 class ButtonHost {
   loading = false;
@@ -139,8 +144,10 @@ class CompositionHost {}
   standalone: true,
   imports: [
     AevkoField,
+    AevkoFieldContent,
     AevkoFieldDescription,
     AevkoFieldError,
+    AevkoFieldGroup,
     AevkoFieldLabel,
     AevkoInput,
     AevkoLabel,
@@ -149,18 +156,22 @@ class CompositionHost {}
     ReactiveFormsModule,
   ],
   template: `
-    <aevko-field [invalid]="invalid">
-      <label aevkoFieldLabel for="name">Name</label>
-      <input
-        aevkoInput
-        id="name"
-        [formControl]="name"
-        [invalid]="invalid"
-        aria-describedby="name-help name-error"
-      />
-      <span aevkoFieldDescription id="name-help">Public display name.</span>
-      <span aevkoFieldError id="name-error">Name is required.</span>
-    </aevko-field>
+    <aevko-field-group>
+      <aevko-field [invalid]="invalid" orientation="responsive">
+        <label aevkoFieldLabel for="name">Name</label>
+        <aevko-field-content>
+          <input
+            aevkoInput
+            id="name"
+            [formControl]="name"
+            [invalid]="invalid"
+            aria-describedby="name-help name-error"
+          />
+          <span aevkoFieldDescription id="name-help">Public display name.</span>
+          <span aevkoFieldError id="name-error">Name is required.</span>
+        </aevko-field-content>
+      </aevko-field>
+    </aevko-field-group>
     <label aevkoLabel for="role">Role</label>
     <select aevkoNativeSelect id="role">
       <option>Designer</option>
@@ -217,13 +228,16 @@ class TableHost {}
     AevkoSkeleton,
     AevkoSpinner,
     AevkoToggle,
+    ReactiveFormsModule,
   ],
   template: `
     <aevko-button-group label="Text alignment">
       <button aevkoButton>Left</button><button aevkoButton>Right</button>
     </aevko-button-group>
     <button aevkoToggle aria-label="Bold" [(pressed)]="pressed">Bold</button>
+    <button aevkoToggle aria-label="Italic" [formControl]="italic">Italic</button>
     <aevko-badge variant="muted">Ready</aevko-badge>
+    <a aevkoBadge variant="link" href="#details">Details</a>
     <aevko-alert live="assertive">
       <strong aevkoAlertTitle>Connection lost</strong>
       <span aevkoAlertDescription>Try again.</span>
@@ -235,6 +249,7 @@ class TableHost {}
 })
 class BasicComponentsHost {
   pressed = false;
+  italic = new FormControl(false, { nonNullable: true });
 }
 
 @Component({
@@ -497,37 +512,53 @@ class OverlayComponentsHost {}
     AevkoNavigationMenu,
   ],
   template: `
-    <aevko-command label="Commands" [items]="items" />
+    <aevko-command id="commands" label="Commands" [items]="items" />
     <aevko-dropdown-menu label="Actions"
-      ><button aevkoDropdownMenuTrigger>Open</button
-      ><button aevkoDropdownMenuItem>Profile</button></aevko-dropdown-menu
+      ><button aevkoDropdownMenuTrigger>Open</button><button aevkoDropdownMenuItem>Profile</button
+      ><button aevkoDropdownMenuItem [disabled]="true">Billing</button></aevko-dropdown-menu
     >
     <aevko-context-menu label="Canvas"
       ><div aevkoContextMenuTrigger>Canvas</div>
       <button aevkoContextMenuItem>Duplicate</button></aevko-context-menu
     >
     <aevko-menubar label="Application"
-      ><button aevkoMenubarItem>File</button><button aevkoMenubarItem>Edit</button></aevko-menubar
+      ><button aevkoMenubarItem>File</button><button aevkoMenubarItem>Edit</button
+      ><button aevkoMenubarItem [disabled]="true">Admin</button></aevko-menubar
     >
     <aevko-navigation-menu label="Primary"><a href="#docs">Docs</a></aevko-navigation-menu>
   `,
 })
 class MenuComponentsHost {
-  items = [{ id: 'new', label: 'New project' }];
+  items = [
+    { id: 'new', label: 'New project' },
+    { id: 'open', label: 'Open project' },
+  ];
 }
 
 @Component({
   standalone: true,
-  imports: [AevkoCalendar, AevkoCombobox, AevkoDatePicker, AevkoQuestionnaire, AevkoSelect],
+  imports: [
+    AevkoCalendar,
+    AevkoCombobox,
+    AevkoDatePicker,
+    AevkoQuestionnaire,
+    AevkoSelect,
+    ReactiveFormsModule,
+  ],
   template: `
-    <aevko-calendar label="Choose date" month="2026-10" value="2026-10-30" />
-    <aevko-combobox label="Framework" [items]="options" />
-    <aevko-date-picker label="Deployment date" month="2026-10" />
-    <aevko-select label="Theme" [items]="options" />
-    <aevko-questionnaire label="Brief" [items]="questions" />
+    <aevko-calendar label="Choose date" month="2026-10" [formControl]="calendarDate" />
+    <aevko-combobox id="framework" label="Framework" [items]="options" [formControl]="framework" />
+    <aevko-date-picker label="Deployment date" month="2026-10" [formControl]="deploymentDate" />
+    <aevko-select id="theme" label="Theme" [items]="options" [formControl]="theme" />
+    <aevko-questionnaire label="Brief" [items]="questions" [formControl]="answers" />
   `,
 })
 class FinalComponentsHost {
+  calendarDate = new FormControl('2026-10-30', { nonNullable: true });
+  deploymentDate = new FormControl('', { nonNullable: true });
+  answers = new FormControl<Record<string, string | readonly string[]>>({}, { nonNullable: true });
+  framework = new FormControl('', { nonNullable: true });
+  theme = new FormControl('', { nonNullable: true });
   options = [
     { value: 'one', label: 'One' },
     { value: 'two', label: 'Two' },
@@ -540,6 +571,7 @@ describe('Phase 0 canonical components', () => {
     const fixture = TestBed.createComponent(ButtonHost);
     fixture.detectChanges();
     const button = fixture.nativeElement.querySelector('button') as HTMLButtonElement;
+    const iconButton = fixture.nativeElement.querySelectorAll('button')[1] as HTMLButtonElement;
     expect(button.type).toBe('button');
     button.click();
     expect(fixture.componentInstance.clicks).toBe(1);
@@ -547,6 +579,8 @@ describe('Phase 0 canonical components', () => {
     fixture.detectChanges();
     expect(button.disabled).toBe(true);
     expect(button.getAttribute('aria-busy')).toBe('true');
+    expect(iconButton.getAttribute('data-variant')).toBe('secondary');
+    expect(iconButton.getAttribute('data-size')).toBe('icon');
     button.click();
     expect(fixture.componentInstance.clicks).toBe(1);
     expect((await axe.run(fixture.nativeElement)).violations).toEqual([]);
@@ -582,6 +616,11 @@ describe('Phase 0 canonical components', () => {
     fixture.detectChanges();
     expect(input.value).toBe('Studio');
     expect(input.getAttribute('aria-invalid')).toBe('true');
+    expect(input.getAttribute('data-slot')).toBe('input');
+    expect(
+      fixture.nativeElement.querySelector('aevko-field').getAttribute('data-orientation'),
+    ).toBe('responsive');
+    expect(fixture.nativeElement.querySelector('aevko-field-content')).toBeTruthy();
     expect(fixture.nativeElement.querySelector('select').value).toBe('Designer');
     expect(fixture.nativeElement.querySelector('[aevkoFieldError]').getAttribute('aria-live')).toBe(
       'polite',
@@ -610,6 +649,12 @@ describe('Phase 0 canonical components', () => {
     fixture.detectChanges();
     expect(fixture.componentInstance.pressed).toBe(true);
     expect(toggle.getAttribute('aria-pressed')).toBe('true');
+    const formToggle = fixture.nativeElement.querySelector(
+      'button[aria-label="Italic"]',
+    ) as HTMLButtonElement;
+    formToggle.click();
+    fixture.detectChanges();
+    expect(fixture.componentInstance.italic.value).toBe(true);
     expect(fixture.nativeElement.querySelector('aevko-button-group').getAttribute('role')).toBe(
       'group',
     );
@@ -619,6 +664,9 @@ describe('Phase 0 canonical components', () => {
     ).toBe('100');
     expect(fixture.nativeElement.querySelector('aevko-skeleton').getAttribute('aria-hidden')).toBe(
       'true',
+    );
+    expect(fixture.nativeElement.querySelector('a[aevkoBadge]').getAttribute('data-slot')).toBe(
+      'badge',
     );
     expect((await axe.run(fixture.nativeElement)).violations).toEqual([]);
   });
@@ -697,6 +745,12 @@ describe('Phase 0 canonical components', () => {
     expect(otp.autocomplete).toBe('one-time-code');
     const slider = fixture.nativeElement.querySelector('[aevkoSlider]') as HTMLInputElement;
     expect(slider.value).toBe('64');
+    expect(slider.getAttribute('data-slot')).toBe('slider');
+    const addon = fixture.nativeElement.querySelector('aevko-input-group-addon') as HTMLElement;
+    addon.click();
+    expect(document.activeElement).toBe(
+      fixture.nativeElement.querySelector('[aevkoInputGroupControl]'),
+    );
     const scroller = fixture.nativeElement.querySelector('aevko-message-scroller');
     expect(scroller.querySelector('[role="region"]').getAttribute('aria-label')).toBe(
       'Project conversation',
@@ -763,6 +817,32 @@ describe('Phase 0 canonical components', () => {
     expect(trigger.getAttribute('aria-expanded')).toBe('true');
     expect(fixture.nativeElement.querySelector('[role="menu"]')).toBeTruthy();
     expect(
+      (
+        fixture.nativeElement.querySelector(
+          '[data-slot="dropdown-menu-item"][disabled]',
+        ) as HTMLButtonElement
+      ).disabled,
+    ).toBe(true);
+    const commandInput = fixture.nativeElement.querySelector(
+      '[data-slot="command-input"]',
+    ) as HTMLInputElement;
+    commandInput.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' }));
+    fixture.detectChanges();
+    expect(commandInput.getAttribute('aria-activedescendant')).toBe('commands-item-open');
+    const menubarItems = fixture.nativeElement.querySelectorAll('[data-slot="menubar-item"]');
+    expect((menubarItems[0] as HTMLButtonElement).tabIndex).toBe(0);
+    expect((menubarItems[1] as HTMLButtonElement).tabIndex).toBe(-1);
+    const contextTrigger = fixture.nativeElement.querySelector(
+      '[data-slot="context-menu-trigger"]',
+    ) as HTMLElement;
+    contextTrigger.dispatchEvent(
+      new KeyboardEvent('keydown', { key: 'F10', shiftKey: true, bubbles: true }),
+    );
+    fixture.detectChanges();
+    expect(fixture.nativeElement.querySelector('[data-slot="context-menu-content"]').hidden).toBe(
+      false,
+    );
+    expect(
       fixture.nativeElement.querySelector('[role="navigation"]').getAttribute('aria-label'),
     ).toBe('Primary');
     expect((await axe.run(fixture.nativeElement)).violations).toEqual([]);
@@ -774,7 +854,44 @@ describe('Phase 0 canonical components', () => {
     expect(fixture.nativeElement.querySelector('[role="grid"]').getAttribute('aria-label')).toBe(
       'Choose date',
     );
+    const selectedDay = fixture.nativeElement.querySelector(
+      '[data-aevko-date="2026-10-30"]',
+    ) as HTMLButtonElement;
+    selectedDay.focus();
+    selectedDay.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight' }));
+    await fixture.whenStable();
+    fixture.detectChanges();
+    expect(fixture.componentInstance.calendarDate.value).toBe('2026-10-30');
+    const activeDay = fixture.nativeElement.querySelector(
+      '[data-aevko-date="2026-10-31"]',
+    ) as HTMLButtonElement;
+    activeDay.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
+    fixture.detectChanges();
+    expect(fixture.componentInstance.calendarDate.value).toBe('2026-10-31');
     expect(fixture.nativeElement.querySelector('input[role="combobox"]')).toBeTruthy();
+    const combobox = fixture.nativeElement.querySelector(
+      'input[role="combobox"]',
+    ) as HTMLInputElement;
+    combobox.focus();
+    combobox.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowDown' }));
+    combobox.dispatchEvent(new KeyboardEvent('keydown', { key: 'Enter' }));
+    fixture.detectChanges();
+    expect(fixture.componentInstance.framework.value).toBe('two');
+    const selectTrigger = fixture.nativeElement.querySelector(
+      '[data-slot="select-trigger"]',
+    ) as HTMLButtonElement;
+    selectTrigger.click();
+    fixture.detectChanges();
+    (fixture.nativeElement.querySelector('[data-slot="select-item"]') as HTMLElement).click();
+    fixture.detectChanges();
+    expect(fixture.componentInstance.theme.value).toBe('one');
+    expect(selectTrigger.getAttribute('aria-controls')).toBe('theme-list');
+    const questionnaireChoice = fixture.nativeElement.querySelector(
+      '[data-slot="questionnaire-choice"] input',
+    ) as HTMLInputElement;
+    questionnaireChoice.click();
+    fixture.detectChanges();
+    expect(fixture.componentInstance.answers.value).toEqual({ scope: 'one' });
     expect(fixture.nativeElement.querySelector('fieldset legend').textContent).toContain(
       'Choose scope',
     );

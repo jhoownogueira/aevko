@@ -1,4 +1,5 @@
 <input
+  data-slot="input-otp-control"
   [attr.aria-invalid]="invalid() ? 'true' : null"
   [attr.aria-label]="label()"
   [attr.maxlength]="maxLength()"
@@ -10,8 +11,12 @@
   (blur)="touch()"
   (input)="update($event)"
 />
-<div class="slots" aria-hidden="true">
+<div class="slots" data-slot="input-otp-group" aria-hidden="true">
   @for (character of slots(); track $index) {
-    <span [attr.data-active]="$index === value().length ? 'true' : null">{{ character }}</span>
+    <span
+      data-slot="input-otp-slot"
+      [attr.data-active]="$index === value().length ? 'true' : null"
+      >{{ character }}</span
+    >
   }
 </div>

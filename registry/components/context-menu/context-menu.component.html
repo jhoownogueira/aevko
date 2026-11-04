@@ -1,5 +1,6 @@
 <ng-content select="[aevkoContextMenuTrigger]" />
 <div
+  data-slot="context-menu-content"
   role="menu"
   [attr.aria-label]="label()"
   [hidden]="!open()"

@@ -63,4 +63,17 @@ describe('Aevko CLI', () => {
     expect(await run(['add', 'card', '--yes', '--dry-run', '--registry', registry], root)).toBe(0);
     await expect(readFile(path.join(root, 'aevko.json'), 'utf8')).rejects.toThrow();
   });
+
+  it('installs a block with only its declared component dependencies', async () => {
+    const root = await angularFixture();
+    expect(await run(['add', 'login-01', '--yes', '--registry', registry], root)).toBe(0);
+
+    expect(
+      await readFile(path.join(root, 'src/app/ui/blocks/login-01/login-01.component.ts'), 'utf8'),
+    ).toContain('AevkoLogin01Block');
+    await expect(
+      readFile(path.join(root, 'src/app/ui/button/index.ts'), 'utf8'),
+    ).resolves.toContain('button.component');
+    await expect(readFile(path.join(root, 'src/app/ui/card/index.ts'), 'utf8')).rejects.toThrow();
+  });
 });

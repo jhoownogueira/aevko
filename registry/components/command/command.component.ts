@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  booleanAttribute,
   computed,
   input,
   model,
@@ -22,13 +23,19 @@ export interface AevkoCommandItem {
   templateUrl: './command.component.html',
   styleUrl: './command.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: {
+    'data-slot': 'command',
+    '[attr.data-disabled]': 'disabled() ? "true" : null',
+  },
 })
 export class AevkoCommand {
+  readonly id = input('aevko-command');
   readonly label = input('Command menu');
   readonly placeholder = input('Type a command or search…');
   readonly items = input.required<readonly AevkoCommandItem[]>();
   readonly query = model('');
   readonly value = model('');
+  readonly disabled = input(false, { transform: booleanAttribute });
   readonly activated = output<AevkoCommandItem>();
   protected readonly active = signal(0);
   protected readonly filtered = computed(() => {
@@ -43,13 +50,26 @@ export class AevkoCommand {
           .includes(query),
     );
   });
+  protected readonly enabledItems = computed(() =>
+    this.filtered().filter((item) => !item.disabled),
+  );
+  protected readonly activeOption = computed(() => this.enabledItems()[this.active()]);
   protected move(event: KeyboardEvent): void {
-    const items = this.filtered().filter((item) => !item.disabled);
-    if (!items.length) return;
-    if (event.key === 'ArrowDown' || event.key === 'ArrowUp') {
+    if (this.disabled()) {
+      return;
+    }
+    const items = this.enabledItems();
+    if (!items.length) {
+      return;
+    }
+    if (['ArrowDown', 'ArrowUp', 'Home', 'End'].includes(event.key)) {
       event.preventDefault();
-      this.active.update(
-        (index) => (index + (event.key === 'ArrowUp' ? -1 : 1) + items.length) % items.length,
+      this.active.update((index) =>
+        event.key === 'Home'
+          ? 0
+          : event.key === 'End'
+            ? items.length - 1
+            : (index + (event.key === 'ArrowUp' ? -1 : 1) + items.length) % items.length,
       );
     } else if (event.key === 'Enter') {
       event.preventDefault();
@@ -58,7 +78,9 @@ export class AevkoCommand {
     }
   }
   protected select(item: AevkoCommandItem): void {
-    if (item.disabled) return;
+    if (item.disabled || this.disabled()) {
+      return;
+    }
     this.value.set(item.id);
     this.activated.emit(item);
   }

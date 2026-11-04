@@ -9,6 +9,7 @@ export type AevkoItemVariant = 'default' | 'outline' | 'muted';
   styleUrl: './item.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
+    'data-slot': 'item',
     '[attr.data-variant]': 'variant()',
     '[attr.aria-disabled]': 'disabled() ? "true" : null',
   },

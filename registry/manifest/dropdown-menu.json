@@ -19,7 +19,14 @@
       "source": "components/dropdown-menu/dropdown-menu.component.css",
       "target": "dropdown-menu/dropdown-menu.component.css"
     },
-    { "source": "components/dropdown-menu/index.ts", "target": "dropdown-menu/index.ts" }
+    {
+      "source": "components/dropdown-menu/index.ts",
+      "target": "dropdown-menu/index.ts"
+    },
+    {
+      "source": "components/shared/floating.directive.ts",
+      "target": "shared/floating.directive.ts"
+    }
   ],
   "registryDependencies": [],
   "npmDependencies": {}

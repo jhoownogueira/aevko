@@ -9,7 +9,7 @@
   "files": [
     {
       "target": "sheet/sheet.component.ts",
-      "content": "import { ChangeDetectionStrategy, Component } from '@angular/core';\nimport { AevkoDialog, AevkoDialogBase } from '../dialog';\n\n@Component({\n  selector: 'aevko-sheet',\n  standalone: true,\n  imports: [AevkoDialog],\n  templateUrl: './sheet.component.html',\n  styleUrl: './sheet.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: { '(click)': 'handleClick($event)' },\n})\nexport class AevkoSheet extends AevkoDialogBase {\n  constructor() {\n    super('aevkoSheetTrigger', 'aevkoSheetClose');\n  }\n}\n"
+      "content": "import { ChangeDetectionStrategy, Component } from '@angular/core';\nimport { AevkoDialog, AevkoDialogBase } from '../dialog';\n\n@Component({\n  selector: 'aevko-sheet',\n  standalone: true,\n  imports: [AevkoDialog],\n  templateUrl: './sheet.component.html',\n  styleUrl: './sheet.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: { 'data-slot': 'sheet-root', '(click)': 'handleClick($event)' },\n})\nexport class AevkoSheet extends AevkoDialogBase {\n  constructor() {\n    super('aevkoSheetTrigger', 'aevkoSheetClose');\n  }\n}\n"
     },
     {
       "target": "sheet/sheet.component.html",
@@ -28,5 +28,5 @@
     "dialog"
   ],
   "npmDependencies": {},
-  "integrity": "428af9554573748b6bb4b8aa3e4b27de41b9bbceb116d01a6e4ec8944ed51643"
+  "integrity": "910147d11172d92df778da9958f0a68da9c4391ddb9ffbe1ec012583d473e2c5"
 }

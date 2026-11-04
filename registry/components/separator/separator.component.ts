@@ -9,6 +9,7 @@ export type AevkoSeparatorOrientation = 'horizontal' | 'vertical';
   styleUrl: './separator.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
+    'data-slot': 'separator',
     '[attr.role]': 'decorative() ? "none" : "separator"',
     '[attr.aria-orientation]': 'decorative() ? null : orientation()',
     '[attr.data-orientation]': 'orientation()',

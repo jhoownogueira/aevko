@@ -9,7 +9,7 @@
   "files": [
     {
       "target": "pagination/pagination.component.ts",
-      "content": "import { ChangeDetectionStrategy, Component, computed, input, model } from '@angular/core';\n\n@Component({\n  selector: 'aevko-pagination',\n  standalone: true,\n  templateUrl: './pagination.component.html',\n  styleUrl: './pagination.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: { role: 'navigation', '[attr.aria-label]': 'label()' },\n})\nexport class AevkoPagination {\n  readonly page = model(1);\n  readonly totalPages = input.required<number>();\n  readonly label = input('Pagination');\n  protected readonly pages = computed(() =>\n    Array.from({ length: Math.max(0, this.totalPages()) }, (_, index) => index + 1),\n  );\n  protected select(page: number): void {\n    this.page.set(Math.min(Math.max(page, 1), Math.max(this.totalPages(), 1)));\n  }\n}\n"
+      "content": "import { ChangeDetectionStrategy, Component, computed, input, model } from '@angular/core';\n\n@Component({\n  selector: 'aevko-pagination',\n  standalone: true,\n  templateUrl: './pagination.component.html',\n  styleUrl: './pagination.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: { role: 'navigation', 'data-slot': 'pagination', '[attr.aria-label]': 'label()' },\n})\nexport class AevkoPagination {\n  readonly page = model(1);\n  readonly totalPages = input.required<number>();\n  readonly label = input('Pagination');\n  protected readonly pages = computed(() =>\n    Array.from({ length: Math.max(0, this.totalPages()) }, (_, index) => index + 1),\n  );\n  protected select(page: number): void {\n    this.page.set(Math.min(Math.max(page, 1), Math.max(this.totalPages(), 1)));\n  }\n}\n"
     },
     {
       "target": "pagination/pagination.component.html",
@@ -26,5 +26,5 @@
   ],
   "registryDependencies": [],
   "npmDependencies": {},
-  "integrity": "655b15dd80ad090851f5661290aa8bbc20c719025ed8bb4cb00eb35d21714042"
+  "integrity": "e0dd39c41980028b50267fe948eade685613973230a33e0ba0eb768e03d85041"
 }

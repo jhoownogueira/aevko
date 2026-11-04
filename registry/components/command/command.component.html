@@ -1,23 +1,33 @@
-<div class="search">
+<div class="search" data-slot="command-input-wrapper">
   <input
     type="search"
+    data-slot="command-input"
     [attr.aria-label]="label()"
-    aria-controls="aevko-command-list"
+    [attr.aria-controls]="id() + '-list'"
+    [attr.aria-activedescendant]="activeOption() ? id() + '-item-' + activeOption()!.id : null"
     aria-autocomplete="list"
     [placeholder]="placeholder()"
     [value]="query()"
+    [disabled]="disabled()"
     (input)="query.set($any($event.target).value); active.set(0)"
     (keydown)="move($event)"
   />
 </div>
-<div id="aevko-command-list" role="listbox" [attr.aria-label]="label()">
+<div
+  [id]="id() + '-list'"
+  data-slot="command-list"
+  [attr.role]="filtered().length ? 'listbox' : null"
+  [attr.aria-label]="filtered().length ? label() : null"
+>
   @for (item of filtered(); track item.id; let index = $index) {
     <div
       role="option"
+      data-slot="command-item"
+      [id]="id() + '-item-' + item.id"
       [attr.aria-selected]="value() === item.id"
       [attr.aria-disabled]="item.disabled || null"
       [attr.tabindex]="item.disabled ? -1 : 0"
-      [attr.data-active]="active() === index"
+      [attr.data-active]="activeOption()?.id === item.id"
       (click)="select(item)"
       (keydown.enter)="select(item)"
     >
@@ -33,6 +43,6 @@
     </div>
   }
   @if (!filtered().length) {
-    <p>No commands found.</p>
+    <p data-slot="command-empty" role="status">No commands found.</p>
   }
 </div>

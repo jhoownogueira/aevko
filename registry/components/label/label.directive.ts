@@ -6,5 +6,6 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   template: '<ng-content />',
   styleUrl: './label.directive.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { 'data-slot': 'label' },
 })
 export class AevkoLabel {}

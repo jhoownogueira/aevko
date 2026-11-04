@@ -6,7 +6,7 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
   template: '<ng-content />',
   styleUrl: './aspect-ratio.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { '[style.aspect-ratio]': 'cssRatio()' },
+  host: { 'data-slot': 'aspect-ratio', '[style.aspect-ratio]': 'cssRatio()' },
 })
 export class AevkoAspectRatio {
   readonly ratio = input<number | `${number}/${number}`>(16 / 9);

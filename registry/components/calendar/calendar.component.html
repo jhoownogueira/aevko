@@ -1,9 +1,24 @@
-<div class="header">
-  <button type="button" aria-label="Previous month" (click)="changeMonth(-1)">‹</button
-  ><strong aria-live="polite">{{ monthLabel() }}</strong
-  ><button type="button" aria-label="Next month" (click)="changeMonth(1)">›</button>
+<div class="header" data-slot="calendar-header">
+  <button
+    type="button"
+    data-slot="calendar-previous"
+    aria-label="Previous month"
+    [disabled]="isDisabled()"
+    (click)="changeMonth(-1)"
+  >
+    ‹</button
+  ><strong data-slot="calendar-heading" aria-live="polite">{{ monthLabel() }}</strong
+  ><button
+    type="button"
+    data-slot="calendar-next"
+    aria-label="Next month"
+    [disabled]="isDisabled()"
+    (click)="changeMonth(1)"
+  >
+    ›
+  </button>
 </div>
-<div role="grid" [attr.aria-label]="label()">
+<div data-slot="calendar-grid" role="grid" [attr.aria-label]="label()">
   <div role="row" class="weekdays">
     @for (weekday of weekdays; track weekday) {
       <span role="columnheader" [attr.aria-label]="weekday">{{ weekday.slice(0, 2) }}</span>
@@ -14,12 +29,19 @@
       @for (day of days().slice(week * 7, week * 7 + 7); track day.date) {
         <button
           type="button"
+          data-slot="calendar-day"
           role="gridcell"
           [attr.data-aevko-date]="day.date"
           [attr.data-outside]="day.outside"
           [attr.aria-selected]="value() === day.date"
           [disabled]="disabled(day.date)"
-          [tabindex]="value() === day.date || (!value() && day.day === 1 && !day.outside) ? 0 : -1"
+          [tabindex]="
+            activeDate() === day.date ||
+            (!activeDate() && (value() === day.date || (!value() && day.day === 1 && !day.outside)))
+              ? 0
+              : -1
+          "
+          (focus)="activate(day.date)"
           (click)="select(day.date)"
           (keydown)="move($event, day.date)"
         >

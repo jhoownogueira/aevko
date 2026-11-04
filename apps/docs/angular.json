@@ -28,6 +28,11 @@
                 "glob": "**/*",
                 "input": "node_modules/monaco-editor/min/vs",
                 "output": "monaco/vs"
+              },
+              {
+                "glob": "**/*",
+                "input": ".generated/registry",
+                "output": "registry"
               }
             ],
             "styles": ["src/styles.css"],
@@ -45,13 +50,13 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "675kB",
+                  "maximumWarning": "700kB",
                   "maximumError": "750kB"
                 },
                 {
                   "type": "anyComponentStyle",
-                  "maximumWarning": "7kB",
-                  "maximumError": "8kB"
+                  "maximumWarning": "12kB",
+                  "maximumError": "13kB"
                 }
               ],
               "outputHashing": "all"

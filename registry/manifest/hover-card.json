@@ -19,7 +19,14 @@
       "source": "components/hover-card/hover-card.component.css",
       "target": "hover-card/hover-card.component.css"
     },
-    { "source": "components/hover-card/index.ts", "target": "hover-card/index.ts" }
+    {
+      "source": "components/hover-card/index.ts",
+      "target": "hover-card/index.ts"
+    },
+    {
+      "source": "components/shared/floating.directive.ts",
+      "target": "shared/floating.directive.ts"
+    }
   ],
   "registryDependencies": [],
   "npmDependencies": {}

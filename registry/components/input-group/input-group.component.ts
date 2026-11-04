@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, ElementRef, inject, input } from '@angular/core';
 
 @Component({
   selector: 'aevko-input-group',
@@ -6,6 +6,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
   template: '<ng-content />',
   styleUrl: './input-group.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { role: 'group', 'data-slot': 'input-group' },
 })
 export class AevkoInputGroup {}
 
@@ -15,12 +16,27 @@ export class AevkoInputGroup {}
   template: '<ng-content />',
   styleUrl: './input-group-addon.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { '[attr.data-align]': 'align()' },
+  host: {
+    role: 'group',
+    'data-slot': 'input-group-addon',
+    '[attr.data-align]': 'align()',
+    '(click)': 'focusControl($event)',
+  },
 })
 export class AevkoInputGroupAddon {
+  private readonly element = inject<ElementRef<HTMLElement>>(ElementRef);
   readonly align = input<'inline-start' | 'inline-end' | 'block-start' | 'block-end'>(
     'inline-start',
   );
+
+  protected focusControl(event: MouseEvent): void {
+    if ((event.target as HTMLElement).closest('button, a')) {
+      return;
+    }
+    this.element.nativeElement.parentElement
+      ?.querySelector<HTMLElement>('input, textarea, select')
+      ?.focus();
+  }
 }
 
 @Component({
@@ -29,6 +45,7 @@ export class AevkoInputGroupAddon {
   template: '',
   styleUrl: './input-group-control.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { 'data-slot': 'input-group-control' },
 })
 export class AevkoInputGroupControl {}
 
@@ -38,6 +55,14 @@ export class AevkoInputGroupControl {}
   template: '<ng-content />',
   styleUrl: './input-group-button.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { type: 'button' },
+  host: {
+    type: 'button',
+    'data-slot': 'input-group-button',
+    '[attr.data-size]': 'size()',
+    '[attr.data-variant]': 'variant()',
+  },
 })
-export class AevkoInputGroupButton {}
+export class AevkoInputGroupButton {
+  readonly size = input<'xs' | 'sm' | 'icon-xs' | 'icon-sm'>('xs');
+  readonly variant = input<'ghost' | 'outline'>('ghost');
+}

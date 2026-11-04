@@ -1,0 +1,53 @@
+<section class="auth-shell workspace" data-slot="signup-05-block">
+  <aside class="auth-story" aria-label="Product introduction">
+    <strong>Aevko UI</strong>
+    <p>Aevko / New workspace</p>
+    <small>Editable Angular source</small>
+  </aside>
+  <div class="auth-panel">
+    <div class="auth-card">
+      <p class="auth-brand">Aevko.</p>
+      <h1>Create your team</h1>
+      <p class="auth-intro">Invite collaborators after setup.</p>
+      <form (submit)="submit($event)">
+        <div class="auth-field">
+          <label aevkoLabel for="signup-05-name">Name</label
+          ><input aevkoInput id="signup-05-name" name="name" autocomplete="name" required />
+        </div>
+        <div class="auth-field">
+          <label aevkoLabel for="signup-05-email">Email</label
+          ><input
+            aevkoInput
+            id="signup-05-email"
+            name="email"
+            type="email"
+            autocomplete="email"
+            required
+          />
+        </div>
+        <div class="auth-field">
+          <label aevkoLabel for="signup-05-password">Password</label
+          ><input
+            aevkoInput
+            id="signup-05-password"
+            name="password"
+            type="password"
+            autocomplete="new-password"
+            minlength="8"
+            required
+          />
+        </div>
+        <label class="auth-check"
+          ><input aevkoCheckbox type="checkbox" required /> <span>I agree to the terms</span></label
+        >
+        <button aevkoButton type="submit">Create account</button>
+      </form>
+      <p role="status">{{ status() }}</p>
+      <p class="auth-meta">Form preview. Authentication is not connected.</p>
+      @if (alternateUrl()) {
+        <p class="auth-meta">Already have an account? <a [href]="alternateUrl()">Sign in</a></p>
+      }
+    </div>
+  </div>
+</section>
+<!-- Editable Aevko block source. -->

@@ -9,7 +9,7 @@
   "files": [
     {
       "target": "marker/marker.component.ts",
-      "content": "import { ChangeDetectionStrategy, Component, input } from '@angular/core';\n\n@Component({\n  selector: 'aevko-marker',\n  standalone: true,\n  template: '<span class=\"dot\" aria-hidden=\"true\"></span><ng-content />',\n  styleUrl: './marker.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: { '[attr.data-variant]': 'variant()' },\n})\nexport class AevkoMarker {\n  readonly variant = input<'default' | 'muted' | 'danger'>('default');\n}\n"
+      "content": "import { ChangeDetectionStrategy, Component, input } from '@angular/core';\n\n@Component({\n  selector: 'aevko-marker',\n  standalone: true,\n  template: '<span class=\"dot\" aria-hidden=\"true\"></span><ng-content />',\n  styleUrl: './marker.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: { 'data-slot': 'marker', '[attr.data-variant]': 'variant()' },\n})\nexport class AevkoMarker {\n  readonly variant = input<'default' | 'muted' | 'danger'>('default');\n}\n"
     },
     {
       "target": "marker/marker.component.css",
@@ -22,5 +22,5 @@
   ],
   "registryDependencies": [],
   "npmDependencies": {},
-  "integrity": "4ef9f0c9b37e883090bdf910752c56d83291c8bdf176c8b94e733a6e35baa1e1"
+  "integrity": "a2fb513a44543df1c2e9a4502fef92cb17cc4f7814ccba909a079b60004eb458"
 }

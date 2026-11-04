@@ -7,6 +7,7 @@ import { ChangeDetectionStrategy, Component, booleanAttribute, input } from '@an
   styleUrl: './slider.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
+    'data-slot': 'slider',
     '[attr.aria-invalid]': 'invalid() ? "true" : null',
     '[attr.data-orientation]': 'orientation()',
   },

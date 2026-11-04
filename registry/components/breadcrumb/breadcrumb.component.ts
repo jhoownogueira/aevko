@@ -6,7 +6,7 @@ import { ChangeDetectionStrategy, Component, booleanAttribute, input } from '@an
   template: '<div role="list"><ng-content /></div>',
   styleUrl: './breadcrumb.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { role: 'navigation', '[attr.aria-label]': 'label()' },
+  host: { role: 'navigation', 'data-slot': 'breadcrumb', '[attr.aria-label]': 'label()' },
 })
 export class AevkoBreadcrumb {
   readonly label = input('Breadcrumb');
@@ -19,7 +19,11 @@ export class AevkoBreadcrumb {
     '<div class="item"><ng-content />@if (!current()) { <span class="separator" aria-hidden="true"><span class="fallback">{{ separator() }}</span><ng-content select="[aevkoBreadcrumbSeparator]" /></span> }</div>',
   styleUrl: './breadcrumb-item.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { role: 'listitem', '[attr.aria-current]': 'current() ? "page" : null' },
+  host: {
+    role: 'listitem',
+    'data-slot': 'breadcrumb-item',
+    '[attr.aria-current]': 'current() ? "page" : null',
+  },
 })
 export class AevkoBreadcrumbItem {
   readonly current = input(false, { transform: booleanAttribute });

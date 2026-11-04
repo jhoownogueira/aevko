@@ -39,7 +39,7 @@ import { AevkoSidebar } from '../../../../registry/components/sidebar';
   ],
   template: `
     <article class="showcase">
-      <p class="eyebrow">Phase 1 / Canonical source</p>
+      <p class="eyebrow">Components / Layout</p>
       <h1>Layout primitives</h1>
       <section>
         <h2>Accordion</h2>
@@ -83,7 +83,7 @@ import { AevkoSidebar } from '../../../../registry/components/sidebar';
           ><svg lucideFolderOpen aevkoEmptyIcon class="docs-icon" aria-hidden="true"></svg
           ><strong aevkoEmptyTitle>No projects</strong
           ><span aevkoEmptyDescription>Create a project when your team is ready.</span
-          ><button aevkoEmptyAction type="button">Create project</button></aevko-empty
+          ><a aevkoEmptyAction href="/blocks/dashboard-01">Open project dashboard</a></aevko-empty
         >
       </section>
       <section>
@@ -92,7 +92,7 @@ import { AevkoSidebar } from '../../../../registry/components/sidebar';
           ><svg lucidePackageOpen aevkoItemIcon class="docs-icon" aria-hidden="true"></svg
           ><strong aevkoItemTitle>Design system</strong
           ><span aevkoItemDescription>Updated today</span
-          ><button aevkoItemAction type="button">Open</button></aevko-item
+          ><a aevkoItemAction href="/components">Explore components</a></aevko-item
         >
       </section>
       <section>
@@ -112,7 +112,7 @@ import { AevkoSidebar } from '../../../../registry/components/sidebar';
       </section>
       <section>
         <h2>Sidebar</h2>
-        <aevko-sidebar
+        <aevko-sidebar label="Layout example navigation"
           ><svg lucideMenu aevkoSidebarMenuIcon class="docs-icon" aria-hidden="true"></svg
           ><svg
             lucideChevronLeft
@@ -121,8 +121,9 @@ import { AevkoSidebar } from '../../../../registry/components/sidebar';
             aria-hidden="true"
           ></svg
           ><svg lucideChevronRight aevkoSidebarExpandIcon class="docs-icon" aria-hidden="true"></svg
-          ><strong aevkoSidebarHeader>Aevko</strong><a href="#layout">Layout</a
-          ><a href="#tokens">Tokens</a><small aevkoSidebarFooter>Local source</small></aevko-sidebar
+          ><strong aevkoSidebarHeader>Aevko</strong><a href="/components/sidebar">Layout</a
+          ><a href="/theming">Tokens</a
+          ><small aevkoSidebarFooter>Local source</small></aevko-sidebar
         >
       </section>
     </article>

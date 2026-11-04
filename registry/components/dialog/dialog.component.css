@@ -3,7 +3,7 @@
 }
 dialog {
   background: var(--aevko-surface, #fff);
-  border: 1px solid var(--aevko-border, #d4d4d4);
+  border: 1px solid var(--aevko-border, #e4e4e7);
   border-radius: 0;
   color: var(--aevko-foreground, #171717);
   inline-size: min(32rem, calc(100vw - 2rem));
@@ -35,11 +35,11 @@ dialog[data-side='left'] {
   margin-inline: 0 auto;
 }
 dialog[data-side='right'] {
-  margin-inline: 0 0;
+  margin-inline: auto 0;
 }
 header {
   align-items: start;
-  border-block-end: 1px solid var(--aevko-border, #d4d4d4);
+  border-block-end: 1px solid var(--aevko-border, #e4e4e7);
   display: flex;
   gap: 1rem;
   justify-content: space-between;
@@ -48,7 +48,7 @@ header {
 h2 {
   font: inherit;
   font-size: 1.125rem;
-  font-weight: 650;
+  font-weight: 500;
   margin: 0;
 }
 p {
@@ -71,7 +71,7 @@ p {
   padding: 0.375rem;
 }
 .close:hover {
-  background: var(--aevko-muted, #f1f1f1);
+  background: var(--aevko-background, #f1f1f1);
 }
 .close:focus-visible {
   outline: 2px solid var(--aevko-ring, #a3a3a3);
@@ -87,7 +87,22 @@ p {
 }
 @media (prefers-reduced-motion: no-preference) {
   dialog[open] {
-    animation: aevko-dialog-in 140ms ease-out;
+    animation: aevko-dialog-in 180ms cubic-bezier(0.2, 0, 0, 1);
+  }
+  dialog[open][data-side='left'] {
+    animation-name: aevko-dialog-left;
+  }
+  dialog[open][data-side='right'] {
+    animation-name: aevko-dialog-right;
+  }
+  dialog[open][data-side='top'] {
+    animation-name: aevko-dialog-top;
+  }
+  dialog[open][data-side='bottom'] {
+    animation-name: aevko-dialog-bottom;
+  }
+  dialog[open]::backdrop {
+    animation: aevko-backdrop-in 180ms ease-out;
   }
 }
 @keyframes aevko-dialog-in {
@@ -96,12 +111,33 @@ p {
     transform: translateY(0.5rem);
   }
 }
-@media (prefers-color-scheme: dark) {
-  dialog {
-    --aevko-surface: #171717;
-    --aevko-foreground: #f5f5f5;
-    --aevko-border: #404040;
-    --aevko-muted: #262626;
-    --aevko-muted-foreground: #b3b3b3;
+
+@keyframes aevko-dialog-left {
+  from {
+    opacity: 0;
+    translate: -2rem 0;
+  }
+}
+@keyframes aevko-dialog-right {
+  from {
+    opacity: 0;
+    translate: 2rem 0;
+  }
+}
+@keyframes aevko-dialog-top {
+  from {
+    opacity: 0;
+    translate: 0 -2rem;
+  }
+}
+@keyframes aevko-dialog-bottom {
+  from {
+    opacity: 0;
+    translate: 0 2rem;
+  }
+}
+@keyframes aevko-backdrop-in {
+  from {
+    opacity: 0;
   }
 }

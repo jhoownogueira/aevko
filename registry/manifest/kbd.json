@@ -1,0 +1,24 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "kbd",
+  "title": "Kbd",
+  "description": "Native keyboard input markup with an optional shortcut group.",
+  "category": "content",
+  "angular": ">=22 <23",
+  "files": [
+    { "source": "components/kbd/kbd.component.ts", "target": "kbd/kbd.component.ts" },
+    { "source": "components/kbd/kbd.component.css", "target": "kbd/kbd.component.css" },
+    {
+      "source": "components/kbd/kbd-group.component.ts",
+      "target": "kbd/kbd-group.component.ts"
+    },
+    {
+      "source": "components/kbd/kbd-group.component.css",
+      "target": "kbd/kbd-group.component.css"
+    },
+    { "source": "components/kbd/index.ts", "target": "kbd/index.ts" }
+  ],
+  "registryDependencies": [],
+  "npmDependencies": {}
+}

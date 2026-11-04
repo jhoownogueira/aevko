@@ -6,6 +6,7 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   template: '<ng-content />',
   styleUrl: './card.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { 'data-slot': 'card' },
 })
 export class AevkoCard {}
 
@@ -15,6 +16,7 @@ export class AevkoCard {}
   template: '<ng-content />',
   styleUrl: './card-header.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { 'data-slot': 'card-header' },
 })
 export class AevkoCardHeader {}
 
@@ -24,6 +26,7 @@ export class AevkoCardHeader {}
   template: '<ng-content />',
   styleUrl: './card-title.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { 'data-slot': 'card-title' },
 })
 export class AevkoCardTitle {}
 
@@ -33,6 +36,7 @@ export class AevkoCardTitle {}
   template: '<ng-content />',
   styleUrl: './card-description.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { 'data-slot': 'card-description' },
 })
 export class AevkoCardDescription {}
 
@@ -42,6 +46,7 @@ export class AevkoCardDescription {}
   template: '<ng-content />',
   styleUrl: './card-content.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { 'data-slot': 'card-content' },
 })
 export class AevkoCardContent {}
 
@@ -51,6 +56,7 @@ export class AevkoCardContent {}
   template: '<ng-content />',
   styleUrl: './card-footer.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { 'data-slot': 'card-footer' },
 })
 export class AevkoCardFooter {}
 
@@ -60,6 +66,7 @@ export class AevkoCardFooter {}
   template: '<ng-content />',
   styleUrl: './card-actions.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { 'data-slot': 'card-actions' },
 })
 export class AevkoCardActions {}
 

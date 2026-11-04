@@ -38,3 +38,7 @@
 .data:empty {
   display: none;
 }
+
+.visual:empty {
+  display: none;
+}

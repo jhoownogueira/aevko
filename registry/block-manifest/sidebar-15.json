@@ -1,0 +1,29 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "sidebar-15",
+  "title": "Dual-context navigation",
+  "description": "An editable dual-context navigation shell with responsive navigation and dashboard content.",
+  "category": "layout",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "source": "components/blocks/sidebar-15/sidebar-15.component.ts",
+      "target": "blocks/sidebar-15/sidebar-15.component.ts"
+    },
+    {
+      "source": "components/blocks/sidebar-15/sidebar-15.component.html",
+      "target": "blocks/sidebar-15/sidebar-15.component.html"
+    },
+    {
+      "source": "components/blocks/sidebar-15/sidebar-15.component.css",
+      "target": "blocks/sidebar-15/sidebar-15.component.css"
+    },
+    {
+      "source": "components/blocks/sidebar-15/index.ts",
+      "target": "blocks/sidebar-15/index.ts"
+    }
+  ],
+  "registryDependencies": ["avatar", "badge", "button", "input", "sidebar"],
+  "npmDependencies": {}
+}

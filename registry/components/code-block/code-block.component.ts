@@ -15,7 +15,11 @@ import {
   template: '<ng-content />',
   styleUrl: './code-block.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { '[attr.data-variant]': 'variant()', '[attr.data-size]': 'size()' },
+  host: {
+    'data-slot': 'code-block',
+    '[attr.data-variant]': 'variant()',
+    '[attr.data-size]': 'size()',
+  },
 })
 export class AevkoCodeBlock {
   readonly variant = input<'default' | 'destructive'>('default');
@@ -28,6 +32,7 @@ export class AevkoCodeBlock {
   template: '<ng-content />',
   styleUrl: './code-block-header.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { 'data-slot': 'code-block-header' },
 })
 export class AevkoCodeBlockHeader {}
 
@@ -37,7 +42,7 @@ export class AevkoCodeBlockHeader {}
   templateUrl: './code-block-content.component.html',
   styleUrl: './code-block-content.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { '[attr.data-wrap]': 'wrap()' },
+  host: { 'data-slot': 'code-block-content', '[attr.data-wrap]': 'wrap()' },
 })
 export class AevkoCodeBlockContent {
   readonly code = input('');
@@ -54,7 +59,7 @@ export class AevkoCodeBlockContent {
   template: '<ng-content />',
   styleUrl: './code-block-line.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { '[attr.data-variant]': 'variant()' },
+  host: { 'data-slot': 'code-block-line', '[attr.data-variant]': 'variant()' },
 })
 export class AevkoCodeBlockLine {
   readonly variant = input<'default' | 'added' | 'removed' | 'highlighted'>('default');
@@ -67,6 +72,7 @@ export class AevkoCodeBlockLine {
   styleUrl: './code-block-copy.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
+    'data-slot': 'code-block-copy',
     type: 'button',
     '[attr.aria-label]': 'copied() ? "Code copied" : "Copy code"',
     '(click)': 'copy()',
@@ -94,5 +100,6 @@ export class AevkoCodeBlockCopy {
   template: '<ng-content />',
   styleUrl: './code-block-footer.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { 'data-slot': 'code-block-footer' },
 })
 export class AevkoCodeBlockFooter {}

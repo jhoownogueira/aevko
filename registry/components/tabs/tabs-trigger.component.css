@@ -4,7 +4,7 @@
   border-bottom: 2px solid transparent;
   color: var(--aevko-muted, #71717a);
   cursor: pointer;
-  font: 650 0.875rem/1 var(--aevko-font-sans, sans-serif);
+  font: 500 0.875rem/1 var(--aevko-font-sans, sans-serif);
   min-height: 2.5rem;
   padding-inline: 0.75rem;
 }

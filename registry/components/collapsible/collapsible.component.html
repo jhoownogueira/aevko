@@ -13,4 +13,14 @@
     <ng-content select="[aevkoCollapsibleIcon]" />
   </span>
 </button>
-<div [id]="panelId()" [hidden]="!open()"><ng-content /></div>
+<div
+  class="panel"
+  [id]="panelId()"
+  [attr.data-state]="open() ? 'open' : 'closed'"
+  [attr.aria-hidden]="!open()"
+  [inert]="!open()"
+>
+  <div class="content-clip">
+    <div class="content"><ng-content /></div>
+  </div>
+</div>

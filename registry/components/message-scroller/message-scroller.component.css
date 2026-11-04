@@ -26,7 +26,7 @@
   bottom: 0.75rem;
   color: var(--aevko-background, #fff);
   cursor: pointer;
-  font: 650 0.8125rem/1 var(--aevko-font-sans, sans-serif);
+  font: 500 0.8125rem/1 var(--aevko-font-sans, sans-serif);
   justify-self: center;
   min-height: 2.25rem;
   padding-inline: 0.75rem;

@@ -19,6 +19,7 @@ export interface AevkoDataTableSort {
   templateUrl: './data-table.component.html',
   styleUrl: './data-table.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { 'data-slot': 'data-table' },
 })
 export class AevkoDataTable<T extends object> {
   readonly caption = input.required<string>();

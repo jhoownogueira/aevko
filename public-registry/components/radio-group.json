@@ -9,7 +9,7 @@
   "files": [
     {
       "target": "radio-group/radio-group.component.ts",
-      "content": "import { ChangeDetectionStrategy, Component, booleanAttribute, input } from '@angular/core';\n\n@Component({\n  selector: 'fieldset[aevkoRadioGroup]',\n  standalone: true,\n  template: '<ng-content />',\n  styleUrl: './radio-group.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: {\n    '[attr.data-orientation]': 'orientation()',\n    '[attr.data-invalid]': 'invalid() ? \"true\" : null',\n  },\n})\nexport class AevkoRadioGroup {\n  readonly orientation = input<'horizontal' | 'vertical'>('vertical');\n  readonly invalid = input(false, { transform: booleanAttribute });\n}\n\n@Component({\n  selector: 'input[aevkoRadioGroupItem][type=\"radio\"]',\n  standalone: true,\n  template: '',\n  styleUrl: './radio-group-item.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: { '[attr.aria-invalid]': 'invalid() ? \"true\" : null' },\n})\nexport class AevkoRadioGroupItem {\n  readonly invalid = input(false, { transform: booleanAttribute });\n}\n"
+      "content": "import { ChangeDetectionStrategy, Component, booleanAttribute, input } from '@angular/core';\n\n@Component({\n  selector: 'fieldset[aevkoRadioGroup]',\n  standalone: true,\n  template: '<ng-content />',\n  styleUrl: './radio-group.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: {\n    'data-slot': 'radio-group',\n    '[attr.data-orientation]': 'orientation()',\n    '[attr.data-invalid]': 'invalid() ? \"true\" : null',\n  },\n})\nexport class AevkoRadioGroup {\n  readonly orientation = input<'horizontal' | 'vertical'>('vertical');\n  readonly invalid = input(false, { transform: booleanAttribute });\n}\n\n@Component({\n  selector: 'input[aevkoRadioGroupItem][type=\"radio\"]',\n  standalone: true,\n  template: '',\n  styleUrl: './radio-group-item.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: {\n    'data-slot': 'radio-group-item',\n    '[attr.aria-invalid]': 'invalid() ? \"true\" : null',\n  },\n})\nexport class AevkoRadioGroupItem {\n  readonly invalid = input(false, { transform: booleanAttribute });\n}\n"
     },
     {
       "target": "radio-group/radio-group.component.css",
@@ -26,5 +26,5 @@
   ],
   "registryDependencies": [],
   "npmDependencies": {},
-  "integrity": "3453809530f383234c85c5e0a23d6d6736193ef9781b234c3681b12769005130"
+  "integrity": "a8c15fec00ba4ff5a88f2b198b363680bb227b13512c6a7c2ba790b23fabe9c3"
 }

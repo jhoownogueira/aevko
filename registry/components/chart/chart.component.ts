@@ -12,7 +12,7 @@ export interface AevkoChartSeries {
   templateUrl: './chart.component.html',
   styleUrl: './chart.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { role: 'figure', '[attr.aria-label]': 'label()' },
+  host: { role: 'figure', 'data-slot': 'chart', '[attr.aria-label]': 'label()' },
 })
 export class AevkoChart {
   readonly label = input.required<string>();

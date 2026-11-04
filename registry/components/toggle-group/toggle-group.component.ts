@@ -19,6 +19,7 @@ import {
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     type: 'button',
+    'data-slot': 'toggle-group-item',
     '[attr.aria-pressed]': 'selected()',
     '[attr.data-state]': 'selected() ? "on" : "off"',
     '[attr.data-value]': 'value()',
@@ -35,10 +36,10 @@ export class AevkoToggleGroupItem {
   selector: 'aevko-toggle-group',
   standalone: true,
   template:
-    '<div role="group" [attr.aria-label]="label()" (click)="activate($event)" (keydown)="navigate($event)"><ng-content /></div>',
+    '<div data-slot="toggle-group" role="group" [attr.aria-label]="label()" (click)="activate($event)" (keydown)="navigate($event)"><ng-content /></div>',
   styleUrl: './toggle-group.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { '[attr.data-orientation]': 'orientation()' },
+  host: { 'data-slot': 'toggle-group-root', '[attr.data-orientation]': 'orientation()' },
 })
 export class AevkoToggleGroup {
   readonly label = input.required<string>();

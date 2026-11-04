@@ -24,6 +24,7 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
     },
   ],
   host: {
+    'data-slot': 'input-otp',
     '[attr.data-disabled]': 'isDisabled() ? "true" : null',
     '[attr.data-invalid]': 'invalid() ? "true" : null',
   },

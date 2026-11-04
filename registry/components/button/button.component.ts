@@ -1,7 +1,15 @@
 import { ChangeDetectionStrategy, Component, booleanAttribute, input } from '@angular/core';
 
-export const AEVKO_BUTTON_VARIANTS = ['primary', 'outline', 'ghost', 'accent', 'danger'] as const;
-export const AEVKO_BUTTON_SIZES = ['sm', 'md', 'lg'] as const;
+export const AEVKO_BUTTON_VARIANTS = [
+  'primary',
+  'secondary',
+  'outline',
+  'ghost',
+  'link',
+  'accent',
+  'danger',
+] as const;
+export const AEVKO_BUTTON_SIZES = ['sm', 'md', 'lg', 'icon-sm', 'icon', 'icon-lg'] as const;
 
 export type AevkoButtonVariant = (typeof AEVKO_BUTTON_VARIANTS)[number];
 export type AevkoButtonSize = (typeof AEVKO_BUTTON_SIZES)[number];
@@ -14,6 +22,7 @@ export type AevkoButtonType = 'button' | 'submit' | 'reset';
   styleUrl: './button.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
+    'data-slot': 'button',
     '[attr.type]': 'type()',
     '[disabled]': 'isDisabled',
     '[attr.aria-busy]': 'loading() ? "true" : null',

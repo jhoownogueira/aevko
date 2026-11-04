@@ -6,7 +6,7 @@
   color: var(--aevko-foreground, #09090b);
   cursor: pointer;
   display: inline-flex;
-  font: 650 0.875rem/1 var(--aevko-font-sans, sans-serif);
+  font: 500 0.875rem/1 var(--aevko-font-sans, sans-serif);
   gap: 0.5rem;
   justify-content: center;
   min-width: 2.25rem;

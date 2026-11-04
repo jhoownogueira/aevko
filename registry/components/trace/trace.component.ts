@@ -6,6 +6,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
   template: '<div role="list" [attr.aria-label]="label()"><ng-content /></div>',
   styleUrl: './trace.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { 'data-slot': 'trace' },
 })
 export class AevkoTrace {
   readonly label = input('Event trace');
@@ -18,7 +19,7 @@ export class AevkoTrace {
     '<div class="item"><span class="marker" aria-hidden="true"></span><div><div class="header"><ng-content select="[aevkoTraceTitle]" /><ng-content select="[aevkoTraceTime]" /></div><div class="detail"><ng-content /></div></div></div>',
   styleUrl: './trace-item.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { role: 'listitem', '[attr.data-state]': 'state()' },
+  host: { role: 'listitem', 'data-slot': 'trace-item', '[attr.data-state]': 'state()' },
 })
 export class AevkoTraceItem {
   readonly state = input<'complete' | 'running' | 'error' | 'pending'>('complete');

@@ -9,11 +9,11 @@
   "files": [
     {
       "target": "drawer/drawer.component.ts",
-      "content": "import { ChangeDetectionStrategy, Component } from '@angular/core';\nimport { AevkoDialog, AevkoDialogBase } from '../dialog';\n\n@Component({\n  selector: 'aevko-drawer',\n  standalone: true,\n  imports: [AevkoDialog],\n  templateUrl: './drawer.component.html',\n  styleUrl: './drawer.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: { '(click)': 'handleClick($event)' },\n})\nexport class AevkoDrawer extends AevkoDialogBase {\n  constructor() {\n    super('aevkoDrawerTrigger', 'aevkoDrawerClose');\n  }\n}\n"
+      "content": "import { ChangeDetectionStrategy, Component } from '@angular/core';\nimport { AevkoDialog, AevkoDialogBase } from '../dialog';\n\n@Component({\n  selector: 'aevko-drawer',\n  standalone: true,\n  imports: [AevkoDialog],\n  templateUrl: './drawer.component.html',\n  styleUrl: './drawer.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: { 'data-slot': 'drawer-root', '(click)': 'handleClick($event)' },\n})\nexport class AevkoDrawer extends AevkoDialogBase {\n  constructor() {\n    super('aevkoDrawerTrigger', 'aevkoDrawerClose');\n  }\n}\n"
     },
     {
       "target": "drawer/drawer.component.html",
-      "content": "<ng-content select=\"[aevkoDrawerTrigger]\" />\n<aevko-dialog\n  [title]=\"title()\"\n  [description]=\"description()\"\n  [(open)]=\"open\"\n  [initialFocus]=\"initialFocus()\"\n  [closeOnEscape]=\"closeOnEscape()\"\n  [closeOnBackdrop]=\"closeOnBackdrop()\"\n  [restoreFocus]=\"restoreFocus()\"\n  [showCloseButton]=\"showCloseButton()\"\n  [side]=\"side() === 'center' ? 'bottom' : side()\"\n>\n  <div class=\"handle\" aria-hidden=\"true\"></div>\n  <ng-content />\n</aevko-dialog>\n"
+      "content": "<ng-content select=\"[aevkoDrawerTrigger]\" />\n<aevko-dialog\n  [title]=\"title()\"\n  [description]=\"description()\"\n  [(open)]=\"open\"\n  [initialFocus]=\"initialFocus()\"\n  [closeOnEscape]=\"closeOnEscape()\"\n  [closeOnBackdrop]=\"closeOnBackdrop()\"\n  [restoreFocus]=\"restoreFocus()\"\n  [showCloseButton]=\"showCloseButton()\"\n  [side]=\"side() === 'center' ? 'bottom' : side()\"\n>\n  <div class=\"handle\" data-slot=\"drawer-handle\" aria-hidden=\"true\"></div>\n  <ng-content />\n</aevko-dialog>\n"
     },
     {
       "target": "drawer/drawer.component.css",
@@ -28,5 +28,5 @@
     "dialog"
   ],
   "npmDependencies": {},
-  "integrity": "f889bc1c5c664f222a91068b5ba01776018c684979686f9bd751786be09919b0"
+  "integrity": "b9490812d8cf5092161e75d9edb8658cfee1dfe6478f1a05242e465fb03f4aea"
 }

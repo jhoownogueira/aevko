@@ -20,7 +20,7 @@ input {
   border-radius: var(--aevko-radius, 0);
   color: var(--aevko-foreground, #09090b);
   display: inline-flex;
-  font: 650 1rem/1 var(--aevko-font-mono, monospace);
+  font: 500 1rem/1 var(--aevko-font-mono, monospace);
   height: 2.75rem;
   justify-content: center;
   width: 2.5rem;

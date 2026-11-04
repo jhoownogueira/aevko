@@ -21,7 +21,7 @@ Status values reflect executed evidence only.
       and Textarea.
 - [x] Complete low-risk action, form, feedback and content primitives.
 
-Current evidence: 64 / 64 components complete.
+Current evidence: 65 / 65 components complete.
 
 ## Phase 2 - Forms, keyboard and overlays (complete)
 
@@ -35,20 +35,104 @@ engines optional and registry-scoped.
 
 ## Phase 4 - Integral closure (complete)
 
-Audit exactly 64 components, docs, light/dark, RTL, mobile/desktop, Angular
+Audit exactly 65 components, docs, light/dark, RTL, mobile/desktop, Angular
 compatibility, release metadata and isolated installation evidence.
 
-- [x] All 64 rows have source, registry, granular CLI, docs, unit, axe and
+- [x] All 65 rows have source, registry, granular CLI, docs, unit, axe and
       isolated consumer evidence.
 - [x] Registry and installable source remain free of Lucide and an Aevko runtime.
 - [x] Angular 22 production consumers build after individual installation.
-- [x] SSR prerenders 72 routes without browser-global failures.
+- [x] SSR prerenders 73 routes without browser-global failures.
 - [x] Record a production bundle benchmark and enforce explicit warning/error
       budgets without build warnings.
 - [x] Complete the final RTL, dependency/license and release-readiness audit;
       public release remains held for brand-asset provenance and authorization.
 
 ## Verification log
+
+### ZardUI form and selection parity - 2026-10-31
+
+- Reviewed 14 native and composed controls: Input, Textarea, Checkbox, Switch,
+  Radio Group, Slider, Field, Input Group, Native Select, Label, Input OTP,
+  Toggle Group, Select and Combobox.
+- Native controls keep browser and Angular Forms behavior while exposing stable
+  `data-slot` hooks. Field adds responsive label/content composition and Input
+  Group adds focus forwarding plus neutral action sizes and variants.
+- Select and Combobox now implement ControlValueAccessor, configured relationship
+  ids, disabled form state and active-option relationships.
+- Registry validation and Angular unit/axe tests pass. Every reviewed control was
+  installed individually and built in a clean Angular 22 application with no npm
+  vulnerabilities.
+- Documentation prerenders 73 routes at 678.50 kB raw / 144.80 kB estimated
+  transfer. The warning budget is 700 kB and the hard limit remains 750 kB.
+- Calendar, Date Picker and Questionnaire complete the slice with
+  ControlValueAccessor support and stable slots. Calendar arrow navigation now
+  moves focus without changing the selected date; Enter or Space confirms it.
+- All 17 form and selection controls have clean isolated Angular 22 consumer
+  builds; Date Picker evidence includes its Calendar and Popover dependencies.
+
+### ZardUI overlay and menu parity - 2026-10-31
+
+- Reviewed Dialog, Alert Dialog, Drawer, Sheet, Popover, Hover Card, Tooltip,
+  Toast, Command, Dropdown Menu, Context Menu, Menubar and Navigation Menu.
+- Added stable slots, native disabled reflection and timer cleanup. Context Menu
+  opens with Shift+F10 or the Context Menu key; Menubar exposes a valid initial
+  tab stop; Command uses configured listbox/option ids and active-descendant.
+- Angular unit/axe tests and registry validation pass. All 13 components install
+  and build individually in clean Angular 22 consumers with zero npm
+  vulnerabilities and no Lucide or Aevko runtime dependency.
+
+### ZardUI layout, content and data parity - 2026-10-31
+
+- Reviewed the remaining 30 layout, content, feedback, navigation and data
+  primitives against the maintained reference audit.
+- Every one of the 65 canonical registry components now exposes stable
+  `data-slot` hooks on its root and meaningful composed parts. These hooks are
+  additive: native elements, projected content and public Angular APIs remain
+  intact, while Tailwind or plain CSS can target a predictable contract.
+- Registry validation, Angular unit/axe tests and individual clean Angular 22
+  consumer builds pass without Lucide or an Aevko runtime dependency.
+
+### Aevko composed blocks and ecosystem galleries - 2026-10-31
+
+- Added a separate 27-item block registry: one operations dashboard, five sign-in
+  layouts, five account-creation layouts and sixteen responsive sidebar shells.
+  Blocks reuse the 65 canonical components and remain editable local source.
+- The CLI resolves block and component indexes together, installs only declared
+  transitive dependencies and preserves the existing component catalog count.
+- Every block passes axe from canonical source and an individual clean Angular 22
+  CLI installation plus production build with zero npm vulnerabilities.
+- Added lazy Blocks, Charts, Themes and Typeset galleries with original Aevko
+  copy, neutral tokens, zero-radius defaults and reduced-motion handling.
+- Documentation tests pass 45/45. The production build prerenders 104 routes at
+  699.98 kB raw / 148.90 kB estimated transfer without budget warnings.
+
+### ZardUI parity and Kbd slice - 2026-10-30
+
+- Audited ZardUI 1.1.1 at commit
+  `cbd200bfaa1b5e29b13c71cb48bb773baa735afb`; the maintained comparison and
+  composed-block backlog live in `docs/reference-parity.md`.
+- Added Kbd as the 65th canonical component with native `kbd` semantics, an
+  optional projected shortcut group, square neutral styling and no npm or
+  registry dependencies.
+- Registry validation reports 65 current items; CLI 4/4 and Angular unit/axe
+  17/17 pass; the isolated Kbd consumer builds under Angular 22 without Lucide or
+  an Aevko runtime.
+- Documentation prerenders 73 routes. The measured browser bundle is 658.00 kB
+  raw / 142.02 kB estimated transfer, below the existing 675 kB warning budget.
+
+### ZardUI presentation and action parity - 2026-10-30
+
+- All 65 component pages now share copy-page and previous/next actions, section
+  navigation, an editorial preview, collapsible Monaco source and verified
+  command/manual installation guidance.
+- Button adds secondary/link treatments and accessible icon sizes; Badge adds
+  link-compatible variants; Toggle supports Angular Forms; Button Group and Kbd
+  expose stable `data-slot` styling hooks.
+- CLI 4/4, Angular unit/axe 17/17, registry/icon boundaries and independent
+  consumers for Button, Button Group, Toggle, Badge and Kbd pass.
+- The documentation production build prerenders 73 routes at 671.32 kB raw /
+  143.81 kB estimated transfer. Landing and shared page styles are now separate.
 
 ### Phase 0 - 2026-10-29
 
@@ -252,7 +336,7 @@ compatibility, release metadata and isolated installation evidence.
 
 ### Phase 4 integral closure - 2026-10-30
 
-- The production documentation build enforces a 675 kB warning and 750 kB error
+- The production documentation build enforces a 700 kB warning and 750 kB error
   budget against a measured 644.03 kB raw / 139.62 kB estimated-transfer bundle.
 - RTL behavior is documented for navigation, calendar and date selection.
 - Workspace licenses were inventoried and the release checklist records the one
@@ -272,3 +356,12 @@ compatibility, release metadata and isolated installation evidence.
   installation and production build with no Aevko runtime or Lucide dependency.
 - Added a multi-stage documentation image, loopback-only Compose service and
   Nginx routes for prerendered pages, health checks and the public registry.
+
+### Version 1.0 review — 2026-11-04
+
+The local candidate review covers all 65 components, 27 blocks and documentation
+pages. Corrected inactive actions, form submission, sidebar navigation, repeated
+landmark names, theme controls and outdated documentation. See the
+[release checklist](release-checklist.md) for exact current verification counts
+and [migration guidance](version-1.0.md). Publication remains a separate step;
+brand-asset provenance is still unconfirmed.

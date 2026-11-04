@@ -9,7 +9,7 @@
   "files": [
     {
       "target": "slider/slider.component.ts",
-      "content": "import { ChangeDetectionStrategy, Component, booleanAttribute, input } from '@angular/core';\n\n@Component({\n  selector: 'input[aevkoSlider][type=\"range\"]',\n  standalone: true,\n  template: '',\n  styleUrl: './slider.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: {\n    '[attr.aria-invalid]': 'invalid() ? \"true\" : null',\n    '[attr.data-orientation]': 'orientation()',\n  },\n})\nexport class AevkoSlider {\n  readonly invalid = input(false, { transform: booleanAttribute });\n  readonly orientation = input<'horizontal' | 'vertical'>('horizontal');\n}\n"
+      "content": "import { ChangeDetectionStrategy, Component, booleanAttribute, input } from '@angular/core';\n\n@Component({\n  selector: 'input[aevkoSlider][type=\"range\"]',\n  standalone: true,\n  template: '',\n  styleUrl: './slider.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: {\n    'data-slot': 'slider',\n    '[attr.aria-invalid]': 'invalid() ? \"true\" : null',\n    '[attr.data-orientation]': 'orientation()',\n  },\n})\nexport class AevkoSlider {\n  readonly invalid = input(false, { transform: booleanAttribute });\n  readonly orientation = input<'horizontal' | 'vertical'>('horizontal');\n}\n"
     },
     {
       "target": "slider/slider.component.css",
@@ -22,5 +22,5 @@
   ],
   "registryDependencies": [],
   "npmDependencies": {},
-  "integrity": "0e3bc4c5a977b721cc903c444e1a89884a06569162a07f545111bf3c08761c1c"
+  "integrity": "d83e41a8f526b4b8590303deaf6fc45db592b42cfb5374eaf030b72619db17f8"
 }

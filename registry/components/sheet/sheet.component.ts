@@ -8,7 +8,7 @@ import { AevkoDialog, AevkoDialogBase } from '../dialog';
   templateUrl: './sheet.component.html',
   styleUrl: './sheet.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { '(click)': 'handleClick($event)' },
+  host: { 'data-slot': 'sheet-root', '(click)': 'handleClick($event)' },
 })
 export class AevkoSheet extends AevkoDialogBase {
   constructor() {

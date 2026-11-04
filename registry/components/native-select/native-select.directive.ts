@@ -7,6 +7,7 @@ import { ChangeDetectionStrategy, Component, booleanAttribute, input } from '@an
   styleUrl: './native-select.directive.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
+    'data-slot': 'native-select',
     '[attr.aria-invalid]': 'invalid() ? "true" : null',
     '[attr.data-invalid]': 'invalid() ? "true" : null',
   },
