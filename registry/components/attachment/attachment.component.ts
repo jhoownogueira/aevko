@@ -6,6 +6,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
   templateUrl: './attachment.component.html',
   styleUrl: './attachment.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { 'data-slot': 'attachment' },
 })
 export class AevkoAttachment {
   readonly name = input.required<string>();

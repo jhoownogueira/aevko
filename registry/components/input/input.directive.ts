@@ -7,6 +7,7 @@ import { ChangeDetectionStrategy, Component, booleanAttribute, input } from '@an
   styleUrl: './input.directive.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
+    'data-slot': 'input',
     '[attr.aria-invalid]': 'invalid() ? "true" : null',
     '[attr.data-invalid]': 'invalid() ? "true" : null',
   },

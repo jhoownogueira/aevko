@@ -1,0 +1,94 @@
+<section class="block-shell variant-9" data-slot="sidebar-09-block">
+  <aevko-sidebar label="Account navigation">
+    <div aevkoSidebarHeader class="sidebar-brand">
+      <strong>Account</strong><small>Personal</small>
+    </div>
+    <input
+      aevkoInput
+      class="sidebar-search"
+      type="search"
+      aria-label="Filter navigation"
+      placeholder="Search…"
+      [value]="query()"
+      (input)="query.set($any($event.target).value)"
+    />
+    <div class="sidebar-nav">
+      @for (item of filteredItems(); track item) {
+        <a
+          href="#sidebar-09-content"
+          (click)="$event.preventDefault(); selected.set(item)"
+          [attr.aria-current]="selected() === item ? 'page' : null"
+          ><span>{{ item }}</span
+          ><span aria-hidden="true">›</span></a
+        >
+      } @empty {
+        <p>No matching pages.</p>
+      }
+    </div>
+    <div aevkoSidebarFooter class="sidebar-footer">
+      <aevko-avatar fallback="AN" alt="Aevko user" size="sm" />
+      <span><strong>Alex North</strong><small>alex@example.com</small></span>
+    </div>
+  </aevko-sidebar>
+  <main class="block-main" id="sidebar-09-content">
+    <header class="block-toolbar">
+      <div>
+        <p>Personal</p>
+        <h1>{{ selected() }}</h1>
+      </div>
+      <button aevkoButton type="button" variant="outline" (click)="creating.set(!creating())">
+        {{ creating() ? 'Cancel' : 'Create new' }}
+      </button>
+    </header>
+    <p role="status">{{ message() }}</p>
+    @if (creating()) {
+      <form (submit)="create($event, projectName())">
+        <label for="sidebar-09-project-name">Project name</label>
+        <input
+          aevkoInput
+          [value]="projectName()"
+          (input)="projectName.set($any($event.target).value)"
+          id="sidebar-09-project-name"
+          required
+        />
+        <button aevkoButton type="submit">Create project</button>
+      </form>
+    }
+    @if (selected() !== 'Overview') {
+      <p>{{ selected() }} workspace view. New projects appear below.</p>
+    }
+    @if (projects().length) {
+      <section aria-label="Created projects">
+        <h2>Projects</h2>
+        <ul>
+          @for (project of projects(); track project) {
+            <li>{{ project }}</li>
+          }
+        </ul>
+      </section>
+    }
+    <section class="metric-grid" aria-label="Workspace summary">
+      <article class="metric"><span>Security score</span><strong>Strong</strong></article>
+      <article class="metric"><span>Completed this week</span><strong>16</strong></article>
+      <article class="metric"><span>Needs attention</span><strong>5</strong></article>
+    </section>
+    <section class="activity" aria-labelledby="sidebar-09-activity">
+      <header>
+        <div>
+          <p>Latest updates</p>
+          <h2 id="sidebar-09-activity">Activity</h2>
+        </div>
+        <aevko-badge variant="secondary">Sample data</aevko-badge>
+      </header>
+      <ul class="activity-list">
+        @for (entry of activity; track entry.title) {
+          <li>
+            <span>{{ entry.title }}</span
+            ><small>{{ entry.time }}</small>
+          </li>
+        }
+      </ul>
+    </section>
+  </main>
+</section>
+<!-- Editable Aevko block source. -->

@@ -58,6 +58,7 @@ credit.
 | Attachment       | yes    | yes      | yes       | yes  | yes  | yes  | done   |
 | Avatar           | yes    | yes      | yes       | yes  | yes  | yes  | done   |
 | Badge            | yes    | yes      | yes       | yes  | yes  | yes  | done   |
+| Kbd              | yes    | yes      | yes       | yes  | yes  | yes  | done   |
 | Breadcrumb       | yes    | yes      | yes       | yes  | yes  | yes  | done   |
 | Bubble           | yes    | yes      | yes       | yes  | yes  | yes  | done   |
 | Chart            | yes    | yes      | yes       | yes  | yes  | yes  | done   |
@@ -71,4 +72,9 @@ credit.
 | Tabs             | yes    | yes      | yes       | yes  | yes  | yes  | done   |
 | Trace            | yes    | yes      | yes       | yes  | yes  | yes  | done   |
 
-Total: **64 / 64 done**.
+Total: **65 / 65 done**.
+
+The 2026-11-04 version 1.0 review reran every isolated component installation.
+Current cross-page and interaction evidence is recorded in the
+[release checklist](release-checklist.md); component completion does not imply
+that a package release has been published.

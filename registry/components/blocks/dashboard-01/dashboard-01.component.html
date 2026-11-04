@@ -1,0 +1,167 @@
+<section class="dashboard" data-slot="dashboard-01-block">
+  <aevko-sidebar label="Operations navigation" [id]="'operations-sidebar'">
+    <strong aevkoSidebarHeader>ACME / Workspace</strong>
+    <div class="dashboard-nav">
+      <p class="nav-label">Workspace</p>
+      <a href="#overview" aria-current="page"><span aria-hidden="true">▦</span> Overview</a>
+      <a href="#reports"><span aria-hidden="true">↗</span> Analytics</a>
+      <a href="#projects"><span aria-hidden="true">□</span> Projects</a>
+      <a href="#activity"><span aria-hidden="true">◷</span> Activity</a>
+    </div>
+    <div aevkoSidebarFooter><strong>Alex Morgan</strong><small>Workspace administrator</small></div>
+  </aevko-sidebar>
+  <main id="overview">
+    <header class="dashboard-header">
+      <div>
+        <p class="eyebrow">Workspace overview</p>
+        <h1>Your business at a glance.</h1>
+        <p class="intro">Track performance and keep your team's next steps in view.</p>
+      </div>
+      <div class="dashboard-actions">
+        <a aevkoButton variant="outline" [href]="exportUrl()" download="projects.csv">Export CSV</a
+        ><button aevkoButton (click)="creating.set(!creating())">
+          New project <span aria-hidden="true">+</span>
+        </button>
+      </div>
+    </header>
+    @if (creating()) {
+      <form class="project-form" (submit)="addProject($event)">
+        <label for="new-project-name">Project name</label
+        ><input
+          id="new-project-name"
+          required
+          maxlength="80"
+          [value]="projectName()"
+          (input)="projectName.set($any($event.target).value)"
+          placeholder="Customer portal"
+        />
+        <button aevkoButton type="submit">Create project</button
+        ><button aevkoButton type="button" variant="ghost" (click)="creating.set(false)">
+          Cancel
+        </button>
+      </form>
+    }
+    @if (notice()) {
+      <p class="notice" role="status">{{ notice() }}</p>
+    }
+    <section class="cards" aria-label="Key metrics">
+      @for (metric of metrics(); track metric.label) {
+        <aevko-card
+          ><aevko-card-header
+            ><aevko-card-description>{{ metric.label }}</aevko-card-description
+            ><aevko-card-title>{{ metric.value }}</aevko-card-title></aevko-card-header
+          ><aevko-card-content
+            ><span class="trend">{{ metric.trend }}</span>
+            <p class="metric-note">{{ metric.note }}</p></aevko-card-content
+          ></aevko-card
+        >
+      }
+    </section>
+    <section id="reports" class="dashboard-grid" aria-label="Revenue analytics">
+      <article class="chart">
+        <header>
+          <div>
+            <p class="eyebrow">Performance</p>
+            <h2>Revenue over time</h2>
+            <p class="description">Current revenue compared with the previous period.</p>
+          </div>
+          <label class="period-label"
+            ><span class="sr-only">Revenue period</span
+            ><select
+              aria-label="Revenue period"
+              [value]="period()"
+              (change)="period.set($any($event.target).value)"
+            >
+              <option value="6">Last 6 months</option>
+              <option value="3">Last 3 months</option>
+            </select></label
+          >
+        </header>
+        <aevko-chart-canvas
+          label="Revenue over time"
+          [data]="revenue()"
+          valueFormat="currency"
+          [height]="290"
+        />
+      </article>
+      <article class="chart">
+        <header>
+          <div>
+            <p class="eyebrow">Acquisition</p>
+            <h2>Revenue by channel</h2>
+            <p class="description">Where your customers find you.</p>
+          </div>
+        </header>
+        <aevko-chart-canvas
+          label="Revenue by acquisition channel"
+          type="doughnut"
+          [data]="channels()"
+          valueFormat="currency"
+          [height]="290"
+        />
+      </article>
+    </section>
+    <section id="projects" class="projects" aria-labelledby="projects-heading">
+      <header>
+        <div>
+          <p class="eyebrow">Portfolio</p>
+          <h2 id="projects-heading">
+            Current projects <span class="count">{{ projects().length }}</span>
+          </h2>
+        </div>
+        <label
+          ><span class="sr-only">Search projects</span
+          ><input
+            type="search"
+            aria-label="Search projects"
+            placeholder="Search projects…"
+            [value]="query()"
+            (input)="query.set($any($event.target).value)"
+        /></label>
+      </header>
+      <div aevkoTableContainer label="Project portfolio table">
+        <table aevkoTable>
+          <thead aevkoTableHeader>
+            <tr aevkoTableRow>
+              <th aevkoTableHead scope="col">Project</th>
+              <th aevkoTableHead scope="col">Owner</th>
+              <th aevkoTableHead scope="col">Status</th>
+              <th aevkoTableHead scope="col">Progress</th>
+            </tr>
+          </thead>
+          <tbody aevkoTableBody>
+            @for (project of filteredProjects(); track project.name) {
+              <tr aevkoTableRow>
+                <td aevkoTableCell>{{ project.name }}</td>
+                <td aevkoTableCell>{{ project.owner }}</td>
+                <td aevkoTableCell>
+                  <aevko-badge variant="outline">{{ project.status }}</aevko-badge>
+                </td>
+                <td aevkoTableCell>
+                  <span class="progress-track" aria-hidden="true"
+                    ><span [style.width]="project.progress"></span></span
+                  >{{ project.progress }}
+                </td>
+              </tr>
+            } @empty {
+              <tr aevkoTableRow>
+                <td aevkoTableCell colspan="4">No projects match your search.</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+      <p class="table-note">
+        Showing {{ filteredProjects().length }} of {{ projects().length }} projects
+      </p>
+    </section>
+    <section id="activity" class="activity" aria-label="Recent activity">
+      <h2>Recent activity</h2>
+      <div>
+        <p><strong>Launch review completed</strong><span>Platform team · 12 minutes ago</span></p>
+        <p><strong>Budget forecast updated</strong><span>Finance team · 1 hour ago</span></p>
+        <p><strong>New research published</strong><span>Insights team · 3 hours ago</span></p>
+      </div>
+    </section>
+  </main>
+</section>

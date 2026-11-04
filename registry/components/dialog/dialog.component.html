@@ -1,6 +1,7 @@
 <ng-content select="[aevkoDialogTrigger]" />
 <dialog
   #panel
+  data-slot="dialog-content"
   [attr.role]="dialogRole()"
   aria-modal="true"
   [attr.aria-label]="title()"
@@ -10,20 +11,26 @@
   (cancel)="handleCancel($event)"
   (close)="handleClose()"
 >
-  <header>
+  <header data-slot="dialog-header">
     <div>
-      <h2>{{ title() }}</h2>
+      <h2 data-slot="dialog-title">{{ title() }}</h2>
       @if (description()) {
-        <p>{{ description() }}</p>
+        <p data-slot="dialog-description">{{ description() }}</p>
       }
     </div>
     @if (showCloseButton()) {
-      <button type="button" class="close" aria-label="Close dialog" (click)="close()">
+      <button
+        type="button"
+        class="close"
+        data-slot="dialog-close"
+        aria-label="Close dialog"
+        (click)="close()"
+      >
         <svg viewBox="0 0 24 24" aria-hidden="true">
           <path d="M6 6l12 12M18 6 6 18" />
         </svg>
       </button>
     }
   </header>
-  <div class="content"><ng-content /></div>
+  <div class="content" data-slot="dialog-body"><ng-content /></div>
 </dialog>

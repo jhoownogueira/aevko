@@ -15,8 +15,14 @@
   outline: 2px solid var(--aevko-focus, #a1a1aa);
   outline-offset: 1px;
 }
+:host:hover:not(:disabled) {
+  border-color: var(--aevko-foreground, #20201e);
+}
 :host([data-invalid='true']) {
   border-color: var(--aevko-danger, #3f3f3f);
+}
+:host([data-invalid='true']):focus-visible {
+  outline-color: color-mix(in srgb, var(--aevko-danger, #3f3f3f) 55%, transparent);
 }
 :host([data-auto-resize='true']) {
   overflow: hidden;

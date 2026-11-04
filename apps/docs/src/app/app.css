@@ -9,8 +9,8 @@
   border-bottom: 1px solid var(--aevko-border);
   display: grid;
   gap: 2rem;
-  grid-template-columns: 1fr auto 1fr;
-  min-height: 4.5rem;
+  grid-template-columns: auto 1fr auto;
+  min-height: 4rem;
   padding: 0.75rem clamp(1rem, 3vw, 2.5rem);
   position: sticky;
   top: 0;
@@ -42,13 +42,17 @@
 .header-actions {
   align-items: center;
   display: flex;
-  gap: 1.25rem;
+  gap: 1rem;
+}
+
+.desktop-nav {
+  justify-content: center;
 }
 
 .desktop-nav a {
   color: var(--aevko-foreground);
   font-size: 0.875rem;
-  font-weight: 650;
+  font-weight: 550;
   text-decoration: none;
 }
 
@@ -97,7 +101,7 @@ kbd {
   gap: 1rem;
   padding: 1.5rem;
   position: sticky;
-  top: 4.5rem;
+  top: 4rem;
   z-index: 19;
 }
 
@@ -177,11 +181,11 @@ kbd {
 
 .docs-sidebar {
   border-inline-end: 1px solid var(--aevko-border);
-  height: calc(100dvh - 4.5rem);
+  height: calc(100dvh - 4rem);
   overflow: auto;
   padding: 1.5rem 1rem 3rem;
   position: sticky;
-  top: 4.5rem;
+  top: 4rem;
 }
 
 .docs-sidebar nav {
@@ -192,9 +196,9 @@ kbd {
 .docs-sidebar p {
   color: var(--aevko-muted);
   font-size: 0.75rem;
-  font-weight: 650;
+  font-weight: 550;
   margin: 1.5rem 0 0.5rem;
-  text-transform: uppercase;
+  letter-spacing: 0.02em;
 }
 
 .docs-sidebar p:first-child {
@@ -214,11 +218,54 @@ kbd {
 }
 
 .docs-sidebar a.active {
-  font-weight: 700;
+  font-weight: 600;
 }
 
 .docs-main {
   min-width: 0;
+}
+
+.block-demo-toolbar {
+  align-items: center;
+  background: color-mix(in srgb, var(--aevko-background) 94%, transparent);
+  border-bottom: 1px solid var(--aevko-border);
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: 1fr auto 1fr;
+  min-height: 3.5rem;
+  padding: 0.6rem clamp(1rem, 3vw, 2.5rem);
+  position: sticky;
+  top: 4rem;
+  z-index: 12;
+}
+
+.block-demo-toolbar a,
+.block-demo-toolbar button {
+  align-items: center;
+  background: transparent;
+  border: 0;
+  color: var(--aevko-foreground);
+  display: inline-flex;
+  font: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  gap: 0.4rem;
+  text-decoration: none;
+}
+
+.block-demo-toolbar code {
+  color: var(--aevko-muted);
+  font-size: 0.75rem;
+}
+
+.block-demo-toolbar > div {
+  display: flex;
+  gap: 1rem;
+  justify-self: end;
+}
+
+.block-back-icon {
+  transform: rotate(180deg);
 }
 
 footer {
@@ -258,4 +305,29 @@ footer {
     flex-direction: column;
     gap: 0.5rem;
   }
+
+  .block-demo-toolbar {
+    grid-template-columns: 1fr auto;
+  }
+
+  .block-demo-toolbar code {
+    display: none;
+  }
+}
+
+@media (min-width: 761px) and (max-width: 1150px) {
+  .search-trigger span,
+  .search-trigger kbd {
+    display: none;
+  }
+  .site-header {
+    gap: 1rem;
+  }
+}
+
+.block-source {
+  padding: 1.5rem;
+  max-height: 70vh;
+  overflow: auto;
+  border-bottom: 1px solid var(--aevko-border);
 }

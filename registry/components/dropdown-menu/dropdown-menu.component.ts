@@ -1,4 +1,6 @@
+import { AevkoFloating } from '../shared/floating.directive';
 import {
+  ViewEncapsulation,
   ChangeDetectionStrategy,
   Component,
   Directive,
@@ -12,14 +14,25 @@ import {
   model,
 } from '@angular/core';
 
-@Directive({ selector: '[aevkoDropdownMenuTrigger]', standalone: true })
+@Directive({
+  selector: '[aevkoDropdownMenuTrigger]',
+  standalone: true,
+  host: { 'data-slot': 'dropdown-menu-trigger' },
+})
 export class AevkoDropdownMenuTrigger {
   readonly element = inject<ElementRef<HTMLElement>>(ElementRef);
 }
 @Directive({
   selector: 'button[aevkoDropdownMenuItem]',
   standalone: true,
-  host: { type: 'button', role: 'menuitem', tabindex: '-1' },
+  host: {
+    type: 'button',
+    role: 'menuitem',
+    tabindex: '-1',
+    'data-slot': 'dropdown-menu-item',
+    '[disabled]': 'disabled()',
+    '[attr.aria-disabled]': 'disabled() ? "true" : null',
+  },
 })
 export class AevkoDropdownMenuItem {
   readonly element = inject<ElementRef<HTMLButtonElement>>(ElementRef);
@@ -29,12 +42,26 @@ export class AevkoDropdownMenuItem {
 @Component({
   selector: 'aevko-dropdown-menu',
   standalone: true,
+  imports: [AevkoFloating],
   templateUrl: './dropdown-menu.component.html',
   styleUrl: './dropdown-menu.component.css',
+  encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { '(click)': 'click($event)', '(keydown)': 'keydown($event)' },
+  host: {
+    'data-slot': 'dropdown-menu-root',
+    '(document:pointerdown)': 'dismissOutside($event)',
+    '(document:focusin)': 'dismissOutside($event)',
+    '(click)': 'click($event)',
+    '(keydown)': 'keydown($event)',
+  },
 })
 export class AevkoDropdownMenu {
+  private readonly hostElement = inject<ElementRef<HTMLElement>>(ElementRef);
+  protected dismissOutside(event: Event): void {
+    if (this.open() && !event.composedPath().includes(this.hostElement.nativeElement)) {
+      this.open.set(false);
+    }
+  }
   readonly label = input.required<string>();
   readonly id = input('aevko-dropdown-menu');
   readonly open = model(false);

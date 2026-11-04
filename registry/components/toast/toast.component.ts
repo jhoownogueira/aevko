@@ -1,4 +1,11 @@
-import { ChangeDetectionStrategy, Component, Injectable, computed, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Injectable,
+  computed,
+  input,
+  signal,
+} from '@angular/core';
 
 export type AevkoToastTone = 'default' | 'success' | 'info' | 'warning' | 'error';
 export interface AevkoToastOptions {
@@ -43,7 +50,9 @@ export class AevkoToastStore {
   templateUrl: './toast.component.html',
   styleUrl: './toast.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { 'data-slot': 'toaster' },
 })
 export class AevkoToaster {
+  readonly label = input('Notifications');
   constructor(protected readonly store: AevkoToastStore) {}
 }

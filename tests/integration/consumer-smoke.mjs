@@ -15,6 +15,7 @@ const allComponents = [
   'button-group',
   'toggle',
   'badge',
+  'kbd',
   'alert',
   'progress',
   'spinner',
@@ -113,7 +114,8 @@ function appSource(component) {
       imports:
         "import { Component } from '@angular/core';\nimport { AevkoButton } from './ui/button';",
       metadata: 'imports: [AevkoButton],',
-      template: '<button aevkoButton variant="accent">Save changes</button>',
+      template:
+        '<button aevkoButton variant="secondary">Save changes</button><button aevkoButton size="icon" aria-label="Add">+</button>',
     },
     'button-group': {
       imports:
@@ -133,7 +135,15 @@ function appSource(component) {
       imports:
         "import { Component } from '@angular/core';\nimport { AevkoBadge } from './ui/badge';",
       metadata: 'imports: [AevkoBadge],',
-      template: '<aevko-badge variant="muted">Ready</aevko-badge>',
+      template:
+        '<aevko-badge variant="secondary">Ready</aevko-badge><a aevkoBadge variant="link" href="#details">Details</a>',
+    },
+    kbd: {
+      imports:
+        "import { Component } from '@angular/core';\nimport { AevkoKbd, AevkoKbdGroup } from './ui/kbd';",
+      metadata: 'imports: [AevkoKbd, AevkoKbdGroup],',
+      template:
+        '<span aevkoKbdGroup aria-label="Control K"><kbd aevkoKbd>Ctrl</kbd><kbd aevkoKbd>K</kbd></span>',
     },
     alert: {
       imports:
@@ -241,10 +251,11 @@ function appSource(component) {
     },
     'input-group': {
       imports:
-        "import { Component } from '@angular/core';\nimport { AevkoInputGroup, AevkoInputGroupAddon, AevkoInputGroupControl } from './ui/input-group';",
-      metadata: 'imports: [AevkoInputGroup, AevkoInputGroupAddon, AevkoInputGroupControl],',
+        "import { Component } from '@angular/core';\nimport { AevkoInputGroup, AevkoInputGroupAddon, AevkoInputGroupButton, AevkoInputGroupControl } from './ui/input-group';",
+      metadata:
+        'imports: [AevkoInputGroup, AevkoInputGroupAddon, AevkoInputGroupButton, AevkoInputGroupControl],',
       template:
-        '<label for="site">Website</label><aevko-input-group><input aevkoInputGroupControl id="site" /><aevko-input-group-addon>https://</aevko-input-group-addon></aevko-input-group>',
+        '<label for="site">Website</label><aevko-input-group><input aevkoInputGroupControl id="site" /><aevko-input-group-addon>https://</aevko-input-group-addon><button aevkoInputGroupButton size="sm" variant="outline">Copy</button></aevko-input-group>',
     },
     'input-otp': {
       imports:
@@ -282,10 +293,10 @@ function appSource(component) {
     },
     chart: {
       imports:
-        "import { Component } from '@angular/core';\nimport { AevkoChart } from './ui/chart';",
-      metadata: 'imports: [AevkoChart],',
+        "import { Component } from '@angular/core';\nimport { AevkoChart, AevkoChartCanvas } from './ui/chart';",
+      metadata: 'imports: [AevkoChart, AevkoChartCanvas],',
       template:
-        '<aevko-chart label="Revenue"><svg aevkoChartVisual><path d="M0 10L10 0" /></svg><table aevkoChartData><caption>Revenue values</caption><tbody><tr><td>10</td></tr></tbody></table></aevko-chart>',
+        '<aevko-chart label="Revenue"><aevko-chart-canvas label="Revenue trend" [data]="{labels: [\'Jan\', \'Feb\'], datasets: [{label: \'Revenue\', values: [10, 20], fill: true}]}" /></aevko-chart>',
     },
     'data-table': {
       imports:
@@ -408,37 +419,43 @@ function appSource(component) {
     },
     calendar: {
       imports:
-        "import { Component } from '@angular/core';\nimport { AevkoCalendar } from './ui/calendar';",
-      metadata: 'imports: [AevkoCalendar],',
-      template: '<aevko-calendar label="Choose date" month="2026-10" />',
+        "import { Component } from '@angular/core';\nimport { FormControl, ReactiveFormsModule } from '@angular/forms';\nimport { AevkoCalendar } from './ui/calendar';",
+      metadata: 'imports: [AevkoCalendar, ReactiveFormsModule],',
+      template: '<aevko-calendar label="Choose date" month="2026-10" [formControl]="date" />',
+      classBody: "date = new FormControl('2026-10-30', { nonNullable: true });",
     },
     combobox: {
       imports:
-        "import { Component } from '@angular/core';\nimport { AevkoCombobox } from './ui/combobox';",
-      metadata: 'imports: [AevkoCombobox],',
-      template: '<aevko-combobox label="Framework" [items]="items" />',
-      classBody: "items = [{ value: 'angular', label: 'Angular' }];",
+        "import { Component } from '@angular/core';\nimport { FormControl, ReactiveFormsModule } from '@angular/forms';\nimport { AevkoCombobox } from './ui/combobox';",
+      metadata: 'imports: [AevkoCombobox, ReactiveFormsModule],',
+      template:
+        '<aevko-combobox id="framework" label="Framework" [items]="items" [formControl]="value" />',
+      classBody:
+        "items = [{ value: 'angular', label: 'Angular' }];\nvalue = new FormControl('angular', { nonNullable: true });",
     },
     'date-picker': {
       imports:
-        "import { Component } from '@angular/core';\nimport { AevkoDatePicker } from './ui/date-picker';",
-      metadata: 'imports: [AevkoDatePicker],',
-      template: '<aevko-date-picker label="Deployment date" month="2026-10" />',
+        "import { Component } from '@angular/core';\nimport { FormControl, ReactiveFormsModule } from '@angular/forms';\nimport { AevkoDatePicker } from './ui/date-picker';",
+      metadata: 'imports: [AevkoDatePicker, ReactiveFormsModule],',
+      template:
+        '<aevko-date-picker label="Deployment date" month="2026-10" [formControl]="date" />',
+      classBody: "date = new FormControl('2026-10-30', { nonNullable: true });",
     },
     questionnaire: {
       imports:
-        "import { Component } from '@angular/core';\nimport { AevkoQuestionnaire } from './ui/questionnaire';",
-      metadata: 'imports: [AevkoQuestionnaire],',
-      template: '<aevko-questionnaire label="Brief" [items]="items" />',
+        "import { Component } from '@angular/core';\nimport { FormControl, ReactiveFormsModule } from '@angular/forms';\nimport { AevkoQuestionnaire } from './ui/questionnaire';",
+      metadata: 'imports: [AevkoQuestionnaire, ReactiveFormsModule],',
+      template: '<aevko-questionnaire label="Brief" [items]="items" [formControl]="answers" />',
       classBody:
-        "items = [{ name: 'scope', prompt: 'Choose scope', choices: [{ value: 'one', label: 'One' }] }];",
+        "items = [{ name: 'scope', prompt: 'Choose scope', choices: [{ value: 'one', label: 'One' }] }];\nanswers = new FormControl<Record<string, string | readonly string[]>>({}, { nonNullable: true });",
     },
     select: {
       imports:
-        "import { Component } from '@angular/core';\nimport { AevkoSelect } from './ui/select';",
-      metadata: 'imports: [AevkoSelect],',
-      template: '<aevko-select label="Theme" [items]="items" />',
-      classBody: "items = [{ value: 'dark', label: 'Dark' }];",
+        "import { Component } from '@angular/core';\nimport { FormControl, ReactiveFormsModule } from '@angular/forms';\nimport { AevkoSelect } from './ui/select';",
+      metadata: 'imports: [AevkoSelect, ReactiveFormsModule],',
+      template: '<aevko-select id="theme" label="Theme" [items]="items" [formControl]="value" />',
+      classBody:
+        "items = [{ value: 'dark', label: 'Dark' }];\nvalue = new FormControl('dark', { nonNullable: true });",
     },
     direction: {
       imports:
@@ -454,10 +471,11 @@ function appSource(component) {
     },
     field: {
       imports:
-        "import { Component } from '@angular/core';\nimport { AevkoField, AevkoFieldDescription, AevkoFieldLabel } from './ui/field';",
-      metadata: 'imports: [AevkoField, AevkoFieldDescription, AevkoFieldLabel],',
+        "import { Component } from '@angular/core';\nimport { AevkoField, AevkoFieldContent, AevkoFieldDescription, AevkoFieldGroup, AevkoFieldLabel } from './ui/field';",
+      metadata:
+        'imports: [AevkoField, AevkoFieldContent, AevkoFieldDescription, AevkoFieldGroup, AevkoFieldLabel],',
       template:
-        '<aevko-field><label aevkoFieldLabel for="email">Email</label><input id="email" aria-describedby="help"><span aevkoFieldDescription id="help">Work email</span></aevko-field>',
+        '<aevko-field-group><aevko-field orientation="responsive"><label aevkoFieldLabel for="email">Email</label><aevko-field-content><input id="email" aria-describedby="help"><span aevkoFieldDescription id="help">Work email</span></aevko-field-content></aevko-field></aevko-field-group>',
     },
     input: {
       imports:

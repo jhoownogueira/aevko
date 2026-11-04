@@ -6,7 +6,7 @@ import { ChangeDetectionStrategy, Component, computed, input, model } from '@ang
   templateUrl: './pagination.component.html',
   styleUrl: './pagination.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { role: 'navigation', '[attr.aria-label]': 'label()' },
+  host: { role: 'navigation', 'data-slot': 'pagination', '[attr.aria-label]': 'label()' },
 })
 export class AevkoPagination {
   readonly page = model(1);

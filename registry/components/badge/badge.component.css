@@ -5,7 +5,7 @@
   border-radius: var(--aevko-radius, 0);
   color: var(--aevko-background, #fff);
   display: inline-flex;
-  font: 650 0.75rem/1 var(--aevko-font-sans, sans-serif);
+  font: 500 0.75rem/1 var(--aevko-font-sans, sans-serif);
   gap: 0.3rem;
   min-height: 1.5rem;
   padding-inline: 0.5rem;
@@ -20,9 +20,25 @@
   background: var(--aevko-surface, #f4f4f5);
   color: var(--aevko-foreground, #09090b);
 }
-:host([data-variant='danger']) {
+:host([data-variant='secondary']) {
+  background: var(--aevko-surface, #f4f4f5);
+  color: var(--aevko-surface-foreground, #09090b);
+}
+:host([data-variant='danger']),
+:host([data-variant='destructive']) {
   background: var(--aevko-danger, #3f3f3f);
   color: var(--aevko-danger-foreground, #fff);
+}
+:host([data-variant='ghost']) {
+  background: transparent;
+  color: var(--aevko-foreground, #09090b);
+}
+:host([data-variant='link']) {
+  background: transparent;
+  color: var(--aevko-foreground, #09090b);
+  padding-inline: 0;
+  text-decoration: underline;
+  text-underline-offset: 0.2em;
 }
 .icon {
   align-items: center;

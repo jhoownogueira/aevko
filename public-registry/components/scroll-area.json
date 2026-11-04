@@ -9,7 +9,7 @@
   "files": [
     {
       "target": "scroll-area/scroll-area.component.ts",
-      "content": "import { ChangeDetectionStrategy, Component, input } from '@angular/core';\n\n@Component({\n  selector: 'aevko-scroll-area',\n  standalone: true,\n  template: '<ng-content />',\n  styleUrl: './scroll-area.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: { '[attr.tabindex]': 'tabIndex()', '[attr.data-scrollbar]': 'scrollbar()' },\n})\nexport class AevkoScrollArea {\n  readonly tabIndex = input(0);\n  readonly scrollbar = input<'auto' | 'thin' | 'hidden'>('auto');\n}\n"
+      "content": "import { ChangeDetectionStrategy, Component, input } from '@angular/core';\n\n@Component({\n  selector: 'aevko-scroll-area',\n  standalone: true,\n  template: '<ng-content />',\n  styleUrl: './scroll-area.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: {\n    'data-slot': 'scroll-area',\n    '[attr.tabindex]': 'tabIndex()',\n    '[attr.data-scrollbar]': 'scrollbar()',\n  },\n})\nexport class AevkoScrollArea {\n  readonly tabIndex = input(0);\n  readonly scrollbar = input<'auto' | 'thin' | 'hidden'>('auto');\n}\n"
     },
     {
       "target": "scroll-area/scroll-area.component.css",
@@ -22,5 +22,5 @@
   ],
   "registryDependencies": [],
   "npmDependencies": {},
-  "integrity": "2354f8d037f1afb0f5010c6d23380364cedb42a33bb2da84b3ec0541f0bcbcd2"
+  "integrity": "762fdb2312e63e297ffb1310b4452c4a0a456aa1e51537fdebcd5b547e3b6485"
 }

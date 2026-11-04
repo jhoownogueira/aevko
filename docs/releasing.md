@@ -48,7 +48,7 @@ out that exact tag, verifies the workspace and packed Angular consumer, and
 publishes to npm through OIDC.
 
 Regular CI verifies the packed CLI in one clean Angular consumer. The exhaustive
-64-component installation audit remains available through the manual **Consumer
+65-component and 27-block installation audits remain available through the manual **Consumer
 installation** workflow so routine documentation and infrastructure commits do
 not occupy a runner for dozens of sequential Angular builds.
 
@@ -70,3 +70,10 @@ package smoke and OIDC publish steps without recreating the release.
 If the npm publisher configuration is created but does not complete a successful
 publish within two days, delete the expired publisher and create it again before
 merging the next release pull request.
+
+## Version 1.0 handoff
+
+See [version 1.0 preparation](version-1.0.md) for candidate changes, migration
+guidance and the `Release-As: 1.0.0` commit footer. Keep the published-version
+manifest unchanged until the release workflow updates it. The current review
+does not publish packages, push tags or change external infrastructure.

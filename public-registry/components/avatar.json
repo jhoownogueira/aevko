@@ -9,7 +9,7 @@
   "files": [
     {
       "target": "avatar/avatar.component.ts",
-      "content": "import { ChangeDetectionStrategy, Component, computed, input, signal } from '@angular/core';\n\n@Component({\n  selector: 'aevko-avatar',\n  standalone: true,\n  templateUrl: './avatar.component.html',\n  styleUrl: './avatar.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: { '[style.--aevko-avatar-size]': 'size()' },\n})\nexport class AevkoAvatar {\n  readonly src = input<string | null>(null);\n  readonly alt = input.required<string>();\n  readonly fallback = input.required<string>();\n  readonly size = input('2.5rem');\n  protected readonly failed = signal(false);\n  protected readonly showImage = computed(() => Boolean(this.src()) && !this.failed());\n}\n"
+      "content": "import { ChangeDetectionStrategy, Component, computed, input, signal } from '@angular/core';\n\n@Component({\n  selector: 'aevko-avatar',\n  standalone: true,\n  templateUrl: './avatar.component.html',\n  styleUrl: './avatar.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: { 'data-slot': 'avatar', '[style.--aevko-avatar-size]': 'size()' },\n})\nexport class AevkoAvatar {\n  readonly src = input<string | null>(null);\n  readonly alt = input.required<string>();\n  readonly fallback = input.required<string>();\n  readonly size = input('2.5rem');\n  protected readonly failed = signal(false);\n  protected readonly showImage = computed(() => Boolean(this.src()) && !this.failed());\n}\n"
     },
     {
       "target": "avatar/avatar.component.html",
@@ -17,7 +17,7 @@
     },
     {
       "target": "avatar/avatar.component.css",
-      "content": ":host {\n  background: var(--aevko-surface, #f4f4f5);\n  border: 1px solid var(--aevko-border, #e4e4e7);\n  display: inline-grid;\n  height: var(--aevko-avatar-size, 2.5rem);\n  overflow: hidden;\n  place-items: center;\n  width: var(--aevko-avatar-size, 2.5rem);\n}\nimg {\n  height: 100%;\n  object-fit: cover;\n  width: 100%;\n}\n.fallback {\n  align-items: center;\n  display: flex;\n  font-size: calc(var(--aevko-avatar-size, 2.5rem) * 0.34);\n  font-weight: 700;\n  height: 100%;\n  justify-content: center;\n  text-transform: uppercase;\n  width: 100%;\n}\n"
+      "content": ":host {\n  background: var(--aevko-surface, #f4f4f5);\n  border: 1px solid var(--aevko-border, #e4e4e7);\n  display: inline-grid;\n  height: var(--aevko-avatar-size, 2.5rem);\n  overflow: hidden;\n  place-items: center;\n  width: var(--aevko-avatar-size, 2.5rem);\n}\nimg {\n  height: 100%;\n  object-fit: cover;\n  width: 100%;\n}\n.fallback {\n  align-items: center;\n  display: flex;\n  font-size: calc(var(--aevko-avatar-size, 2.5rem) * 0.34);\n  font-weight: 600;\n  height: 100%;\n  justify-content: center;\n  text-transform: uppercase;\n  width: 100%;\n}\n"
     },
     {
       "target": "avatar/index.ts",
@@ -26,5 +26,5 @@
   ],
   "registryDependencies": [],
   "npmDependencies": {},
-  "integrity": "a36f77f948c5d90ae01856baa9ecb1130c591028a7c761372cb6e4a3e1a8aa49"
+  "integrity": "1cff3f7ad3ce27a781684358e55e9834af70764d8e72e506665f701e98801bc2"
 }

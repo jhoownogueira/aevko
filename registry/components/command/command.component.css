@@ -1,11 +1,11 @@
 :host {
   background: var(--aevko-surface, #fff);
-  border: 1px solid var(--aevko-border, #d4d4d4);
+  border: 1px solid var(--aevko-border, #e4e4e7);
   display: grid;
   inline-size: min(28rem, 100%);
 }
 .search {
-  border-block-end: 1px solid var(--aevko-border, #d4d4d4);
+  border-block-end: 1px solid var(--aevko-border, #e4e4e7);
   padding: 0.5rem;
 }
 input {
@@ -62,13 +62,4 @@ p {
   color: var(--aevko-muted-foreground, #666);
   padding: 1rem;
   text-align: center;
-}
-@media (prefers-color-scheme: dark) {
-  :host {
-    --aevko-surface: #171717;
-    --aevko-border: #404040;
-    --aevko-muted: #2a2a2a;
-    --aevko-muted-foreground: #b3b3b3;
-    color: #f5f5f5;
-  }
 }

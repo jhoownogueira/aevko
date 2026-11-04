@@ -16,7 +16,7 @@
   possible.
 - Run Prettier, tests, registry validation and isolated consumer builds before
   changing status rows.
-- Do not add AI Elements, Kbd or Typography to the public component list.
+- Do not add AI Elements,  Typography to the public component list.
 - Do not publish packages, create releases or alter external infrastructure.
 
 ## Project skills

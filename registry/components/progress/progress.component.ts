@@ -7,6 +7,7 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
   styleUrl: './progress.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
+    'data-slot': 'progress',
     role: 'progressbar',
     '[attr.aria-label]': 'label()',
     '[attr.aria-valuemin]': '0',

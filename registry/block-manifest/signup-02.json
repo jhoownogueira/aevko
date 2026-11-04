@@ -1,0 +1,29 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "signup-02",
+  "title": "Split sign up",
+  "description": "An editable split sign up composition built from canonical Aevko form primitives.",
+  "category": "forms",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "source": "components/blocks/signup-02/signup-02.component.ts",
+      "target": "blocks/signup-02/signup-02.component.ts"
+    },
+    {
+      "source": "components/blocks/signup-02/signup-02.component.html",
+      "target": "blocks/signup-02/signup-02.component.html"
+    },
+    {
+      "source": "components/blocks/signup-02/signup-02.component.css",
+      "target": "blocks/signup-02/signup-02.component.css"
+    },
+    {
+      "source": "components/blocks/signup-02/index.ts",
+      "target": "blocks/signup-02/index.ts"
+    }
+  ],
+  "registryDependencies": ["button", "checkbox", "input", "label"],
+  "npmDependencies": {}
+}

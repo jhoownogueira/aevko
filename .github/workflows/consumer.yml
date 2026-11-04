@@ -4,7 +4,11 @@ on:
   workflow_dispatch:
     inputs:
       components:
-        description: Comma-separated component slugs; leave empty to test all 64
+        description: Comma-separated component slugs; leave empty to test all 65
+        required: false
+        type: string
+      blocks:
+        description: Comma-separated block slugs; leave empty to test all 27
         required: false
         type: string
 
@@ -17,6 +21,7 @@ jobs:
     timeout-minutes: 90
     env:
       AEVKO_COMPONENTS: ${{ inputs.components }}
+      AEVKO_BLOCKS: ${{ inputs.blocks }}
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
@@ -28,3 +33,4 @@ jobs:
           cache: pnpm
       - run: pnpm install --frozen-lockfile
       - run: pnpm test:consumer
+      - run: pnpm test:blocks

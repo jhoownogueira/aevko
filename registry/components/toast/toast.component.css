@@ -15,10 +15,10 @@
 .toast {
   align-items: start;
   background: var(--aevko-surface, #fff);
-  border: 1px solid var(--aevko-border, #d4d4d4);
+  border: 1px solid var(--aevko-border, #e4e4e7);
   border-inline-start-width: 0.25rem;
   border-radius: 0;
-  box-shadow: 0 12px 30px rgb(0 0 0 / 0.12);
+  box-shadow: var(--aevko-shadow, 0 4px 16px rgb(0 0 0 / 0.08));
   color: var(--aevko-foreground, #171717);
   display: grid;
   gap: 0.75rem;
@@ -38,7 +38,7 @@ p {
 }
 button {
   background: transparent;
-  border: 1px solid var(--aevko-border, #d4d4d4);
+  border: 1px solid var(--aevko-border, #e4e4e7);
   border-radius: 0;
   color: inherit;
   min-block-size: 2rem;
@@ -62,13 +62,5 @@ button:focus-visible {
   from {
     opacity: 0;
     transform: translateY(0.5rem);
-  }
-}
-@media (prefers-color-scheme: dark) {
-  .toast {
-    --aevko-surface: #171717;
-    --aevko-foreground: #f5f5f5;
-    --aevko-border: #404040;
-    --aevko-muted-foreground: #b3b3b3;
   }
 }

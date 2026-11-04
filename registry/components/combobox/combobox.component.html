@@ -1,23 +1,38 @@
 <input
   type="text"
+  data-slot="combobox-input"
   role="combobox"
   aria-autocomplete="list"
   [attr.aria-label]="label()"
   [attr.aria-expanded]="open()"
-  aria-controls="aevko-combobox-list"
+  [attr.aria-controls]="id() + '-list'"
+  [attr.aria-activedescendant]="
+    open() && activeOption() ? id() + '-option-' + activeOption()!.value : null
+  "
   [placeholder]="placeholder()"
   [value]="query()"
-  (focus)="open.set(true)"
+  [disabled]="isDisabled()"
+  (blur)="touch()"
+  (focus)="!isDisabled() && open.set(true)"
   (input)="inputValue($any($event.target).value)"
   (keydown)="keydown($event)"
 />
-<div id="aevko-combobox-list" role="listbox" [attr.aria-label]="label()" [hidden]="!open()">
+<div
+  [id]="id() + '-list'"
+  data-slot="combobox-content"
+  aevkoFloating
+  role="listbox"
+  [attr.aria-label]="label()"
+  [hidden]="!open()"
+>
   @for (item of filtered(); track item.value; let index = $index) {
     <div
       role="option"
+      data-slot="combobox-item"
+      [id]="id() + '-option-' + item.value"
       [attr.aria-selected]="value() === item.value"
       [attr.aria-disabled]="item.disabled || null"
-      [attr.data-active]="active() === index"
+      [attr.data-active]="activeOption()?.value === item.value"
       (click)="choose(item)"
     >
       {{ item.label }}

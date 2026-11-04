@@ -15,6 +15,7 @@ import {
   styleUrl: './textarea.directive.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
+    'data-slot': 'textarea',
     '[attr.aria-invalid]': 'invalid() ? "true" : null',
     '[attr.data-invalid]': 'invalid() ? "true" : null',
     '[attr.data-auto-resize]': 'autoResize() ? "true" : null',
@@ -31,7 +32,9 @@ export class AevkoTextarea implements AfterViewInit {
   }
 
   protected resize(): void {
-    if (!this.autoResize()) return;
+    if (!this.autoResize()) {
+      return;
+    }
     const textarea = this.element.nativeElement;
     textarea.style.height = 'auto';
     textarea.style.height = `${textarea.scrollHeight}px`;

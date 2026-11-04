@@ -15,7 +15,10 @@ contributors working on Aevko UI.
 ## Source ownership
 
 - `registry/components` is the canonical installable component source.
+- `registry/components/blocks` contains canonical composed block source.
 - `registry/manifest` declares files and transitive dependencies.
+- `registry/block-manifest` declares block files and their canonical component
+  dependencies.
 - `public-registry` is generated; never hand-edit it.
 - `packages/cli` publishes as `aevko-ui` and copies registry source into consumers.
 - `apps/docs` imports canonical registry components for every preview.
@@ -30,7 +33,7 @@ A public component change is complete only when source, manifest, documentation,
 unit behavior, accessibility and an isolated Angular consumer build all agree.
 Use the `aevko-component-development` repository skill for this work.
 
-Never add AI Elements, Kbd or Typography to the public component list. Preserve
+Never add AI Elements or Typography to the public component list. Preserve
 native semantics, strict TypeScript, standalone Angular APIs, OnPush rendering and
 SSR guards.
 
@@ -60,7 +63,8 @@ pnpm audit --prod
 it in a clean Angular 22 app and builds a component installed by that packaged
 CLI. Use `aevko-verification` before status or release-readiness claims.
 
-The regular CI runs `test:package`. The complete 64-component consumer suite is
+The regular CI runs `test:package`. The complete 65-component and 27-block
+consumer suites are
 manual in `.github/workflows/consumer.yml`; select affected component slugs while
 iterating and leave the input empty only for an intentional full audit.
 

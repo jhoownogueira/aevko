@@ -9,7 +9,7 @@
   "files": [
     {
       "target": "native-select/native-select.directive.ts",
-      "content": "import { ChangeDetectionStrategy, Component, booleanAttribute, input } from '@angular/core';\n\n@Component({\n  selector: 'select[aevkoNativeSelect]',\n  standalone: true,\n  template: '<ng-content />',\n  styleUrl: './native-select.directive.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: {\n    '[attr.aria-invalid]': 'invalid() ? \"true\" : null',\n    '[attr.data-invalid]': 'invalid() ? \"true\" : null',\n  },\n})\nexport class AevkoNativeSelect {\n  readonly invalid = input(false, { transform: booleanAttribute });\n}\n"
+      "content": "import { ChangeDetectionStrategy, Component, booleanAttribute, input } from '@angular/core';\n\n@Component({\n  selector: 'select[aevkoNativeSelect]',\n  standalone: true,\n  template: '<ng-content />',\n  styleUrl: './native-select.directive.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: {\n    'data-slot': 'native-select',\n    '[attr.aria-invalid]': 'invalid() ? \"true\" : null',\n    '[attr.data-invalid]': 'invalid() ? \"true\" : null',\n  },\n})\nexport class AevkoNativeSelect {\n  readonly invalid = input(false, { transform: booleanAttribute });\n}\n"
     },
     {
       "target": "native-select/native-select.directive.css",
@@ -22,5 +22,5 @@
   ],
   "registryDependencies": [],
   "npmDependencies": {},
-  "integrity": "bc02899ab146e4910a7e2100667e42c6ee1e18490d552888103dfa30cf85a94e"
+  "integrity": "b4ecbb8fcdc333925eb5c5f12d1d5a6a08cf540b6e6a92eae27873f9e853a22b"
 }

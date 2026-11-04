@@ -14,6 +14,7 @@ export type AevkoAlertVariant = 'default' | 'muted' | 'danger';
   styleUrl: './alert.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
+    'data-slot': 'alert',
     '[attr.role]': 'live() === "assertive" ? "alert" : "status"',
     '[attr.data-variant]': 'variant()',
   },

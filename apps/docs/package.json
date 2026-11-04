@@ -4,15 +4,17 @@
   "scripts": {
     "ng": "ng",
     "sync:brand": "node scripts/sync-brand.mjs",
-    "prestart": "pnpm sync:brand",
+    "prestart": "pnpm sync:brand && pnpm sync:registry && pnpm generate:examples",
     "start": "ng serve",
-    "prebuild": "pnpm sync:brand",
+    "prebuild": "pnpm sync:brand && pnpm sync:registry && pnpm generate:examples",
     "build": "ng build",
     "prewatch": "pnpm sync:brand",
     "watch": "ng build --watch --configuration development",
     "pretest": "pnpm sync:brand",
     "test": "ng test",
-    "serve:ssr:docs": "node dist/docs/server/server.mjs"
+    "serve:ssr:docs": "node dist/docs/server/server.mjs",
+    "sync:registry": "pnpm --dir ../.. registry:build && node scripts/sync-registry.mjs",
+    "generate:examples": "node scripts/generate-examples.mjs"
   },
   "private": true,
   "packageManager": "pnpm@12.16.1",
@@ -27,6 +29,7 @@
     "@angular/ssr": "^22.2.5",
     "@fontsource/commissioner": "^5.3.0",
     "@lucide/angular": "^1.64.0",
+    "chart.js": "^4.6.1",
     "express": "^5.1.0",
     "monaco-editor": "^0.57.0",
     "rxjs": "~7.8.0",

@@ -17,6 +17,7 @@ import { isPlatformBrowser } from '@angular/common';
   styleUrl: './resizable.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
+    'data-slot': 'resizable',
     '[attr.data-orientation]': 'orientation()',
     '[style.--aevko-resizable-grid]': 'gridTemplate()',
   },

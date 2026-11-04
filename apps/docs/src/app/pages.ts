@@ -1,10 +1,25 @@
-import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { ComponentExamples } from './component-examples';
+import { copyDocumentationText } from './clipboard';
+import { AccordionExamples } from './accordion-examples';
+import { ManualInstallation } from './manual-installation';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  PLATFORM_ID,
+  computed,
+  inject,
+  signal,
+} from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, RouterLink } from '@angular/router';
 import { map } from 'rxjs';
 import {
   LucideChevronLeft,
   LucideChevronRight,
+  LucideCheck,
+  LucideCode2,
+  LucideCopy,
   LucideExternalLink,
   LucideFolderOpen,
   LucideMenu,
@@ -16,6 +31,7 @@ import { AevkoButton } from '../../../../registry/components/button';
 import { AevkoButtonGroup } from '../../../../registry/components/button-group';
 import { AevkoToggle } from '../../../../registry/components/toggle';
 import { AevkoBadge } from '../../../../registry/components/badge';
+import { AevkoKbd, AevkoKbdGroup } from '../../../../registry/components/kbd';
 import { AevkoAlert } from '../../../../registry/components/alert';
 import { AevkoProgress } from '../../../../registry/components/progress';
 import { AevkoSpinner } from '../../../../registry/components/spinner';
@@ -59,7 +75,7 @@ import {
   AevkoCodeBlockCopy,
   AevkoCodeBlockHeader,
 } from '../../../../registry/components/code-block';
-import { AevkoChart } from '../../../../registry/components/chart';
+import { AevkoChart, AevkoChartCanvas } from '../../../../registry/components/chart';
 import { AevkoDataTable } from '../../../../registry/components/data-table';
 import { AevkoDialog } from '../../../../registry/components/dialog';
 import { AevkoAlertDialog } from '../../../../registry/components/alert-dialog';
@@ -103,7 +119,9 @@ import { AevkoDirection } from '../../../../registry/components/direction';
 import { AevkoEmpty } from '../../../../registry/components/empty';
 import {
   AevkoField,
+  AevkoFieldContent,
   AevkoFieldDescription,
+  AevkoFieldGroup,
   AevkoFieldLabel,
 } from '../../../../registry/components/field';
 import { AevkoInput } from '../../../../registry/components/input';
@@ -128,167 +146,42 @@ import {
 } from '../../../../registry/components/table';
 import { CodeEditor } from './code-editor';
 
-export const COMPONENTS = [
-  'Accordion',
-  'Aspect Ratio',
-  'Card',
-  'Carousel',
-  'Collapsible',
-  'Direction',
-  'Empty',
-  'Item',
-  'Resizable',
-  'Scroll Area',
-  'Separator',
-  'Sidebar',
-  'Button',
-  'Button Group',
-  'Command',
-  'Context Menu',
-  'Dropdown Menu',
-  'Menubar',
-  'Navigation Menu',
-  'Toggle',
-  'Toggle Group',
-  'Calendar',
-  'Checkbox',
-  'Combobox',
-  'Date Picker',
-  'Field',
-  'Input',
-  'Input Group',
-  'Input OTP',
-  'Label',
-  'Native Select',
-  'Questionnaire',
-  'Radio Group',
-  'Select',
-  'Slider',
-  'Switch',
-  'Textarea',
-  'Alert',
-  'Alert Dialog',
-  'Dialog',
-  'Drawer',
-  'Hover Card',
-  'Popover',
-  'Progress',
-  'Sheet',
-  'Skeleton',
-  'Spinner',
-  'Toast',
-  'Tooltip',
-  'Attachment',
-  'Avatar',
-  'Badge',
-  'Breadcrumb',
-  'Bubble',
-  'Chart',
-  'Code Block',
-  'Data Table',
-  'Marker',
-  'Message',
-  'Message Scroller',
-  'Pagination',
-  'Table',
-  'Tabs',
-  'Trace',
-] as const;
+import { COMPONENTS } from './component-catalog';
+export { COMPONENTS } from './component-catalog';
 
 const slugify = (name: string) => name.toLocaleLowerCase().replaceAll(' ', '-');
-const ready = new Set([
-  'accordion',
-  'aspect-ratio',
-  'card',
-  'carousel',
-  'collapsible',
-  'direction',
-  'empty',
-  'item',
-  'resizable',
-  'scroll-area',
-  'separator',
-  'sidebar',
-  'button',
-  'button-group',
-  'toggle',
-  'badge',
-  'alert',
-  'progress',
-  'spinner',
-  'skeleton',
-  'avatar',
-  'attachment',
-  'marker',
-  'pagination',
-  'breadcrumb',
-  'bubble',
-  'message',
-  'trace',
-  'checkbox',
-  'switch',
-  'radio-group',
-  'toggle-group',
-  'input-group',
-  'input-otp',
-  'slider',
-  'message-scroller',
-  'tabs',
-  'code-block',
-  'chart',
-  'data-table',
-  'dialog',
-  'alert-dialog',
-  'drawer',
-  'sheet',
-  'popover',
-  'hover-card',
-  'tooltip',
-  'toast',
-  'command',
-  'dropdown-menu',
-  'context-menu',
-  'menubar',
-  'navigation-menu',
-  'calendar',
-  'combobox',
-  'date-picker',
-  'questionnaire',
-  'select',
-  'field',
-  'input',
-  'label',
-  'native-select',
-  'textarea',
-  'table',
-]);
 
 @Component({
   standalone: true,
   imports: [
     RouterLink,
-    AevkoButton,
+    AevkoBadge,
+    AevkoAlert,
+    AevkoProgress,
+    AevkoSkeleton,
+    AevkoAvatar,
+    AevkoSwitch,
+    AevkoInput,
     AevkoCard,
     AevkoCardHeader,
     AevkoCardTitle,
     AevkoCardDescription,
     AevkoCardContent,
     AevkoCardFooter,
-    AevkoSeparator,
     CodeEditor,
   ],
   template: `
-    <section class="hero page-wide">
-      <div>
-        <p class="eyebrow">Angular components. No black box.</p>
-        <h1>Build interfaces.<br />Make them yours.</h1>
+    <section class="landing-hero page-wide">
+      <div class="landing-copy">
+        <p class="eyebrow">Source-owned Angular UI</p>
+        <h1>The interface is yours.<br />Every last line.</h1>
         <p class="lede">
-          Accessible Angular components copied into your project. Start with considered defaults,
-          then own every line.
+          A complete, accessible component system for Angular 22. Install only what you need,
+          customize with CSS or Tailwind, and ship without an Aevko runtime.
         </p>
         <div class="button-row">
           <a class="button-link primary" routerLink="/getting-started">Get started</a
-          ><a class="button-link" routerLink="/components">Explore components</a>
+          ><a class="button-link" routerLink="/components">Browse 65 components</a>
         </div>
         <aevko-code-editor
           value=""
@@ -296,51 +189,119 @@ const ready = new Set([
           language="shell"
           label="Aevko initialization command"
         />
+        <div class="hero-proof" aria-label="Aevko qualities">
+          <span>Angular 22</span><span>SSR ready</span><span>RTL aware</span
+          ><span>MIT licensed</span>
+        </div>
       </div>
-      <div class="hero-art" aria-label="Aevko geometric identity">
-        <img src="/brand/logo-icon.svg" width="166" height="150" alt="" />
+      <div class="component-wall" aria-label="Live Aevko component composition">
+        <div class="wall-heading">
+          <div><span class="wall-signal"></span>Live components</div>
+          <aevko-badge variant="outline">65 ready</aevko-badge>
+        </div>
+        <div class="wall-grid">
+          <div class="wall-lane drift-up">
+            <article class="wall-card metric-card">
+              <span>Example progress</span><strong>92%</strong>
+              <aevko-progress label="Example progress" [value]="92" />
+            </article>
+            <article class="wall-card profile-card">
+              <aevko-avatar alt="Aevko contributor" fallback="AN" />
+              <div><strong>Source owned</strong><span>Local, typed, editable.</span></div>
+            </article>
+            <article class="wall-card compact-card">
+              <aevko-badge>Angular</aevko-badge><aevko-badge variant="muted">Signals</aevko-badge>
+            </article>
+          </div>
+          <div class="wall-lane drift-down">
+            <aevko-card class="wall-project-card">
+              <aevko-card-header>
+                <aevko-card-title>Create workspace</aevko-card-title>
+                <aevko-card-description>Start from source you can change.</aevko-card-description>
+              </aevko-card-header>
+              <aevko-card-content>
+                <label for="hero-project">Project name</label>
+                <input aevkoInput id="hero-project" value="Aevko Studio" readonly />
+              </aevko-card-content>
+              <aevko-card-footer>
+                <a routerLink="/blocks/dashboard-01">Try the dashboard →</a>
+              </aevko-card-footer>
+            </aevko-card>
+            <aevko-alert class="wall-alert">
+              <strong aevkoAlertTitle>Registry connected</strong>
+              <span aevkoAlertDescription>Install individual components from editable source.</span>
+            </aevko-alert>
+          </div>
+          <div class="wall-lane drift-up slow">
+            <article class="wall-card preferences-card">
+              <strong>Preferences</strong>
+              <label><span>SSR guards</span><input aevkoSwitch type="checkbox" checked /></label>
+              <label
+                ><span>Reduced motion</span><input aevkoSwitch type="checkbox" checked
+              /></label>
+            </article>
+            <article class="wall-card activity-card">
+              <span>Documentation</span>
+              <aevko-skeleton /><aevko-skeleton /><aevko-skeleton />
+            </article>
+            <article class="wall-card compact-card"><strong>No black box.</strong></article>
+          </div>
+        </div>
       </div>
     </section>
-    <aevko-separator />
-    <section class="page-wide section">
-      <p class="eyebrow">The components are the design.</p>
-      <h2>Good defaults. Open possibilities.</h2>
-      <div class="preview-grid">
-        <aevko-card>
-          <aevko-card-header
-            ><aevko-card-title>Create a project</aevko-card-title
-            ><aevko-card-description
-              >A source-owned interface foundation.</aevko-card-description
-            ></aevko-card-header
-          >
-          <aevko-card-content
-            ><label for="project">Project name</label><input id="project" value="Studio workspace"
-          /></aevko-card-content>
-          <aevko-card-footer
-            ><button aevkoButton>Create project</button
-            ><button aevkoButton variant="outline">Cancel</button></aevko-card-footer
-          >
-        </aevko-card>
-        <div class="principles">
-          <article>
-            <strong>Own your code</strong><span>Review, edit and ship local source.</span>
-          </article>
-          <article>
-            <strong>Accessible</strong
-            ><span>Semantics and keyboard behavior are foundational.</span>
-          </article>
-          <article>
-            <strong>Angular-first</strong><span>Standalone, typed and compositional.</span>
-          </article>
+    <section class="proof-strip">
+      <div class="page-wide proof-grid">
+        <div><strong>65</strong><span>installable components</span></div>
+        <div><strong>0</strong><span>Aevko runtime dependencies</span></div>
+        <div><strong>4</strong><span>package managers supported</span></div>
+        <div><strong>1</strong><span>codebase you completely own</span></div>
+      </div>
+    </section>
+    <section class="page-wide section ownership-section">
+      <div class="section-heading">
+        <p class="eyebrow">A system without lock-in</p>
+        <h2>Start considered.<br />Finish unmistakably yours.</h2>
+      </div>
+      <div class="ownership-grid">
+        <article>
+          <span>01</span><strong>Install the source</strong>
+          <p>The CLI resolves dependencies and writes readable Angular files into your project.</p>
+        </article>
+        <article>
+          <span>02</span><strong>Change the system</strong>
+          <p>
+            Semantic variables, ordinary CSS and Tailwind classes override defaults without hacks.
+          </p>
+        </article>
+        <article>
+          <span>03</span><strong>Ship independently</strong>
+          <p>No Aevko runtime, no mandatory icon package and no hidden component implementation.</p>
+        </article>
+      </div>
+      <div class="source-panel">
+        <div>
+          <p class="eyebrow">One command, local ownership</p>
+          <h2>Add only what the interface needs.</h2>
+          <p class="lede">
+            Registry metadata stays granular. Button does not pull in dialogs, icons or a complete
+            component library.
+          </p>
+          <a class="text-link" routerLink="/getting-started">Read the installation guide →</a>
         </div>
+        <aevko-code-editor
+          value=""
+          packageCommand="add button dialog table --yes"
+          language="shell"
+          label="Install selected Aevko components"
+        />
       </div>
     </section>
     <section class="palette-section section">
       <div class="page-wide palette-copy">
         <div>
           <p class="eyebrow">One foundation. Your expression.</p>
-          <h2>Change the system, not every component.</h2>
-          <p>A neutral scale, semantic tokens, light and dark, without gradients.</p>
+          <h2>Neutral by default.<br />Specific by choice.</h2>
+          <p>Square geometry, semantic tokens, light and dark, without fighting specificity.</p>
         </div>
         <div class="swatches" aria-label="Aevko palette">
           <span class="black">Black</span><span class="graphite">Graphite</span
@@ -349,8 +310,25 @@ const ready = new Set([
         </div>
       </div>
     </section>
+    <section class="page-wide section closing-section">
+      <img src="/brand/logo-icon.svg" width="96" height="86" alt="" />
+      <div>
+        <p class="eyebrow">Built in the open</p>
+        <h2>Angular components designed to leave the library behind.</h2>
+      </div>
+      <div class="button-row">
+        <a class="button-link primary" routerLink="/components">Explore components</a>
+        <a
+          class="button-link"
+          href="https://github.com/jhoownogueira/aevko"
+          target="_blank"
+          rel="noreferrer"
+          >View GitHub</a
+        >
+      </div>
+    </section>
   `,
-  styleUrl: './pages.css',
+  styleUrls: ['./pages.css', './home.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class HomePage {}
@@ -365,7 +343,7 @@ export class HomePage {}
       <p class="lede">Initialize once, add only what you need, and import from your own source.</p>
       <h2>Requirements</h2>
       <ul>
-        <li>Angular 22; Angular 21 only after its consumer suite passes.</li>
+        <li>Angular 22. Other major versions are not currently supported.</li>
         <li>Node 22.22.3+, 24.15.0+ or 26.</li>
         <li>Standalone Angular application.</li>
       </ul>
@@ -401,17 +379,33 @@ export class HomePage {}
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class GettingStartedPage {
-  protected readonly buttonImport = `import { AevkoButton } from './ui/button';`;
+  protected readonly buttonImport = `import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
+import { AevkoButton } from './ui/button';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [AevkoButton],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: \`<button aevkoButton (click)="saved.set(true)">Save changes</button>
+    <p role="status">{{ saved() ? 'Changes saved.' : '' }}</p>\`,
+})
+export class App {
+  readonly saved = signal(false);
+}`;
 }
 
 @Component({
   standalone: true,
   imports: [RouterLink],
   template: `
-    <section class="page-wide section">
-      <p class="eyebrow">Catalog / 64 components</p>
+    <section class="page-wide section catalog-page">
+      <p class="eyebrow">65 source-owned primitives</p>
       <h1>Components</h1>
-      <p class="lede">Only evidence-backed components are marked ready.</p>
+      <p class="lede">
+        Accessible Angular building blocks. Install the source, adapt every detail and keep the
+        result in your application.
+      </p>
       <label class="catalog-search"
         ><span>Filter components</span
         ><input
@@ -421,18 +415,12 @@ export class GettingStartedPage {
           placeholder="Try button or dialog"
       /></label>
       <div class="catalog-grid">
-        @for (name of filtered(); track name) {
-          @if (isReady(name)) {
-            <a [routerLink]="['/components', slug(name)]"
-              ><strong>{{ name }}</strong
-              ><span class="status ready">Phase 0</span></a
-            >
-          } @else {
-            <div>
-              <strong>{{ name }}</strong
-              ><span class="status">Planned</span>
-            </div>
-          }
+        @for (name of filtered(); track name; let index = $index) {
+          <a [routerLink]="['/components', slug(name)]">
+            <span>{{ (index + 1).toString().padStart(2, '0') }}</span>
+            <strong>{{ name }}</strong>
+            <span aria-hidden="true">→</span>
+          </a>
         }
       </div>
     </section>
@@ -449,9 +437,6 @@ export class ComponentsPage {
       : COMPONENTS;
   });
   protected slug = slugify;
-  protected isReady(name: string): boolean {
-    return ready.has(slugify(name));
-  }
 }
 
 const componentDocs = {
@@ -462,7 +447,22 @@ const componentDocs = {
     api: 'items; type: single | multiple; value; collapsible; disabled; id; headingLevel',
     accessibility:
       'Each heading owns a native button with aria-expanded and aria-controls. Disabled sections stay understandable.',
-    code: '<aevko-accordion [items]="sections" type="multiple" [(value)]="open" />',
+    code: `import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { AevkoAccordion } from './ui/accordion';
+
+@Component({
+  selector: 'app-example',
+  standalone: true,
+  imports: [AevkoAccordion],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<aevko-accordion id="overview-faq" [items]="items" />',
+})
+export class ExampleComponent {
+  readonly items = [
+    { id: 'ownership', label: 'Own your code', content: 'The source is installed in your app.' },
+    { id: 'accessibility', label: 'Accessibility', content: 'Semantics and keyboard behavior are included.' },
+  ];
+}`,
   },
   'aspect-ratio': {
     title: 'Aspect Ratio',
@@ -548,10 +548,10 @@ const componentDocs = {
     title: 'Button',
     description: 'An intentional native action with clear hierarchy and a stable loading state.',
     command: 'npx aevko-ui@latest add button --yes',
-    api: 'variant: primary | outline | ghost | accent | danger; size: sm | md | lg; loading; disabled; type; aevkoButtonIconStart; aevkoButtonIconEnd',
+    api: 'variant: primary | secondary | outline | ghost | link | accent | danger; size: sm | md | lg | icon-sm | icon | icon-lg; loading; disabled; type; aevkoButtonIconStart; aevkoButtonIconEnd',
     accessibility:
       'Tab focuses the native button. Enter and Space activate it. Loading disables activation, sets aria-busy and keeps the visible label.',
-    code: '<button aevkoButton variant="accent" [loading]="saving()">Save changes</button>',
+    code: '<div class="flex items-center gap-2"><button aevkoButton>Save changes</button><button aevkoButton variant="secondary">Duplicate</button><button aevkoButton variant="outline" size="icon" aria-label="Add item">+</button></div>',
   },
   'button-group': {
     title: 'Button Group',
@@ -576,10 +576,20 @@ const componentDocs = {
     description:
       'Compact status or metadata content with neutral variants and an optional icon slot.',
     command: 'npx aevko-ui@latest add badge --yes',
-    api: 'variant; aevkoBadgeIcon',
+    api: 'variant: default | secondary | outline | muted | danger | destructive | ghost | link; aevkoBadgeIcon',
     accessibility:
       'The badge adds no live semantics; its text remains available to assistive technology.',
     code: '<aevko-badge variant="muted">In review</aevko-badge>',
+  },
+  kbd: {
+    title: 'Kbd',
+    description:
+      'Native keyboard input markup for shortcuts, commands and keys, with an optional compositional group.',
+    command: 'npx aevko-ui@latest add kbd --yes',
+    api: 'size: sm | md; aevkoKbdGroup',
+    accessibility:
+      'The native kbd element preserves its meaning. Shortcut groups remain readable text and should accompany, never replace, an accessible action label.',
+    code: '<span aevkoKbdGroup aria-label="Command Shift P"><kbd aevkoKbd>⌘</kbd><kbd aevkoKbd>⇧</kbd><kbd aevkoKbd>P</kbd></span>',
   },
   alert: {
     title: 'Alert',
@@ -746,7 +756,7 @@ const componentDocs = {
     description:
       'Native inputs and textareas composed with text, icons and actions in one focus surface.',
     command: 'npx aevko-ui@latest add input-group --yes',
-    api: 'control; addon align; button; native input and textarea attributes',
+    api: 'control; addon align; button size and variant; native input and textarea attributes',
     accessibility:
       'The projected control remains native and first in DOM focus order even when an addon is positioned visually before it.',
     code: `<label for="website">Website</label>
@@ -782,7 +792,7 @@ const componentDocs = {
     api: 'label; autoScroll; preserveScrollOnPrepend; item messageId and scrollAnchor; scrollToMessage',
     accessibility:
       'The viewport is a labelled keyboard-focusable region and the transcript is a polite additions-only log.',
-    code: `<aevko-message-scroller label="Project conversation">
+    code: `<aevko-message-scroller label="Conversation overview">
   <aevko-message-scroller-item messageId="m1">First message</aevko-message-scroller-item>
   <aevko-message-scroller-item messageId="m2" [scrollAnchor]="true">Latest turn</aevko-message-scroller-item>
 </aevko-message-scroller>`,
@@ -813,15 +823,29 @@ const componentDocs = {
   chart: {
     title: 'Chart',
     description:
-      'An accessible, engine-agnostic chart frame with legend and semantic data composition.',
+      'Interactive Chart.js visualizations with a composable frame, keyboard-operable legends and native data tables.',
     command: 'npx aevko-ui@latest add chart --yes',
     api: 'label; description; series; aevkoChartVisual; aevkoChartData',
     accessibility:
-      'The visual is decorative while projected native table or text data remains available to assistive technology.',
-    code: `<aevko-chart label="Monthly revenue" description="January through April" [series]="series">
-  <svg aevkoChartVisual aria-hidden="true">...</svg>
-  <table aevkoChartData>...</table>
-</aevko-chart>`,
+      'The canvas has an accessible name, HTML legend buttons work with the keyboard and a native table exposes every value. Animation respects reduced motion.',
+    code: `import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { AevkoChart, AevkoChartCanvas } from './ui/chart';
+@Component({
+  selector: 'app-revenue-chart',
+  standalone: true,
+  imports: [AevkoChart, AevkoChartCanvas],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  template: '<aevko-chart label="Monthly revenue" description="January–June · USD"><aevko-chart-canvas label="Monthly revenue comparison" [data]="data" valueFormat="currency" /></aevko-chart>',
+})
+export class RevenueChart {
+  readonly data = {
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+    datasets: [
+      { label: 'Current period', values: [12400, 18200, 15400, 22100, 19800, 26400], fill: true },
+      { label: 'Previous period', values: [9800, 12600, 14200, 16800, 15600, 18200], dashed: true },
+    ],
+  };
+}`,
   },
   'data-table': {
     title: 'Data Table',
@@ -927,10 +951,10 @@ const componentDocs = {
     title: 'Command',
     description: 'A searchable keyboard command list for fast application actions.',
     command: 'npx aevko-ui@latest add command --yes',
-    api: 'label; placeholder; items; query; value; activated',
+    api: 'id; label; placeholder; items; query; value; disabled; activated',
     accessibility:
       'A labelled search input controls a listbox; arrows move the active choice and Enter activates it.',
-    code: `<aevko-command label="Project commands" [items]="commands" [(value)]="command" (activated)="run($event)" />`,
+    code: `<aevko-command id="project-commands" label="Project commands" [items]="commands" [(value)]="command" (activated)="run($event)" />`,
   },
   'dropdown-menu': {
     title: 'Dropdown Menu',
@@ -947,7 +971,7 @@ const componentDocs = {
     command: 'npx aevko-ui@latest add context-menu --yes',
     api: 'label; open; trigger and item primitives',
     accessibility:
-      'Right click opens a labelled menu; Arrow keys, Home, End and Escape move or dismiss focus.',
+      'Right click, Shift+F10 or the Context Menu key opens a labelled menu; Arrow keys, Home, End and Escape move or dismiss focus.',
     code: `<aevko-context-menu label="Canvas actions"><div aevkoContextMenuTrigger>Right click this area</div><button aevkoContextMenuItem>Duplicate</button><button aevkoContextMenuItem>Delete</button></aevko-context-menu>`,
   },
   menubar: {
@@ -972,56 +996,64 @@ const componentDocs = {
     title: 'Calendar',
     description: 'A dependency-free month grid with controlled ISO date and month state.',
     command: 'npx aevko-ui@latest add calendar --yes',
-    api: 'label; month; value; min; max; --cell-size',
+    api: 'label; month; value; min; max; disabled; Angular Forms; --cell-size',
     accessibility:
       'The labelled grid exposes rows, column headers and selectable date cells; Arrow keys move by day or week.',
-    code: `<aevko-calendar label="Choose deployment date" month="2026-10" [(value)]="date" />`,
+    code: `<aevko-calendar label="Choose deployment date" month="2026-10" [formControl]="date" />`,
   },
   combobox: {
     title: 'Combobox',
     description: 'An autocomplete input that filters and selects application-owned options.',
     command: 'npx aevko-ui@latest add combobox --yes',
-    api: 'label; placeholder; emptyMessage; items; value; query',
+    api: 'id; label; placeholder; emptyMessage; items; value; query; disabled; Angular Forms',
     accessibility:
       'The input exposes combobox, autocomplete, expanded and listbox relationships; arrows and Enter operate suggestions.',
-    code: `<aevko-combobox label="Framework" [items]="frameworks" [(value)]="framework" />`,
+    code: `<aevko-combobox id="framework" label="Framework" [items]="frameworks" [formControl]="framework" />`,
   },
   'date-picker': {
     title: 'Date Picker',
     description: 'A composed Popover and Calendar for selecting one ISO date.',
     command: 'npx aevko-ui@latest add date-picker --yes',
-    api: 'label; placeholder; value; month; open; min; max',
+    api: 'label; placeholder; value; month; open; min; max; disabled; Angular Forms',
     accessibility:
       'A labelled popup trigger opens the full keyboard-operable calendar and returns the selected date as ISO text.',
-    code: `<aevko-date-picker label="Deployment date" month="2026-10" [(value)]="date" />`,
+    code: `<aevko-date-picker label="Deployment date" month="2026-10" [formControl]="date" />`,
   },
   questionnaire: {
     title: 'Questionnaire',
     description: 'A multi-step flow for single, multiple, freeform and skippable questions.',
     command: 'npx aevko-ui@latest add questionnaire --yes',
-    api: 'label; items; active; answers; submitted',
+    api: 'label; items; active; answers; disabled; submitted; Angular Forms',
     accessibility:
       'Each question uses a fieldset and legend with native radio or checkbox choices; validation errors announce assertively.',
-    code: `<aevko-questionnaire label="Project brief" [items]="questions" [(answers)]="answers" (submitted)="save($event)" />`,
+    code: `<aevko-questionnaire label="Project brief overview" [items]="questions" [formControl]="answers" (submitted)="save($event)" />`,
   },
   select: {
     title: 'Select',
     description: 'A controlled button-triggered listbox for choosing one application option.',
     command: 'npx aevko-ui@latest add select --yes',
-    api: 'label; placeholder; items; value; disabled',
+    api: 'id; label; placeholder; items; value; disabled; Angular Forms',
     accessibility:
       'The trigger exposes expanded and listbox relationships; Arrow keys and Enter choose enabled options.',
-    code: `<aevko-select label="Theme" [items]="themes" [(value)]="theme" />`,
+    code: `<aevko-select id="theme" label="Theme" [items]="themes" [formControl]="theme" />`,
   },
   field: {
     title: 'Field',
     description:
       'A compositional field that keeps native label, description and error wiring explicit.',
     command: 'npx aevko-ui@latest add field --yes',
-    api: 'invalid; aevkoFieldLabel; aevkoFieldDescription; aevkoFieldError',
+    api: 'invalid; orientation; field group, content, label, description and error slots',
     accessibility:
       'Keep label for and control id paired. Reference description and error ids from aria-describedby.',
-    code: '<aevko-field><label aevkoFieldLabel for="email">Email</label><input id="email" aria-describedby="email-help" /></aevko-field>',
+    code: `<aevko-field-group>
+  <aevko-field orientation="responsive">
+    <label aevkoFieldLabel for="email">Email</label>
+    <aevko-field-content>
+      <input aevkoInput id="email" aria-describedby="email-help" />
+      <span aevkoFieldDescription id="email-help">Used for account notices.</span>
+    </aevko-field-content>
+  </aevko-field>
+</aevko-field-group>`,
   },
   input: {
     title: 'Input',
@@ -1137,6 +1169,12 @@ const componentApi: Record<keyof typeof componentDocs, readonly ApiRow[]> = {
     row('disabled', 'boolean', 'false', 'Disables every accordion trigger.'),
     row('id', 'string', "'aevko-accordion'", 'Prefix used to associate triggers and panels.'),
     row(
+      'label',
+      'string',
+      "''",
+      'Optional context prefix for panel accessible names. Use distinct values for repeated accordions.',
+    ),
+    row(
       'headingLevel',
       '2 | 3 | 4 | 5 | 6',
       '2',
@@ -1242,6 +1280,12 @@ const componentApi: Record<keyof typeof componentDocs, readonly ApiRow[]> = {
     ),
   ],
   sidebar: [
+    row(
+      'id',
+      'string',
+      "'aevko-sidebar-panel'",
+      'Unique panel identifier when composing multiple sidebars.',
+    ),
     row('label', 'string', "'Primary navigation'", 'Accessible name for the navigation and panel.'),
     row('open', 'model<boolean>', 'false', 'Responsive drawer state.'),
     row('collapsed', 'model<boolean>', 'false', 'Desktop collapsed state.'),
@@ -1264,11 +1308,16 @@ const componentApi: Record<keyof typeof componentDocs, readonly ApiRow[]> = {
   button: [
     row(
       'variant',
-      "'primary' | 'outline' | 'ghost' | 'accent' | 'danger'",
+      "'primary' | 'secondary' | 'outline' | 'ghost' | 'link' | 'accent' | 'danger'",
       "'primary'",
       'Visual hierarchy of the action.',
     ),
-    row('size', "'sm' | 'md' | 'lg'", "'md'", 'Control height and horizontal padding.'),
+    row(
+      'size',
+      "'sm' | 'md' | 'lg' | 'icon-sm' | 'icon' | 'icon-lg'",
+      "'md'",
+      'Control height, horizontal padding or an accessible icon-only square.',
+    ),
     row('type', "'button' | 'submit' | 'reset'", "'button'", 'Native button type.'),
     row(
       'loading',
@@ -1297,6 +1346,12 @@ const componentApi: Record<keyof typeof componentDocs, readonly ApiRow[]> = {
   ],
   toggle: [
     row('pressed', 'model<boolean>', 'false', 'Pressed state with two-way binding support.'),
+    row(
+      'Angular Forms',
+      'ControlValueAccessor',
+      'supported',
+      'Works with formControl, formControlName and ngModel.',
+    ),
     row('disabled', 'boolean', 'false', 'Forwards the native disabled state.'),
     row('variant', "'default' | 'outline'", "'default'", 'Visual treatment for the toggle.'),
     row('size', "'sm' | 'md' | 'lg'", "'md'", 'Control height and padding.'),
@@ -1304,12 +1359,27 @@ const componentApi: Record<keyof typeof componentDocs, readonly ApiRow[]> = {
   badge: [
     row(
       'variant',
-      "'default' | 'outline' | 'muted' | 'danger'",
+      "'default' | 'secondary' | 'outline' | 'muted' | 'danger' | 'destructive' | 'ghost' | 'link'",
       "'default'",
       'Visual status hierarchy.',
     ),
     row('aevkoBadgeIcon', 'projected slot', 'empty', 'Optional leading SVG, image or component.'),
     row('content', 'projected content', 'required', 'Visible status or metadata label.'),
+  ],
+  kbd: [
+    row('size', "'sm' | 'md'", "'md'", 'Controls key height, minimum width and padding.'),
+    row(
+      'kbd[aevkoKbd]',
+      'native element component',
+      'required per key',
+      'Preserves the semantic keyboard-input element while applying editable presentation.',
+    ),
+    row(
+      'span[aevkoKbdGroup]',
+      'optional component',
+      'empty',
+      'Groups related keys with projected content and no generated shortcut semantics.',
+    ),
   ],
   alert: [
     row(
@@ -1501,7 +1571,18 @@ const componentApi: Record<keyof typeof componentDocs, readonly ApiRow[]> = {
       "'inline-start'",
       'Positions projected text, icons or controls without changing DOM focus order.',
     ),
-    row('aevkoInputGroupButton', 'native button', "type='button'", 'Optional embedded action.'),
+    row(
+      'button size',
+      "'xs' | 'sm' | 'icon-xs' | 'icon-sm'",
+      "'xs'",
+      'Sizes a projected native action without constraining its content.',
+    ),
+    row(
+      'button variant',
+      "'ghost' | 'outline'",
+      "'ghost'",
+      'Sets neutral action emphasis inside the shared surface.',
+    ),
   ],
   'input-otp': [
     row('label', 'string', 'required', 'Accessible name for the single native input.'),
@@ -1581,6 +1662,44 @@ const componentApi: Record<keyof typeof componentDocs, readonly ApiRow[]> = {
     row('copy value', 'string', 'required', 'Exact text written to the clipboard.'),
   ],
   chart: [
+    row(
+      'aevko-chart-canvas',
+      'component',
+      'optional',
+      'Lazy Chart.js renderer with an interactive legend and a native data table.',
+    ),
+    row(
+      'data',
+      'AevkoChartData',
+      'required',
+      'Readonly labels and datasets containing label, values, optional color, fill and dashed.',
+    ),
+    row(
+      'type',
+      "'line' | 'bar' | 'pie' | 'doughnut' | 'radar' | 'polarArea'",
+      "'line'",
+      'Chart.js visualization. Use a line dataset with fill for an area chart.',
+    ),
+    row('height', 'number', '280', 'Responsive plot height in CSS pixels.'),
+    row(
+      'stacked / horizontal / stepped',
+      'boolean',
+      'false',
+      'Stack cartesian series, use horizontal bars, or draw stepped lines.',
+    ),
+    row(
+      'smooth / showLegend',
+      'boolean',
+      'true',
+      'Smooth lines and show keyboard-operable HTML legend buttons.',
+    ),
+    row(
+      'valueFormat / currency',
+      "'number' | 'currency' | 'percent' / string",
+      "'number' / 'USD'",
+      'Consistent tooltip, axis and table formatting. Percent values use a 0–100 scale.',
+    ),
+
     row('label', 'string', 'required', 'Accessible figure name.'),
     row('description', 'string', "''", 'Visible context for the displayed measure.'),
     row(
@@ -1752,6 +1871,12 @@ const componentApi: Record<keyof typeof componentDocs, readonly ApiRow[]> = {
   ],
   toast: [
     row(
+      'label',
+      'string',
+      "'Notifications'",
+      'Accessible name of the toaster region. Use distinct names when composing multiple regions.',
+    ),
+    row(
       'show(title, options)',
       '(string, AevkoToastOptions) => string',
       'service method',
@@ -1775,6 +1900,8 @@ const componentApi: Record<keyof typeof componentDocs, readonly ApiRow[]> = {
       'Commands, descriptions, shortcuts and disabled state.',
     ),
     row('query / value', 'model<string>', "'' / ''", 'Controlled filter and selected command.'),
+    row('id', 'string', "'aevko-command'", 'Prefixes listbox and option relationship ids.'),
+    row('disabled', 'boolean', 'false', 'Disables search and activation.'),
     row(
       'activated',
       'output<AevkoCommandItem>',
@@ -1800,7 +1927,7 @@ const componentApi: Record<keyof typeof componentDocs, readonly ApiRow[]> = {
       'trigger / item',
       'projected directives',
       'required',
-      'Right-click region and native actions.',
+      'Pointer or keyboard context region and native actions.',
     ),
   ],
   menubar: [
@@ -1824,6 +1951,13 @@ const componentApi: Record<keyof typeof componentDocs, readonly ApiRow[]> = {
       'Controlled visible month and selected ISO date.',
     ),
     row('min / max', 'ISO date string', "'' / ''", 'Optional inclusive selection bounds.'),
+    row('disabled', 'boolean', 'false', 'Disables navigation and date selection.'),
+    row(
+      'Angular Forms',
+      'ControlValueAccessor',
+      'supported',
+      'Reads, writes and disables the ISO date.',
+    ),
     row('--cell-size', 'CSS custom property', '2.5rem', 'Calendar cell geometry.'),
   ],
   combobox: [
@@ -1834,9 +1968,18 @@ const componentApi: Record<keyof typeof componentDocs, readonly ApiRow[]> = {
       'Options, disabled state and search keywords.',
     ),
     row('value / query', 'model<string>', "'' / ''", 'Controlled selection and input text.'),
+    row('id', 'string', "'aevko-combobox'", 'Prefixes the listbox and option relationship ids.'),
+    row('disabled', 'boolean', 'false', 'Disables input and closes suggestions.'),
+    row(
+      'Angular Forms',
+      'ControlValueAccessor',
+      'supported',
+      'Reads, writes and disables selection.',
+    ),
     row('emptyMessage', 'string', "'No items found.'", 'No-result feedback.'),
   ],
   'date-picker': [
+    row('id', 'string', "'aevko-date-picker'", 'Unique prefix for the calendar popover.'),
     row(
       'value / month / open',
       'model<string | boolean>',
@@ -1844,6 +1987,13 @@ const componentApi: Record<keyof typeof componentDocs, readonly ApiRow[]> = {
       'Controlled date, visible month and popup state.',
     ),
     row('min / max', 'ISO date string', "'' / ''", 'Optional selection bounds.'),
+    row('disabled', 'boolean', 'false', 'Disables the trigger and calendar.'),
+    row(
+      'Angular Forms',
+      'ControlValueAccessor',
+      'supported',
+      'Reads, writes and disables the ISO date.',
+    ),
     row(
       'registry dependencies',
       'calendar + popover',
@@ -1860,16 +2010,43 @@ const componentApi: Record<keyof typeof componentDocs, readonly ApiRow[]> = {
     ),
     row('active', 'model<number>', '0', 'Controlled active question index.'),
     row('answers', 'model<Record<string, string | string[]>>', '{}', 'Controlled answer state.'),
+    row('disabled', 'boolean', 'false', 'Disables answer and navigation controls.'),
+    row(
+      'Angular Forms',
+      'ControlValueAccessor',
+      'supported',
+      'Reads, writes and disables answer state.',
+    ),
     row('submitted', 'output<answers>', 'event', 'Emits validated final answers.'),
   ],
   select: [
     row('items', 'readonly AevkoSelectItem[]', 'required', 'Labels, values and disabled options.'),
     row('value', 'model<string>', "''", 'Controlled selected value.'),
+    row('id', 'string', "'aevko-select'", 'Prefixes the listbox and option relationship ids.'),
     row('disabled', 'boolean', 'false', 'Disables the trigger.'),
     row('placeholder', 'string', "'Select an option'", 'Text before selection.'),
+    row(
+      'Angular Forms',
+      'ControlValueAccessor',
+      'supported',
+      'Reads, writes and disables selection.',
+    ),
   ],
   field: [
     row('invalid', 'boolean', 'false', 'Marks the group invalid for styling and semantics.'),
+    row(
+      'orientation',
+      "'vertical' | 'horizontal' | 'responsive'",
+      "'vertical'",
+      'Controls label and content layout without changing source order.',
+    ),
+    row('AevkoFieldGroup', 'component or attribute', 'optional', 'Spaces related field rows.'),
+    row(
+      'AevkoFieldContent',
+      'component or attribute',
+      'optional',
+      'Groups a control with its description and validation message.',
+    ),
     row('aevkoFieldLabel', 'projected slot', 'empty', 'Native label or custom label content.'),
     row('aevkoFieldDescription', 'projected slot', 'empty', 'Help text referenced by the control.'),
     row('aevkoFieldError', 'projected slot', 'empty', 'Validation message shown by the consumer.'),
@@ -2007,6 +2184,7 @@ const customizationGuidance: Record<keyof typeof componentDocs, string> = {
     'Bind pressed for controlled state, choose a size and edit the local on/off treatments to match product hierarchy.',
   badge:
     'Choose a neutral variant, project any icon implementation and override compact spacing through local CSS.',
+  kbd: 'Use the native kbd primitive for individual keys and the optional group for combinations. Override typography, spacing, borders and tokens directly in the installed local source or with consumer classes.',
   alert:
     'Compose title, description and an optional visual, then select announcement urgency independently from visual emphasis.',
   progress:
@@ -2051,7 +2229,7 @@ const customizationGuidance: Record<keyof typeof componentDocs, string> = {
   'code-block':
     'Use plain text by default and project highlighted lines only when needed. Syntax highlighting stays optional and outside the base install.',
   chart:
-    'Project any SVG, canvas or Angular chart engine while keeping its package application-owned. Theme series with tokens and always include semantic data.',
+    'Use AevkoChartCanvas for Chart.js rendering or project a custom visual into the frame. Override --aevko-chart-1 through --aevko-chart-6 for your palette. Chart.js loads only in the browser when a renderer is displayed.',
   'data-table':
     'Keep domain formatting in typed column accessors, use controlled state for remote datasets and edit the local template when a product needs custom cells.',
   dialog:
@@ -2134,6 +2312,7 @@ const consumerResponsibilities: Record<keyof typeof componentDocs, string> = {
   toggle:
     'Provide a visible label or accessible name that describes what becomes active, not an ambiguous on/off state.',
   badge: 'Keep meaningful status text in the badge and do not rely on its color or icon alone.',
+  kbd: 'Write shortcuts as supplemental information, keep the associated action independently labelled and document platform-specific alternatives when a command differs.',
   alert:
     'Use assertive announcements only for urgent dynamic changes and keep the message concise enough to understand immediately.',
   progress:
@@ -2178,7 +2357,7 @@ const consumerResponsibilities: Record<keyof typeof componentDocs, string> = {
   'code-block':
     'Provide an accurate language/title, cap very long output and ensure copy actions expose an accessible label.',
   chart:
-    'Provide a native table or concise textual data alternative and never rely on color alone to distinguish series.',
+    'Use descriptive, unique dataset labels and explain the unit of measure. The Chart.js renderer generates its data table automatically; custom projected visuals still need a native table or text alternative.',
   'data-table':
     'Use stable row keys, meaningful captions and formatted text values; announce remote loading and preserve selection intentionally across pages.',
   dialog:
@@ -2236,6 +2415,9 @@ const consumerResponsibilities: Record<keyof typeof componentDocs, string> = {
 @Component({
   standalone: true,
   imports: [
+    AccordionExamples,
+    ComponentExamples,
+    ManualInstallation,
     RouterLink,
     AevkoAccordion,
     AevkoAspectRatio,
@@ -2243,6 +2425,8 @@ const consumerResponsibilities: Record<keyof typeof componentDocs, string> = {
     AevkoButtonGroup,
     AevkoToggle,
     AevkoBadge,
+    AevkoKbd,
+    AevkoKbdGroup,
     AevkoAlert,
     AevkoProgress,
     AevkoSpinner,
@@ -2280,6 +2464,7 @@ const consumerResponsibilities: Record<keyof typeof componentDocs, string> = {
     AevkoCodeBlockContent,
     AevkoCodeBlockCopy,
     AevkoChart,
+    AevkoChartCanvas,
     AevkoDataTable,
     AevkoDialog,
     AevkoAlertDialog,
@@ -2319,7 +2504,9 @@ const consumerResponsibilities: Record<keyof typeof componentDocs, string> = {
     AevkoDirection,
     AevkoEmpty,
     AevkoField,
+    AevkoFieldContent,
     AevkoFieldDescription,
+    AevkoFieldGroup,
     AevkoFieldLabel,
     AevkoInput,
     AevkoItem,
@@ -2342,6 +2529,9 @@ const consumerResponsibilities: Record<keyof typeof componentDocs, string> = {
     CodeEditor,
     LucideChevronLeft,
     LucideChevronRight,
+    LucideCheck,
+    LucideCode2,
+    LucideCopy,
     LucideFolderOpen,
     LucideMenu,
     LucidePackageOpen,
@@ -2350,15 +2540,55 @@ const consumerResponsibilities: Record<keyof typeof componentDocs, string> = {
   ],
   template: `
     @if (doc(); as current) {
-      <article class="article page-narrow">
-        <p class="eyebrow">Components / {{ current.title }}</p>
-        <h1>{{ current.title }}</h1>
-        <p class="lede">{{ current.description }}</p>
-        <section class="component-example" aria-label="Interactive component example">
+      <article class="article component-page page-narrow">
+        <header class="component-page-header">
+          <div>
+            <p class="eyebrow">Components / {{ current.title }}</p>
+            <h1>{{ current.title }}</h1>
+            <p class="lede">{{ current.description }}</p>
+          </div>
+          <div class="page-actions">
+            <button type="button" class="copy-page" (click)="copyPage()">
+              @if (pageCopied()) {
+                <svg lucideCheck class="docs-icon" aria-hidden="true"></svg>Copied
+              } @else {
+                <svg lucideCopy class="docs-icon" aria-hidden="true"></svg>Copy page
+              }
+            </button>
+            @if (previousComponent(); as previous) {
+              <a
+                class="page-action-icon"
+                [routerLink]="previous.path"
+                [attr.aria-label]="'Previous component: ' + previous.name"
+                ><svg lucideChevronLeft class="docs-icon" aria-hidden="true"></svg
+              ></a>
+            }
+            @if (nextComponent(); as next) {
+              <a
+                class="page-action-icon"
+                [routerLink]="next.path"
+                [attr.aria-label]="'Next component: ' + next.name"
+                ><svg lucideChevronRight class="docs-icon" aria-hidden="true"></svg
+              ></a>
+            }
+          </div>
+        </header>
+        <nav class="component-section-nav" aria-label="On this page">
+          <a href="#preview">Preview</a>
+          <a href="#examples">Examples</a>
+          <a href="#installation">Installation</a>
+          <a href="#api-reference">API</a>
+          <a href="#accessibility">Accessibility</a>
+        </nav>
+        <section id="preview" class="component-example" aria-label="Interactive component example">
           <div class="component-preview">
             @switch (slug()) {
               @case ('accordion') {
-                <aevko-accordion [items]="accordionItems" />
+                <aevko-accordion
+                  class="accordion-overview"
+                  id="accordion-overview"
+                  [items]="accordionItems"
+                />
               }
               @case ('aspect-ratio') {
                 <aevko-aspect-ratio ratio="16/9"
@@ -2367,22 +2597,66 @@ const consumerResponsibilities: Record<keyof typeof componentDocs, string> = {
               }
               @case ('button') {
                 <div class="button-row">
-                  <button aevkoButton>
+                  <button aevkoButton (click)="previewStatus.set('Changes saved.')">
                     <svg lucideSave aevkoButtonIconStart class="docs-icon" aria-hidden="true"></svg
                     >Save changes</button
-                  ><button aevkoButton variant="outline">Cancel</button
-                  ><button aevkoButton variant="accent">
+                  ><button
+                    aevkoButton
+                    variant="outline"
+                    (click)="previewStatus.set('Changes discarded.')"
+                  >
+                    Cancel</button
+                  ><button
+                    aevkoButton
+                    variant="secondary"
+                    (click)="previewStatus.set('Project duplicated.')"
+                  >
+                    Duplicate</button
+                  ><button aevkoButton variant="accent" (click)="previewStatus.set('Item added.')">
                     <svg lucidePlus aevkoButtonIconStart class="docs-icon" aria-hidden="true"></svg
                     >Add item
+                  </button>
+                  <button
+                    aevkoButton
+                    variant="outline"
+                    size="icon"
+                    aria-label="Save project"
+                    (click)="previewStatus.set('Project saved.')"
+                  >
+                    <svg lucideSave class="docs-icon" aria-hidden="true"></svg>
                   </button>
                 </div>
               }
               @case ('button-group') {
                 <aevko-button-group label="Text alignment">
-                  <button aevkoButton variant="outline">Left</button>
-                  <button aevkoButton variant="outline">Center</button>
-                  <button aevkoButton variant="outline">Right</button>
+                  <button
+                    aevkoButton
+                    variant="outline"
+                    [attr.aria-pressed]="previewAlignment() === 'left'"
+                    (click)="previewAlignment.set('left')"
+                  >
+                    Left
+                  </button>
+                  <button
+                    aevkoButton
+                    variant="outline"
+                    [attr.aria-pressed]="previewAlignment() === 'center'"
+                    (click)="previewAlignment.set('center')"
+                  >
+                    Center
+                  </button>
+                  <button
+                    aevkoButton
+                    variant="outline"
+                    [attr.aria-pressed]="previewAlignment() === 'right'"
+                    (click)="previewAlignment.set('right')"
+                  >
+                    Right
+                  </button>
                 </aevko-button-group>
+                <p [style.text-align]="previewAlignment()" style="width:100%">
+                  Aligned with your selection.
+                </p>
               }
               @case ('toggle') {
                 <button aevkoToggle variant="outline" aria-label="Bold text">Bold</button>
@@ -2390,8 +2664,21 @@ const consumerResponsibilities: Record<keyof typeof componentDocs, string> = {
               @case ('badge') {
                 <div class="button-row">
                   <aevko-badge>Ready</aevko-badge>
-                  <aevko-badge variant="muted">In review</aevko-badge>
+                  <aevko-badge variant="secondary">In review</aevko-badge>
                   <aevko-badge variant="outline">Draft</aevko-badge>
+                  <a aevkoBadge variant="link" href="#api-reference">View details</a>
+                </div>
+              }
+              @case ('kbd') {
+                <div class="kbd-demo">
+                  <span>Open command palette</span>
+                  <span aevkoKbdGroup aria-label="Command Shift P">
+                    <kbd aevkoKbd>⌘</kbd>
+                    <kbd aevkoKbd>⇧</kbd>
+                    <kbd aevkoKbd>P</kbd>
+                  </span>
+                  <span>Cancel</span>
+                  <kbd aevkoKbd size="sm">Esc</kbd>
                 </div>
               }
               @case ('alert') {
@@ -2430,8 +2717,13 @@ const consumerResponsibilities: Record<keyof typeof componentDocs, string> = {
                 </div>
               }
               @case ('attachment') {
-                <aevko-attachment name="project-brief.pdf" metadata="PDF · 2.4 MB">
-                  <button aevkoAttachmentAction type="button">Download</button>
+                <aevko-attachment name="project-brief.txt" metadata="Text document · sample">
+                  <a
+                    aevkoAttachmentAction
+                    download="project-brief.txt"
+                    href="data:text/plain,Project%20brief%0AReview%20the%20workspace%20interface."
+                    >Download</a
+                  >
                 </aevko-attachment>
               }
               @case ('marker') {
@@ -2446,9 +2738,9 @@ const consumerResponsibilities: Record<keyof typeof componentDocs, string> = {
               }
               @case ('breadcrumb') {
                 <aevko-breadcrumb label="Project path">
-                  <aevko-breadcrumb-item><a href="#projects">Projects</a></aevko-breadcrumb-item>
+                  <aevko-breadcrumb-item><a href="/components">Projects</a></aevko-breadcrumb-item>
                   <aevko-breadcrumb-item
-                    ><a href="#design">Design systems</a></aevko-breadcrumb-item
+                    ><a href="/components/card">Design systems</a></aevko-breadcrumb-item
                   >
                   <aevko-breadcrumb-item [current]="true">Aevko UI</aevko-breadcrumb-item>
                 </aevko-breadcrumb>
@@ -2458,7 +2750,14 @@ const consumerResponsibilities: Record<keyof typeof componentDocs, string> = {
                   <aevko-bubble variant="muted">Can we ship the registry update?</aevko-bubble>
                   <aevko-bubble align="end"
                     >Yes — build and accessibility checks passed.
-                    <button aevkoBubbleReactions type="button">Like · 2</button></aevko-bubble
+                    <button
+                      aevkoBubbleReactions
+                      type="button"
+                      [attr.aria-pressed]="previewLiked()"
+                      (click)="previewLiked.set(!previewLiked())"
+                    >
+                      Like · {{ previewLiked() ? 3 : 2 }}
+                    </button></aevko-bubble
                   >
                 </div>
               }
@@ -2468,8 +2767,33 @@ const consumerResponsibilities: Record<keyof typeof componentDocs, string> = {
                   <strong aevkoMessageAuthor>Ada Lovelace</strong>
                   <time aevkoMessageMeta datetime="2026-10-29T10:42:00-03:00">10:42</time>
                   <aevko-bubble variant="muted">The registry build passed.</aevko-bubble>
-                  <button aevkoMessageAction type="button">Reply</button>
+                  <button
+                    aevkoMessageAction
+                    type="button"
+                    (click)="previewReply.set(!previewReply())"
+                  >
+                    {{ previewReply() ? 'Cancel reply' : 'Reply' }}
+                  </button>
                 </aevko-message>
+                @if (previewReply()) {
+                  <label for="preview-reply">Your reply</label
+                  ><textarea
+                    aevkoTextarea
+                    id="preview-reply"
+                    (input)="previewReplyText.set($any($event.target).value)"
+                  ></textarea
+                  ><button
+                    aevkoButton
+                    (click)="
+                      previewStatus.set(
+                        previewReplyText().trim() ? 'Reply sent.' : 'Write a reply first.'
+                      );
+                      previewReply.set(!previewReplyText().trim())
+                    "
+                  >
+                    Send reply
+                  </button>
+                }
               }
               @case ('trace') {
                 <aevko-trace label="Deployment trace">
@@ -2534,9 +2858,20 @@ const consumerResponsibilities: Record<keyof typeof componentDocs, string> = {
                 <div class="control-stack">
                   <label for="demo-website">Website</label>
                   <aevko-input-group>
-                    <input aevkoInputGroupControl id="demo-website" placeholder="example.com" />
+                    <input
+                      (input)="previewWebsite.set($any($event.target).value)"
+                      aevkoInputGroupControl
+                      id="demo-website"
+                      placeholder="example.com"
+                    />
                     <aevko-input-group-addon>https://</aevko-input-group-addon>
-                    <button aevkoInputGroupButton type="button">Copy</button>
+                    <button
+                      aevkoInputGroupButton
+                      type="button"
+                      (click)="copyPreviewWebsite(previewWebsite())"
+                    >
+                      Copy
+                    </button>
                   </aevko-input-group>
                 </div>
               }
@@ -2550,12 +2885,20 @@ const consumerResponsibilities: Record<keyof typeof componentDocs, string> = {
               @case ('slider') {
                 <div class="control-stack slider-demo">
                   <label for="demo-volume">Volume</label>
-                  <input aevkoSlider id="demo-volume" type="range" min="0" max="100" value="64" />
-                  <small>64%</small>
+                  <input
+                    aevkoSlider
+                    id="demo-volume"
+                    type="range"
+                    min="0"
+                    max="100"
+                    [value]="previewVolume()"
+                    (input)="previewVolume.set(+$any($event.target).value)"
+                  />
+                  <small>{{ previewVolume() }}%</small>
                 </div>
               }
               @case ('message-scroller') {
-                <aevko-message-scroller class="message-scroller-demo" label="Project conversation">
+                <aevko-message-scroller class="message-scroller-demo" label="Conversation overview">
                   <aevko-message-scroller-item messageId="m1">
                     <aevko-bubble variant="muted">Can we ship the registry update?</aevko-bubble>
                   </aevko-message-scroller-item>
@@ -2600,39 +2943,12 @@ const consumerResponsibilities: Record<keyof typeof componentDocs, string> = {
                 </aevko-code-block>
               }
               @case ('chart') {
-                <aevko-chart
-                  label="Monthly revenue"
-                  description="January through April"
-                  [series]="chartSeries"
-                >
-                  <svg
-                    aevkoChartVisual
-                    class="chart-demo"
-                    viewBox="0 0 400 180"
-                    preserveAspectRatio="none"
-                  >
-                    <polyline
-                      points="10,150 130,105 260,120 390,35"
-                      fill="none"
-                      stroke="currentColor"
-                      stroke-width="4"
-                    />
-                  </svg>
-                  <table aevkoChartData class="chart-data">
-                    <caption>
-                      Monthly revenue values
-                    </caption>
-                    <tbody>
-                      <tr>
-                        <th scope="row">January</th>
-                        <td>$12k</td>
-                      </tr>
-                      <tr>
-                        <th scope="row">April</th>
-                        <td>$24k</td>
-                      </tr>
-                    </tbody>
-                  </table>
+                <aevko-chart label="Monthly revenue" description="January–June · USD">
+                  <aevko-chart-canvas
+                    label="Monthly revenue comparison"
+                    [data]="chartData"
+                    valueFormat="currency"
+                  />
                 </aevko-chart>
               }
               @case ('data-table') {
@@ -2655,7 +2971,13 @@ const consumerResponsibilities: Record<keyof typeof componentDocs, string> = {
                   <input id="dialog-name" value="Aevko Studio" />
                   <div class="button-row">
                     <button aevkoDialogClose type="button">Cancel</button
-                    ><button aevkoDialogClose type="button">Save changes</button>
+                    ><button
+                      aevkoDialogClose
+                      type="button"
+                      (click)="previewStatus.set('Workspace saved in this preview.')"
+                    >
+                      Save changes
+                    </button>
                   </div>
                 </aevko-dialog>
               }
@@ -2669,7 +2991,13 @@ const consumerResponsibilities: Record<keyof typeof componentDocs, string> = {
                   <div class="button-row">
                     <button id="keep-workspace" aevkoAlertDialogClose type="button">
                       Keep workspace</button
-                    ><button aevkoAlertDialogClose type="button">Delete workspace</button>
+                    ><button
+                      aevkoAlertDialogClose
+                      type="button"
+                      (click)="previewStatus.set('Workspace deleted in this preview.')"
+                    >
+                      Delete workspace
+                    </button>
                   </div>
                 </aevko-alert-dialog>
               }
@@ -2681,7 +3009,13 @@ const consumerResponsibilities: Record<keyof typeof componentDocs, string> = {
                   <button aevkoDrawerTrigger type="button">Open filters</button>
                   <label><input type="checkbox" checked /> Active projects</label>
                   <div class="button-row">
-                    <button aevkoDrawerClose type="button">Apply filters</button>
+                    <button
+                      aevkoDrawerClose
+                      type="button"
+                      (click)="previewStatus.set('Project filters applied.')"
+                    >
+                      Apply filters
+                    </button>
                   </div>
                 </aevko-drawer>
               }
@@ -2696,7 +3030,13 @@ const consumerResponsibilities: Record<keyof typeof componentDocs, string> = {
                   <label for="sheet-name">Workspace name</label
                   ><input id="sheet-name" value="Aevko Studio" />
                   <div class="button-row">
-                    <button aevkoSheetClose type="button">Save changes</button>
+                    <button
+                      aevkoSheetClose
+                      type="button"
+                      (click)="previewStatus.set('Workspace settings saved in this preview.')"
+                    >
+                      Save changes
+                    </button>
                   </div>
                 </aevko-sheet>
               }
@@ -2712,7 +3052,7 @@ const consumerResponsibilities: Record<keyof typeof componentDocs, string> = {
               }
               @case ('hover-card') {
                 <aevko-hover-card [delay]="0" [closeDelay]="0"
-                  ><a aevkoHoverCardTrigger href="#maintainer">Ada Lovelace</a>
+                  ><a aevkoHoverCardTrigger href="/contributing">Ada Lovelace</a>
                   <div>
                     <strong>Ada Lovelace</strong>
                     <p>Maintainer of the analytical workspace.</p>
@@ -2721,7 +3061,12 @@ const consumerResponsibilities: Record<keyof typeof componentDocs, string> = {
               }
               @case ('tooltip') {
                 <aevko-tooltip [delay]="0"
-                  ><button aevkoTooltipTrigger type="button" aria-label="Save workspace">
+                  ><button
+                    aevkoTooltipTrigger
+                    type="button"
+                    aria-label="Save workspace"
+                    (click)="previewStatus.set('Workspace saved in this preview.')"
+                  >
                     Save</button
                   ><span>Save workspace</span></aevko-tooltip
                 >
@@ -2741,14 +3086,32 @@ const consumerResponsibilities: Record<keyof typeof componentDocs, string> = {
                 ><aevko-toaster />
               }
               @case ('command') {
-                <aevko-command label="Project commands" [items]="commandItems" />
+                <aevko-command
+                  label="Project commands"
+                  [items]="commandItems"
+                  (activated)="previewStatus.set('Command selected: ' + $event.label)"
+                />
               }
               @case ('dropdown-menu') {
                 <aevko-dropdown-menu label="Account actions"
                   ><button aevkoDropdownMenuTrigger type="button">Open menu</button
-                  ><button aevkoDropdownMenuItem type="button">Profile</button
-                  ><button aevkoDropdownMenuItem type="button">Billing</button
-                  ><button aevkoDropdownMenuItem type="button">
+                  ><button
+                    aevkoDropdownMenuItem
+                    type="button"
+                    (click)="previewStatus.set('Profile selected in this preview.')"
+                  >
+                    Profile</button
+                  ><button
+                    aevkoDropdownMenuItem
+                    type="button"
+                    (click)="previewStatus.set('Billing selected in this preview.')"
+                  >
+                    Billing</button
+                  ><button
+                    aevkoDropdownMenuItem
+                    type="button"
+                    (click)="previewStatus.set('Signed out in this preview.')"
+                  >
                     Sign out
                   </button></aevko-dropdown-menu
                 >
@@ -2756,21 +3119,48 @@ const consumerResponsibilities: Record<keyof typeof componentDocs, string> = {
               @case ('context-menu') {
                 <aevko-context-menu label="Canvas actions"
                   ><div aevkoContextMenuTrigger class="demo-box">Right click this project card</div>
-                  <button aevkoContextMenuItem type="button">Duplicate</button
-                  ><button aevkoContextMenuItem type="button">Archive</button></aevko-context-menu
+                  <button
+                    aevkoContextMenuItem
+                    type="button"
+                    (click)="previewStatus.set('Duplicate selected in this preview.')"
+                  >
+                    Duplicate</button
+                  ><button
+                    aevkoContextMenuItem
+                    type="button"
+                    (click)="previewStatus.set('Project archived in this preview.')"
+                  >
+                    Archive
+                  </button></aevko-context-menu
                 >
               }
               @case ('menubar') {
                 <aevko-menubar label="Application menu"
-                  ><button aevkoMenubarItem type="button">File</button
-                  ><button aevkoMenubarItem type="button">Edit</button
-                  ><button aevkoMenubarItem type="button">View</button></aevko-menubar
+                  ><button
+                    aevkoMenubarItem
+                    type="button"
+                    (click)="previewStatus.set('File selected in this preview.')"
+                  >
+                    File</button
+                  ><button
+                    aevkoMenubarItem
+                    type="button"
+                    (click)="previewStatus.set('Edit selected in this preview.')"
+                  >
+                    Edit</button
+                  ><button
+                    aevkoMenubarItem
+                    type="button"
+                    (click)="previewStatus.set('View menu action selected.')"
+                  >
+                    View
+                  </button></aevko-menubar
                 >
               }
               @case ('navigation-menu') {
                 <aevko-navigation-menu label="Primary"
-                  ><a href="#docs">Docs</a><a href="#components">Components</a
-                  ><a href="#themes">Themes</a></aevko-navigation-menu
+                  ><a href="/getting-started">Docs</a><a href="/components">Components</a
+                  ><a href="/themes">Themes</a></aevko-navigation-menu
                 >
               }
               @case ('calendar') {
@@ -2791,7 +3181,7 @@ const consumerResponsibilities: Record<keyof typeof componentDocs, string> = {
                 />
               }
               @case ('questionnaire') {
-                <aevko-questionnaire label="Project brief" [items]="questions" />
+                <aevko-questionnaire label="Project brief overview" [items]="questions" />
               }
               @case ('select') {
                 <aevko-select label="Theme" [items]="themes" placeholder="Select a theme" />
@@ -2809,7 +3199,7 @@ const consumerResponsibilities: Record<keyof typeof componentDocs, string> = {
                 >
               }
               @case ('carousel') {
-                <aevko-carousel label="Project highlights"
+                <aevko-carousel label="Featured project overview"
                   ><svg
                     lucideChevronLeft
                     aevkoCarouselPreviousIcon
@@ -2848,22 +3238,32 @@ const consumerResponsibilities: Record<keyof typeof componentDocs, string> = {
                   ><svg lucideFolderOpen aevkoEmptyIcon class="docs-icon" aria-hidden="true"></svg
                   ><strong aevkoEmptyTitle>No projects</strong
                   ><span aevkoEmptyDescription>Create one when you are ready.</span
-                  ><button aevkoEmptyAction type="button">Create project</button></aevko-empty
+                  ><button
+                    aevkoEmptyAction
+                    type="button"
+                    (click)="previewStatus.set('Project created in this preview.')"
+                  >
+                    Create project
+                  </button></aevko-empty
                 >
               }
               @case ('field') {
-                <aevko-field>
-                  <label aevkoFieldLabel for="demo-email">Email address</label>
-                  <input
-                    aevkoInput
-                    id="demo-email"
-                    type="email"
-                    aria-describedby="demo-email-help"
-                  />
-                  <span aevkoFieldDescription id="demo-email-help"
-                    >We only use this for project updates.</span
-                  >
-                </aevko-field>
+                <aevko-field-group>
+                  <aevko-field orientation="responsive">
+                    <label aevkoFieldLabel for="demo-email">Email address</label>
+                    <aevko-field-content>
+                      <input
+                        aevkoInput
+                        id="demo-email"
+                        type="email"
+                        aria-describedby="demo-email-help"
+                      />
+                      <span aevkoFieldDescription id="demo-email-help"
+                        >We only use this for project updates.</span
+                      >
+                    </aevko-field-content>
+                  </aevko-field>
+                </aevko-field-group>
               }
               @case ('input') {
                 <label aevkoLabel for="demo-name">Project name</label>
@@ -2874,7 +3274,13 @@ const consumerResponsibilities: Record<keyof typeof componentDocs, string> = {
                   ><svg lucidePackageOpen aevkoItemIcon class="docs-icon" aria-hidden="true"></svg
                   ><strong aevkoItemTitle>Design system</strong
                   ><span aevkoItemDescription>Updated today</span
-                  ><button aevkoItemAction type="button">Open</button></aevko-item
+                  ><button
+                    aevkoItemAction
+                    type="button"
+                    (click)="previewStatus.set('Design system opened in this preview.')"
+                  >
+                    Open
+                  </button></aevko-item
                 >
               }
               @case ('label') {
@@ -2908,24 +3314,32 @@ const consumerResponsibilities: Record<keyof typeof componentDocs, string> = {
                 </div>
               }
               @case ('sidebar') {
-                <aevko-sidebar label="Demo navigation"
-                  ><svg lucideMenu aevkoSidebarMenuIcon class="docs-icon" aria-hidden="true"></svg
-                  ><svg
-                    lucideChevronLeft
-                    aevkoSidebarCollapseIcon
-                    class="docs-icon"
-                    aria-hidden="true"
-                  ></svg
-                  ><svg
-                    lucideChevronRight
-                    aevkoSidebarExpandIcon
-                    class="docs-icon"
-                    aria-hidden="true"
-                  ></svg
-                  ><strong aevkoSidebarHeader>Aevko</strong><a href="#overview">Overview</a
-                  ><a href="#activity">Activity</a
-                  ><small aevkoSidebarFooter>Workspace</small></aevko-sidebar
-                >
+                <div class="sidebar-preview-layout">
+                  <aevko-sidebar label="Demo navigation">
+                    <strong aevkoSidebarHeader>Workspace</strong>
+                    <a href="#preview" aria-label="Overview" aria-current="page"
+                      ><svg lucideMenu class="docs-icon" aria-hidden="true"></svg
+                      ><span class="sidebar-link-label">Overview</span></a
+                    >
+                    <a href="#preview" aria-label="Projects"
+                      ><svg lucideFolderOpen class="docs-icon" aria-hidden="true"></svg
+                      ><span class="sidebar-link-label">Projects</span></a
+                    >
+                    <a href="#preview" aria-label="Resources"
+                      ><svg lucidePackageOpen class="docs-icon" aria-hidden="true"></svg
+                      ><span class="sidebar-link-label">Resources</span></a
+                    >
+                    <small aevkoSidebarFooter>Personal workspace</small>
+                  </aevko-sidebar>
+                  <div class="sidebar-preview-content">
+                    <span class="eyebrow">Overview</span>
+                    <h2>Your workspace</h2>
+                    <p>Keep your projects, files, and team in one place.</p>
+                    <div class="sidebar-preview-placeholder">
+                      Select a destination to get started.
+                    </div>
+                  </div>
+                </div>
               }
               @case ('textarea') {
                 <label aevkoLabel for="demo-notes">Project notes</label>
@@ -2958,7 +3372,7 @@ const consumerResponsibilities: Record<keyof typeof componentDocs, string> = {
                     <tfoot aevkoTableFooter>
                       <tr aevkoTableRow>
                         <td aevkoTableCell colspan="3">Total</td>
-                        <td aevkoTableCell class="amount">$2,500.00</td>
+                        <td aevkoTableCell class="amount">$1,750.00</td>
                       </tr>
                     </tfoot>
                   </table>
@@ -2966,23 +3380,102 @@ const consumerResponsibilities: Record<keyof typeof componentDocs, string> = {
               }
             }
           </div>
-          <div class="example-code">
-            <aevko-code-editor
-              [value]="current.code"
-              language="html"
-              filename="example.component.html"
-              label="Angular component usage"
-            />
+          <button
+            type="button"
+            class="view-code"
+            [attr.aria-expanded]="codeVisible()"
+            aria-controls="component-source"
+            (click)="codeVisible.update((visible) => !visible)"
+          >
+            <svg lucideCode2 class="docs-icon" aria-hidden="true"></svg>
+            {{ codeVisible() ? 'Hide code' : 'View code' }}
+          </button>
+          @if (codeVisible()) {
+            <div id="component-source" class="example-code">
+              @if (!['accordion', 'chart'].includes(slug())) {
+                <p class="source-note">
+                  Minimal template usage. The Examples section includes complete standalone
+                  components with imports and state.
+                </p>
+              }
+              <aevko-code-editor
+                [value]="current.code"
+                [language]="['accordion', 'chart'].includes(slug()) ? 'typescript' : 'html'"
+                [filename]="
+                  ['accordion', 'chart'].includes(slug())
+                    ? 'example.component.ts'
+                    : 'example.component.html'
+                "
+                label="Angular component usage"
+              />
+            </div>
+          }
+          @if (previewStatus()) {
+            <p class="preview-status" role="status">{{ previewStatus() }}</p>
+          }
+        </section>
+        @if (slug() === 'accordion') {
+          @defer (on immediate) {
+            <aevko-accordion-examples id="examples" />
+          }
+        } @else {
+          @defer (on viewport) {
+            <aevko-component-examples id="examples" [slug]="slug()" />
+          } @placeholder {
+            <div id="examples" class="examples-placeholder">Additional examples</div>
+          }
+        }
+        <section id="installation" class="installation-section">
+          <h2>Installation</h2>
+          <div
+            class="documentation-tabs"
+            role="tablist"
+            aria-label="Installation method"
+            (keydown)="installationKeydown($event)"
+          >
+            <button
+              type="button"
+              role="tab"
+              id="installation-command-tab"
+              aria-controls="installation-content"
+              [tabIndex]="installationMode() === 'command' ? 0 : -1"
+              [attr.aria-selected]="installationMode() === 'command'"
+              (click)="installationMode.set('command')"
+            >
+              Command
+            </button>
+            <button
+              type="button"
+              role="tab"
+              id="installation-manual-tab"
+              aria-controls="installation-content"
+              [tabIndex]="installationMode() === 'manual' ? 0 : -1"
+              [attr.aria-selected]="installationMode() === 'manual'"
+              (click)="installationMode.set('manual')"
+            >
+              Manual
+            </button>
+          </div>
+          <div
+            role="tabpanel"
+            id="installation-content"
+            [attr.aria-labelledby]="'installation-' + installationMode() + '-tab'"
+          >
+            @if (installationMode() === 'command') {
+              <aevko-code-editor
+                [value]="current.command"
+                [packageCommand]="'add ' + slug() + ' --yes'"
+                language="shell"
+                filename="Terminal"
+                label="Component installation command"
+              />
+            } @else {
+              @defer (on immediate) {
+                <aevko-manual-installation [slug]="slug()" />
+              }
+            }
           </div>
         </section>
-        <h2>Installation</h2>
-        <aevko-code-editor
-          [value]="current.command"
-          [packageCommand]="'add ' + slug() + ' --yes'"
-          language="shell"
-          filename="Terminal"
-          label="Component installation command"
-        />
         <section class="documentation-panel">
           <p class="eyebrow">Source ownership</p>
           <h2>Customization</h2>
@@ -3009,7 +3502,7 @@ const consumerResponsibilities: Record<keyof typeof componentDocs, string> = {
             }
           </div>
         </section>
-        <h2>API reference</h2>
+        <h2 id="api-reference">API reference</h2>
         <div aevkoTableContainer [label]="current.title + ' API reference'" class="api-table-wrap">
           <table aevkoTable class="api-table">
             <thead aevkoTableHeader>
@@ -3038,7 +3531,7 @@ const consumerResponsibilities: Record<keyof typeof componentDocs, string> = {
             </tbody>
           </table>
         </div>
-        <section class="documentation-panel accessibility-panel">
+        <section id="accessibility" class="documentation-panel accessibility-panel">
           <p class="eyebrow">Accessibility contract</p>
           <h2>Accessibility</h2>
           <div class="accessibility-grid">
@@ -3066,8 +3559,36 @@ const consumerResponsibilities: Record<keyof typeof componentDocs, string> = {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ComponentPage {
+  protected readonly chartData = {
+    labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+    datasets: [
+      { label: 'Current period', values: [12400, 18200, 15400, 22100, 19800, 26400], fill: true },
+      { label: 'Previous period', values: [9800, 12600, 14200, 16800, 15600, 18200], dashed: true },
+    ],
+  };
+
+  protected readonly previewStatus = signal('');
+  protected readonly previewReplyText = signal('');
+  protected readonly previewWebsite = signal('');
+  protected readonly previewAlignment = signal('left');
+  protected readonly previewLiked = signal(false);
+  protected readonly previewReply = signal(false);
+  protected readonly previewVolume = signal(64);
+  protected async copyPreviewWebsite(value: string): Promise<void> {
+    this.previewStatus.set(
+      (await copyDocumentationText('https://' + (value.trim() || 'example.com')))
+        ? 'Website copied.'
+        : 'Copy unavailable. Select the website and copy it manually.',
+    );
+  }
+
+  private readonly document = inject(DOCUMENT);
+  private readonly platformId = inject(PLATFORM_ID);
   private readonly route = inject(ActivatedRoute);
   protected readonly toast = inject(AevkoToastStore);
+  protected readonly codeVisible = signal(false);
+  protected readonly installationMode = signal<'command' | 'manual'>('command');
+  protected readonly pageCopied = signal(false);
   protected readonly commandItems = [
     { id: 'new', label: 'Create project', description: 'Start a new workspace', shortcut: '⌘N' },
     {
@@ -3115,6 +3636,17 @@ export class ComponentPage {
     { initialValue: '' },
   );
   protected readonly doc = computed(() => componentDocs[this.slug() as keyof typeof componentDocs]);
+  protected readonly componentIndex = computed(() =>
+    COMPONENTS.findIndex((name) => slugify(name) === this.slug()),
+  );
+  protected readonly previousComponent = computed(() => {
+    const name = COMPONENTS[this.componentIndex() - 1];
+    return name ? { name, path: `/components/${slugify(name)}` } : undefined;
+  });
+  protected readonly nextComponent = computed(() => {
+    const name = COMPONENTS[this.componentIndex() + 1];
+    return name ? { name, path: `/components/${slugify(name)}` } : undefined;
+  });
   protected readonly apiRows = computed(
     () => componentApi[this.slug() as keyof typeof componentApi] ?? [],
   );
@@ -3189,6 +3721,42 @@ export class App {}`;
     },
   ];
   protected readonly invoiceKey = (row: (typeof this.dataTableRows)[number]) => row.id;
+
+  protected installationKeydown(event: KeyboardEvent): void {
+    if (!['ArrowLeft', 'ArrowRight', 'Home', 'End'].includes(event.key)) return;
+    event.preventDefault();
+    const mode =
+      event.key === 'Home'
+        ? 'command'
+        : event.key === 'End'
+          ? 'manual'
+          : this.installationMode() === 'command'
+            ? 'manual'
+            : 'command';
+    this.installationMode.set(mode);
+    this.document.getElementById(`installation-${mode}-tab`)?.focus();
+  }
+
+  protected async copyPage(): Promise<void> {
+    const current = this.doc();
+    if (!current || !isPlatformBrowser(this.platformId)) return;
+    const url = new URL(this.document.location.href);
+    const api = this.apiRows()
+      .map(
+        (entry) =>
+          `- ${entry.name} (${entry.type}; default: ${entry.defaultValue}): ${entry.description}`,
+      )
+      .join('\n');
+    const content = `# ${current.title}\n\n${current.description}\n\n## Installation\n\n${current.command}\n\n## Usage\n\n${current.code}\n\n## API reference\n\n${api}\n\n## Customization\n\n${this.customizationNote()}\n\n## Accessibility\n\n${current.accessibility}\n\n${this.consumerResponsibility()}\n\n## Complete examples\n\n${url.origin}${url.pathname}#examples\n\n${url.toString()}`;
+    const copied = await copyDocumentationText(content);
+    this.pageCopied.set(copied);
+    this.previewStatus.set(
+      copied
+        ? 'Page reference copied, including API and accessibility guidance.'
+        : 'Unable to copy. Select the page text and copy it manually.',
+    );
+    setTimeout(() => this.pageCopied.set(false), 1800);
+  }
 }
 
 @Component({
@@ -3196,8 +3764,10 @@ export class App {}`;
   imports: [CodeEditor],
   template: `<article class="article page-narrow">
     <p class="eyebrow">Documentation / Theming</p>
-    <h1>A neutral scale with a precise job.</h1>
-    <p class="lede">Monochrome semantic variables stay quiet so consumer brands can lead.</p>
+    <h1>Customize your theme.</h1>
+    <p class="lede">
+      Override semantic CSS variables after the generated theme tokens in your global stylesheet.
+    </p>
     <div class="swatches large">
       <span class="black">#09090B</span><span class="graphite">#18181B</span
       ><span class="gray">#A1A1AA</span><span class="light-gray">#F4F4F5</span
@@ -3230,7 +3800,7 @@ export class ThemingPage {
   --aevko-foreground: #09090b;
   --aevko-surface: #f4f4f5;
   --aevko-border: #e4e4e7;
-  --aevko-focus: #a1a1aa;
+  --aevko-focus: #71717a;
   --aevko-radius: 0;
 }`;
 }
@@ -3246,15 +3816,23 @@ export class ThemingPage {
       every icon library.
     </p>
     <section class="icon-demo" aria-label="Button icon examples">
-      <button aevkoButton>
+      <button aevkoButton type="button" (click)="status.set('Example changes saved.')">
         <svg lucideSave aevkoButtonIconStart class="docs-icon" aria-hidden="true"></svg>
         Save changes
       </button>
-      <button aevkoButton variant="outline">Continue without icon</button>
+      <button
+        aevkoButton
+        variant="outline"
+        type="button"
+        (click)="status.set('Continued without an icon.')"
+      >
+        Continue without icon
+      </button>
       <a class="button-link" href="https://lucide.dev" target="_blank" rel="noreferrer">
         Lucide docs<svg lucideExternalLink class="docs-icon" aria-hidden="true"></svg>
       </a>
     </section>
+    <p role="status">{{ status() }}</p>
     <h2>Static Lucide import</h2>
     <p>
       Install Lucide only in the application that renders it. Import each standalone icon directly
@@ -3298,6 +3876,7 @@ export class ThemingPage {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class IconsPage {
+  protected readonly status = signal('');
   protected readonly lucideTypeScript = `import { Component } from '@angular/core';
 import { LucideSave } from '@lucide/angular';
 import { AevkoButton } from './ui/button';
@@ -3314,7 +3893,7 @@ export class SaveButtonComponent {}`;
 </button>`;
   protected readonly customSvg = `<button aevkoButton variant="outline">
   <svg aevkoButtonIconStart class="size-5 text-current" viewBox="0 0 24 24" aria-hidden="true">
-    <path d="..." fill="currentColor" />
+    <path d="M5 12h14M12 5v14" fill="none" stroke="currentColor" stroke-width="2" />
   </svg>
   Custom icon
 </button>`;
@@ -3359,15 +3938,37 @@ npx aevko-ui@latest diff button`;
   standalone: true,
   template: `<article class="article page-narrow">
     <p class="eyebrow">Project</p>
-    <h1>Contributing and changelog</h1>
+    <h1>Contributing</h1>
     <p>
       Use the declared Node and pnpm versions. Component work must include registry metadata, docs,
       tests and an isolated consumer build.
     </p>
-    <h2>Unreleased</h2>
+    <h2>Run the project</h2>
     <p>
-      Phase 0 foundation: Angular 22 workspace, registry schema, CLI and the first source-owned
-      components.
+      Install dependencies with <code>pnpm install</code>, generate the registry with
+      <code>pnpm registry:build</code>, then start the documentation with
+      <code>pnpm docs:dev</code>.
+    </p>
+    <h2>Before opening a pull request</h2>
+    <p>
+      Run <code>pnpm format:check</code>, <code>pnpm test</code> and <code>pnpm build</code>.
+      Component changes also need an isolated consumer build. Include keyboard, responsive and
+      accessibility checks for changed interactions.
+    </p>
+    <h2>Version 1.0 preparation</h2>
+    <p>
+      The release review covers 65 components, 27 blocks, documentation controls and clean Angular
+      installations. Release preparation does not mean that version 1.0 has been published.
+    </p>
+    <p>
+      <a href="https://github.com/jhoownogueira/aevko/blob/main/CONTRIBUTING.md"
+        >Contribution guide</a
+      >
+      ·
+      <a href="https://github.com/jhoownogueira/aevko/blob/main/packages/cli/CHANGELOG.md"
+        >CLI changelog</a
+      >
+      · <a href="https://github.com/jhoownogueira/aevko/issues">Report an issue</a>
     </p>
   </article>`,
   styleUrl: './pages.css',

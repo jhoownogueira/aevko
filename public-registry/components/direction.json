@@ -9,7 +9,7 @@
   "files": [
     {
       "target": "direction/direction.directive.ts",
-      "content": "import { Directive, InjectionToken, forwardRef, input } from '@angular/core';\n\nexport type AevkoDirectionValue = 'ltr' | 'rtl';\nexport const AEVKO_DIRECTION = new InjectionToken<AevkoDirection>('AEVKO_DIRECTION');\n\n@Directive({\n  selector: '[aevkoDirection]',\n  standalone: true,\n  host: { '[attr.dir]': 'aevkoDirection()' },\n  providers: [{ provide: AEVKO_DIRECTION, useExisting: forwardRef(() => AevkoDirection) }],\n})\nexport class AevkoDirection {\n  readonly aevkoDirection = input<AevkoDirectionValue>('ltr');\n}\n"
+      "content": "import { Directive, InjectionToken, forwardRef, input } from '@angular/core';\n\nexport type AevkoDirectionValue = 'ltr' | 'rtl';\nexport const AEVKO_DIRECTION = new InjectionToken<AevkoDirection>('AEVKO_DIRECTION');\n\n@Directive({\n  selector: '[aevkoDirection]',\n  standalone: true,\n  host: { 'data-slot': 'direction', '[attr.dir]': 'aevkoDirection()' },\n  providers: [{ provide: AEVKO_DIRECTION, useExisting: forwardRef(() => AevkoDirection) }],\n})\nexport class AevkoDirection {\n  readonly aevkoDirection = input<AevkoDirectionValue>('ltr');\n}\n"
     },
     {
       "target": "direction/index.ts",
@@ -18,5 +18,5 @@
   ],
   "registryDependencies": [],
   "npmDependencies": {},
-  "integrity": "29f8fe50a40ca2a821b16e34fcb739ef79db4bcbbc8ee19712aa2d3a95577a0e"
+  "integrity": "c8995b75219c2ae3f34e0a8b9335bdb3c11788c75811570a06708e8255d20701"
 }

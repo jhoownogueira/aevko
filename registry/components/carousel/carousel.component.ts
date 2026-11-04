@@ -16,6 +16,7 @@ import {
   styleUrl: './carousel-slide.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
+    'data-slot': 'carousel-slide',
     role: 'group',
     '[hidden]': '!active()',
     '[attr.aria-roledescription]': '"slide"',
@@ -34,6 +35,7 @@ export class AevkoCarouselSlide {
   styleUrl: './carousel.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
+    'data-slot': 'carousel',
     role: 'region',
     '[attr.aria-roledescription]': '"carousel"',
     '[attr.aria-label]': 'label()',

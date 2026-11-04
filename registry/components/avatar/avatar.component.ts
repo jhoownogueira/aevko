@@ -6,7 +6,7 @@ import { ChangeDetectionStrategy, Component, computed, input, signal } from '@an
   templateUrl: './avatar.component.html',
   styleUrl: './avatar.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { '[style.--aevko-avatar-size]': 'size()' },
+  host: { 'data-slot': 'avatar', '[style.--aevko-avatar-size]': 'size()' },
 })
 export class AevkoAvatar {
   readonly src = input<string | null>(null);

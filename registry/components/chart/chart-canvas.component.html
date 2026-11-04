@@ -1,0 +1,68 @@
+<div class="plot" [style.height.px]="height()">
+  <canvas
+    #canvas
+    role="img"
+    [attr.aria-label]="label() + '. Exact values are available in the data table below.'"
+    [hidden]="!hasData()"
+  ></canvas>
+  @if (!hasData()) {
+    <p class="placeholder" role="status">No data for this period.</p>
+  } @else if (error()) {
+    <p class="placeholder" role="status">
+      Chart unavailable. The data table remains available below.
+    </p>
+  } @else if (!ready()) {
+    <p class="placeholder" role="status">Loading chart…</p>
+  }
+</div>
+@if (showLegend() && hasData()) {
+  <div class="legend" role="group" [attr.aria-label]="label() + ' visible series'">
+    @for (item of legend(); track item.key) {
+      <button
+        type="button"
+        [attr.aria-pressed]="!hidden().has(item.key)"
+        (click)="toggle(item.key)"
+      >
+        <span class="swatch" [style.background]="item.color" aria-hidden="true"></span
+        >{{ item.label }}
+      </button>
+    }
+  </div>
+}
+<details class="data">
+  <summary>
+    View data<span class="data-hint">{{ data().labels.length }} periods</span>
+  </summary>
+  <div class="table-scroll" tabindex="0" role="region" [attr.aria-label]="label() + ' data table'">
+    <table>
+      <caption>
+        {{
+          label()
+        }}
+        — all values
+      </caption>
+      <thead>
+        <tr>
+          <th scope="col">Period</th>
+          @for (series of data().datasets; track $index) {
+            <th scope="col">{{ series.label }}</th>
+          }
+        </tr>
+      </thead>
+      <tbody>
+        @for (period of data().labels; track $index; let index = $index) {
+          <tr>
+            <th scope="row">{{ period }}</th>
+            @for (series of data().datasets; track $index) {
+              <td>{{ format(series.values[index]) }}</td>
+            }
+          </tr>
+        } @empty {
+          <tr>
+            <td [attr.colspan]="data().datasets.length + 1">No data for this period.</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</details>

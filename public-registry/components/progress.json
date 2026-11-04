@@ -9,7 +9,7 @@
   "files": [
     {
       "target": "progress/progress.component.ts",
-      "content": "import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';\n\n@Component({\n  selector: 'aevko-progress',\n  standalone: true,\n  template: '<span class=\"indicator\" [style.inline-size.%]=\"percentage()\"></span>',\n  styleUrl: './progress.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: {\n    role: 'progressbar',\n    '[attr.aria-label]': 'label()',\n    '[attr.aria-valuemin]': '0',\n    '[attr.aria-valuemax]': 'max()',\n    '[attr.aria-valuenow]': 'value() === null ? null : normalized()',\n    '[attr.data-state]': 'value() === null ? \"indeterminate\" : \"determinate\"',\n  },\n})\nexport class AevkoProgress {\n  readonly label = input.required<string>();\n  readonly value = input<number | null>(null);\n  readonly max = input(100);\n  protected readonly normalized = computed(() =>\n    Math.min(Math.max(this.value() ?? 0, 0), Math.max(this.max(), 1)),\n  );\n  protected readonly percentage = computed(\n    () => (this.normalized() / Math.max(this.max(), 1)) * 100,\n  );\n}\n"
+      "content": "import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';\n\n@Component({\n  selector: 'aevko-progress',\n  standalone: true,\n  template: '<span class=\"indicator\" [style.inline-size.%]=\"percentage()\"></span>',\n  styleUrl: './progress.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: {\n    'data-slot': 'progress',\n    role: 'progressbar',\n    '[attr.aria-label]': 'label()',\n    '[attr.aria-valuemin]': '0',\n    '[attr.aria-valuemax]': 'max()',\n    '[attr.aria-valuenow]': 'value() === null ? null : normalized()',\n    '[attr.data-state]': 'value() === null ? \"indeterminate\" : \"determinate\"',\n  },\n})\nexport class AevkoProgress {\n  readonly label = input.required<string>();\n  readonly value = input<number | null>(null);\n  readonly max = input(100);\n  protected readonly normalized = computed(() =>\n    Math.min(Math.max(this.value() ?? 0, 0), Math.max(this.max(), 1)),\n  );\n  protected readonly percentage = computed(\n    () => (this.normalized() / Math.max(this.max(), 1)) * 100,\n  );\n}\n"
     },
     {
       "target": "progress/progress.component.css",
@@ -22,5 +22,5 @@
   ],
   "registryDependencies": [],
   "npmDependencies": {},
-  "integrity": "4302861bf2923bd14f82383f42b7bdf6ddf6f015f19068da01f74f26bca3a1a8"
+  "integrity": "c506cbd2e43c857387c1bd2f61da28c08121ea3a3be4f3a616a3e4171a7417a4"
 }

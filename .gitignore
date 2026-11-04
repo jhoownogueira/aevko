@@ -6,3 +6,5 @@ tmp/
 apps/consumer-smoke/
 *.tgz
 .DS_Store
+
+apps/docs/.generated/

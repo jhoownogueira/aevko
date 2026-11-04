@@ -5,7 +5,7 @@
   box-sizing: border-box;
   cursor: pointer;
   display: inline-flex;
-  font: 650 0.875rem/1 var(--aevko-font-sans, sans-serif);
+  font: 500 0.875rem/1 var(--aevko-font-sans, sans-serif);
   gap: 0.5rem;
   justify-content: center;
   letter-spacing: 0.01em;
@@ -14,8 +14,7 @@
   transition:
     background-color 120ms ease,
     border-color 120ms ease,
-    color 120ms ease,
-    transform 120ms ease;
+    color 120ms ease;
 }
 
 :host([data-size='sm']) {
@@ -33,6 +32,30 @@
   padding-inline: 1.25rem;
 }
 
+:host([data-size='icon-sm']),
+:host([data-size='icon']),
+:host([data-size='icon-lg']) {
+  padding-inline: 0;
+}
+
+:host([data-size='icon-sm']) {
+  height: 2rem;
+  min-height: 2rem;
+  width: 2rem;
+}
+
+:host([data-size='icon']) {
+  height: 2.75rem;
+  min-height: 2.75rem;
+  width: 2.75rem;
+}
+
+:host([data-size='icon-lg']) {
+  height: 3rem;
+  min-height: 3rem;
+  width: 3rem;
+}
+
 :host([data-variant='primary']) {
   background: var(--aevko-foreground, #20201e);
   color: var(--aevko-background, #ffffff);
@@ -44,9 +67,24 @@
   color: var(--aevko-foreground, #20201e);
 }
 
+:host([data-variant='secondary']) {
+  background: var(--aevko-surface, #f4f4f5);
+  color: var(--aevko-surface-foreground, #20201e);
+}
+
 :host([data-variant='ghost']) {
   background: transparent;
   color: var(--aevko-foreground, #20201e);
+}
+
+:host([data-variant='link']) {
+  background: transparent;
+  color: var(--aevko-foreground, #20201e);
+  min-height: auto;
+  padding-inline: 0;
+  text-decoration: underline;
+  text-decoration-color: transparent;
+  text-underline-offset: 0.25em;
 }
 
 :host([data-variant='accent']) {
@@ -61,7 +99,11 @@
 
 :host(:hover:not(:disabled)) {
   filter: brightness(0.94);
-  transform: translateY(-1px);
+}
+
+:host([data-variant='link']:hover:not(:disabled)) {
+  filter: none;
+  text-decoration-color: currentcolor;
 }
 
 :host(:focus-visible) {

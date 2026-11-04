@@ -9,7 +9,7 @@
   "files": [
     {
       "target": "aspect-ratio/aspect-ratio.component.ts",
-      "content": "import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';\n\n@Component({\n  selector: 'aevko-aspect-ratio',\n  standalone: true,\n  template: '<ng-content />',\n  styleUrl: './aspect-ratio.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: { '[style.aspect-ratio]': 'cssRatio()' },\n})\nexport class AevkoAspectRatio {\n  readonly ratio = input<number | `${number}/${number}`>(16 / 9);\n  protected readonly cssRatio = computed(() =>\n    typeof this.ratio() === 'number' ? String(this.ratio()) : this.ratio(),\n  );\n}\n"
+      "content": "import { ChangeDetectionStrategy, Component, computed, input } from '@angular/core';\n\n@Component({\n  selector: 'aevko-aspect-ratio',\n  standalone: true,\n  template: '<ng-content />',\n  styleUrl: './aspect-ratio.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: { 'data-slot': 'aspect-ratio', '[style.aspect-ratio]': 'cssRatio()' },\n})\nexport class AevkoAspectRatio {\n  readonly ratio = input<number | `${number}/${number}`>(16 / 9);\n  protected readonly cssRatio = computed(() =>\n    typeof this.ratio() === 'number' ? String(this.ratio()) : this.ratio(),\n  );\n}\n"
     },
     {
       "target": "aspect-ratio/aspect-ratio.component.css",
@@ -22,5 +22,5 @@
   ],
   "registryDependencies": [],
   "npmDependencies": {},
-  "integrity": "5783e0796bf8dad42e2695d48f4eef3ba15cbdffcb08a69b776b450387118822"
+  "integrity": "85a6756b614c40a1b233e27b0857b262ab2a1ecdcbced2392bccba8cb4f26295"
 }

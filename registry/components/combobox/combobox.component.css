@@ -18,8 +18,8 @@ input:focus-visible {
 }
 [role='listbox'] {
   background: var(--aevko-surface, #fff);
-  border: 1px solid var(--aevko-border, #d4d4d4);
-  box-shadow: 0 12px 30px rgb(0 0 0 / 0.12);
+  border: 1px solid var(--aevko-border, #e4e4e7);
+  box-shadow: var(--aevko-shadow, 0 4px 16px rgb(0 0 0 / 0.08));
   inline-size: 100%;
   inset-block-start: calc(100% + 0.25rem);
   max-block-size: 16rem;
@@ -33,7 +33,7 @@ input:focus-visible {
 }
 [role='option']:hover,
 [role='option'][data-active='true'] {
-  background: var(--aevko-muted, #eee);
+  background: var(--aevko-background, #f4f4f5);
 }
 [role='option'][aria-disabled='true'] {
   opacity: 0.45;
@@ -42,11 +42,23 @@ p {
   color: var(--aevko-muted-foreground, #666);
   padding: 0.75rem;
 }
-@media (prefers-color-scheme: dark) {
-  :host {
-    --aevko-surface: #171717;
-    --aevko-border: #404040;
-    --aevko-muted: #2a2a2a;
-    color: #f5f5f5;
+
+[hidden] {
+  display: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  [data-slot='combobox-content']:not([hidden]) {
+    animation: aevko-combobox-enter 140ms cubic-bezier(0.2, 0, 0, 1);
+  }
+  @keyframes aevko-combobox-enter {
+    from {
+      opacity: 0;
+      translate: 0 3px;
+    }
+    to {
+      opacity: 1;
+      translate: 0 0;
+    }
   }
 }

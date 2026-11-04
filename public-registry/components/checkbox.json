@@ -9,7 +9,7 @@
   "files": [
     {
       "target": "checkbox/checkbox.component.ts",
-      "content": "import { ChangeDetectionStrategy, Component, booleanAttribute, input } from '@angular/core';\n\n@Component({\n  selector: 'input[aevkoCheckbox][type=\"checkbox\"]',\n  standalone: true,\n  template: '',\n  styleUrl: './checkbox.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: {\n    '[attr.aria-invalid]': 'invalid() ? \"true\" : null',\n    '[attr.data-invalid]': 'invalid() ? \"true\" : null',\n  },\n})\nexport class AevkoCheckbox {\n  readonly invalid = input(false, { transform: booleanAttribute });\n}\n"
+      "content": "import { ChangeDetectionStrategy, Component, booleanAttribute, input } from '@angular/core';\n\n@Component({\n  selector: 'input[aevkoCheckbox][type=\"checkbox\"]',\n  standalone: true,\n  template: '',\n  styleUrl: './checkbox.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: {\n    'data-slot': 'checkbox',\n    '[attr.aria-invalid]': 'invalid() ? \"true\" : null',\n    '[attr.data-invalid]': 'invalid() ? \"true\" : null',\n  },\n})\nexport class AevkoCheckbox {\n  readonly invalid = input(false, { transform: booleanAttribute });\n}\n"
     },
     {
       "target": "checkbox/checkbox.component.css",
@@ -22,5 +22,5 @@
   ],
   "registryDependencies": [],
   "npmDependencies": {},
-  "integrity": "0951b1adcecaadf6bb77e5301ca0e5060224045cca91011218a554297ef1a496"
+  "integrity": "e3e9ded601e4c3de53b983a06aefe3074f5378fcda127fbb7615da7c48636cf2"
 }

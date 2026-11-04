@@ -7,6 +7,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
   styleUrl: './spinner.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
+    'data-slot': 'spinner',
     role: 'status',
     '[attr.aria-label]': 'label()',
     '[style.--aevko-spinner-size]': 'size()',

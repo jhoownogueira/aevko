@@ -9,7 +9,7 @@
   "files": [
     {
       "target": "alert-dialog/alert-dialog.component.ts",
-      "content": "import { ChangeDetectionStrategy, Component } from '@angular/core';\nimport { AevkoDialog, AevkoDialogBase } from '../dialog';\n\n@Component({\n  selector: 'aevko-alert-dialog',\n  standalone: true,\n  imports: [AevkoDialog],\n  templateUrl: './alert-dialog.component.html',\n  styleUrl: './alert-dialog.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: { '(click)': 'handleClick($event)' },\n})\nexport class AevkoAlertDialog extends AevkoDialogBase {\n  constructor() {\n    super('aevkoAlertDialogTrigger', 'aevkoAlertDialogClose');\n  }\n}\n"
+      "content": "import { ChangeDetectionStrategy, Component } from '@angular/core';\nimport { AevkoDialog, AevkoDialogBase } from '../dialog';\n\n@Component({\n  selector: 'aevko-alert-dialog',\n  standalone: true,\n  imports: [AevkoDialog],\n  templateUrl: './alert-dialog.component.html',\n  styleUrl: './alert-dialog.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: { 'data-slot': 'alert-dialog-root', '(click)': 'handleClick($event)' },\n})\nexport class AevkoAlertDialog extends AevkoDialogBase {\n  constructor() {\n    super('aevkoAlertDialogTrigger', 'aevkoAlertDialogClose');\n  }\n}\n"
     },
     {
       "target": "alert-dialog/alert-dialog.component.html",
@@ -28,5 +28,5 @@
     "dialog"
   ],
   "npmDependencies": {},
-  "integrity": "1c827ccb0344c2ddf41f5a9312d6382c57c2a535cedb8e61db3c9bcab22a7afe"
+  "integrity": "01536b2590dfef94b5124e2bdd20c28c84124532445385a201534e4537c0c480"
 }

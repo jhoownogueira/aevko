@@ -7,7 +7,7 @@ import { AevkoDialogBase } from './dialog-base';
   templateUrl: './dialog.component.html',
   styleUrl: './dialog.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { '(click)': 'handleClick($event)' },
+  host: { 'data-slot': 'dialog-root', '(click)': 'handleClick($event)' },
 })
 export class AevkoDialog extends AevkoDialogBase {
   constructor() {

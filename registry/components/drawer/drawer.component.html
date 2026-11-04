@@ -10,6 +10,6 @@
   [showCloseButton]="showCloseButton()"
   [side]="side() === 'center' ? 'bottom' : side()"
 >
-  <div class="handle" aria-hidden="true"></div>
+  <div class="handle" data-slot="drawer-handle" aria-hidden="true"></div>
   <ng-content />
 </aevko-dialog>

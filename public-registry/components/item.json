@@ -9,7 +9,7 @@
   "files": [
     {
       "target": "item/item.component.ts",
-      "content": "import { ChangeDetectionStrategy, Component, booleanAttribute, input } from '@angular/core';\n\nexport type AevkoItemVariant = 'default' | 'outline' | 'muted';\n\n@Component({\n  selector: 'aevko-item',\n  standalone: true,\n  templateUrl: './item.component.html',\n  styleUrl: './item.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: {\n    '[attr.data-variant]': 'variant()',\n    '[attr.aria-disabled]': 'disabled() ? \"true\" : null',\n  },\n})\nexport class AevkoItem {\n  readonly variant = input<AevkoItemVariant>('default');\n  readonly disabled = input(false, { transform: booleanAttribute });\n}\n"
+      "content": "import { ChangeDetectionStrategy, Component, booleanAttribute, input } from '@angular/core';\n\nexport type AevkoItemVariant = 'default' | 'outline' | 'muted';\n\n@Component({\n  selector: 'aevko-item',\n  standalone: true,\n  templateUrl: './item.component.html',\n  styleUrl: './item.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: {\n    'data-slot': 'item',\n    '[attr.data-variant]': 'variant()',\n    '[attr.aria-disabled]': 'disabled() ? \"true\" : null',\n  },\n})\nexport class AevkoItem {\n  readonly variant = input<AevkoItemVariant>('default');\n  readonly disabled = input(false, { transform: booleanAttribute });\n}\n"
     },
     {
       "target": "item/item.component.html",
@@ -17,7 +17,7 @@
     },
     {
       "target": "item/item.component.css",
-      "content": ":host {\n  align-items: center;\n  border-radius: var(--aevko-radius, 0);\n  display: grid;\n  gap: 1rem;\n  grid-template-columns: auto minmax(0, 1fr) auto;\n  min-height: 3.5rem;\n  padding: 0.75rem;\n}\n:host([data-variant='outline']) {\n  border: 1px solid var(--aevko-border, #c7c7c7);\n}\n:host([data-variant='muted']) {\n  background: var(--aevko-surface, #f2f2f2);\n}\n:host([aria-disabled='true']) {\n  opacity: 0.55;\n}\n.copy {\n  display: grid;\n  gap: 0.2rem;\n}\n.copy :where([aevkoItemTitle]) {\n  font-weight: 700;\n}\n.copy :where([aevkoItemDescription]) {\n  color: var(--aevko-muted, #5f5f5f);\n  font-size: 0.875rem;\n}\n.action {\n  display: flex;\n}\n"
+      "content": ":host {\n  align-items: center;\n  border-radius: var(--aevko-radius, 0);\n  display: grid;\n  gap: 1rem;\n  grid-template-columns: auto minmax(0, 1fr) auto;\n  min-height: 3.5rem;\n  padding: 0.75rem;\n}\n:host([data-variant='outline']) {\n  border: 1px solid var(--aevko-border, #e4e4e7);\n}\n:host([data-variant='muted']) {\n  background: var(--aevko-surface, #f2f2f2);\n}\n:host([aria-disabled='true']) {\n  opacity: 0.55;\n}\n.copy {\n  display: grid;\n  gap: 0.2rem;\n}\n.copy :where([aevkoItemTitle]) {\n  font-weight: 600;\n}\n.copy :where([aevkoItemDescription]) {\n  color: var(--aevko-muted, #5f5f5f);\n  font-size: 0.875rem;\n}\n.action {\n  display: flex;\n}\n"
     },
     {
       "target": "item/index.ts",
@@ -26,5 +26,5 @@
   ],
   "registryDependencies": [],
   "npmDependencies": {},
-  "integrity": "31cf5ac5706f96d5fbf69925d09128d4ec00040176282c78202297582a407860"
+  "integrity": "d8105e5d246eb13c54d40474e8e0edbcdb44bbf43792dd382a09e5d3cfb11d47"
 }

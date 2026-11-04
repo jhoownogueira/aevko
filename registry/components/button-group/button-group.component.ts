@@ -7,6 +7,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
   styleUrl: './button-group.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
+    'data-slot': 'button-group',
     role: 'group',
     '[attr.aria-label]': 'label()',
     '[attr.data-orientation]': 'orientation()',

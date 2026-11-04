@@ -9,7 +9,7 @@
   "files": [
     {
       "target": "bubble/bubble.component.ts",
-      "content": "import { ChangeDetectionStrategy, Component, input } from '@angular/core';\n\n@Component({\n  selector: 'aevko-bubble',\n  standalone: true,\n  template:\n    '<div class=\"content\"><ng-content /></div><div class=\"reactions\"><ng-content select=\"[aevkoBubbleReactions]\" /></div>',\n  styleUrl: './bubble.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: { '[attr.data-align]': 'align()', '[attr.data-variant]': 'variant()' },\n})\nexport class AevkoBubble {\n  readonly align = input<'start' | 'end'>('start');\n  readonly variant = input<'default' | 'muted' | 'outline'>('default');\n}\n"
+      "content": "import { ChangeDetectionStrategy, Component, input } from '@angular/core';\n\n@Component({\n  selector: 'aevko-bubble',\n  standalone: true,\n  template:\n    '<div class=\"content\"><ng-content /></div><div class=\"reactions\"><ng-content select=\"[aevkoBubbleReactions]\" /></div>',\n  styleUrl: './bubble.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: {\n    'data-slot': 'bubble',\n    '[attr.data-align]': 'align()',\n    '[attr.data-variant]': 'variant()',\n  },\n})\nexport class AevkoBubble {\n  readonly align = input<'start' | 'end'>('start');\n  readonly variant = input<'default' | 'muted' | 'outline'>('default');\n}\n"
     },
     {
       "target": "bubble/bubble.component.css",
@@ -22,5 +22,5 @@
   ],
   "registryDependencies": [],
   "npmDependencies": {},
-  "integrity": "26c5225381bf94b2c30b0bc67c75f87c947d363b83c7b99d374cc90ac0a49b5b"
+  "integrity": "b25b916e44e830aee16a745339fe036c0bc28268ee91a0af0f91b92990529dfe"
 }

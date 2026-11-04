@@ -1,0 +1,133 @@
+:host {
+  display: block;
+  color: var(--aevko-foreground, #18181b);
+}
+.auth-shell {
+  min-height: min(46rem, calc(100svh - 2rem));
+  display: grid;
+  background: var(--aevko-background, #fff);
+  border: 1px solid var(--aevko-border, #e4e4e7);
+}
+.auth-shell.split,
+.auth-shell.quote,
+.auth-shell.workspace {
+  grid-template-columns: minmax(0, 1fr) minmax(22rem, 0.8fr);
+}
+.auth-story {
+  display: flex;
+  min-height: 20rem;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: clamp(2rem, 5vw, 5rem);
+  background: var(--aevko-foreground, #18181b);
+  color: var(--aevko-background, #fff);
+}
+.auth-story strong {
+  font-size: 1.05rem;
+  letter-spacing: -0.02em;
+}
+.auth-story p {
+  max-width: 28rem;
+  font-size: clamp(1.4rem, 3vw, 2.5rem);
+  line-height: 1.08;
+  letter-spacing: -0.045em;
+}
+.auth-panel {
+  display: grid;
+  place-items: center;
+  padding: clamp(2rem, 6vw, 5rem);
+}
+.auth-card {
+  animation: auth-enter 320ms ease-out both;
+  width: min(100%, 24rem);
+}
+@keyframes auth-enter {
+  from {
+    opacity: 0;
+    transform: translateY(0.5rem);
+  }
+}
+.compact .auth-card {
+  width: min(100%, 21rem);
+}
+.auth-brand {
+  margin: 0 0 2.5rem;
+  font-weight: 750;
+  letter-spacing: -0.03em;
+}
+h1 {
+  margin: 0;
+  font-size: clamp(1.8rem, 4vw, 2.4rem);
+  letter-spacing: -0.045em;
+}
+.auth-intro {
+  margin: 0.65rem 0 1.75rem;
+  color: var(--aevko-muted, #71717a);
+  line-height: 1.5;
+}
+form {
+  display: grid;
+  gap: 1rem;
+}
+.auth-field {
+  display: grid;
+  gap: 0.45rem;
+}
+.auth-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.85rem;
+}
+.auth-check {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+button[aevkoButton] {
+  width: 100%;
+}
+.auth-divider {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  margin: 1.25rem 0;
+  color: var(--aevko-muted, #71717a);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.auth-divider::before,
+.auth-divider::after {
+  content: '';
+  height: 1px;
+  flex: 1;
+  background: var(--aevko-border, #e4e4e7);
+}
+.auth-meta {
+  margin: 1.4rem 0 0;
+  color: var(--aevko-muted, #71717a);
+  font-size: 0.85rem;
+  text-align: center;
+}
+a {
+  color: inherit;
+  text-underline-offset: 0.2em;
+}
+@media (max-width: 48rem) {
+  .auth-shell.split,
+  .auth-shell.quote,
+  .auth-shell.workspace {
+    grid-template-columns: 1fr;
+  }
+  .auth-story {
+    min-height: 13rem;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .auth-card {
+    animation: none;
+  }
+}
+/* Editable Aevko block source. */

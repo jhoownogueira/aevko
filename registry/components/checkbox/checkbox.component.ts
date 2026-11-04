@@ -7,6 +7,7 @@ import { ChangeDetectionStrategy, Component, booleanAttribute, input } from '@an
   styleUrl: './checkbox.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
+    'data-slot': 'checkbox',
     '[attr.aria-invalid]': 'invalid() ? "true" : null',
     '[attr.data-invalid]': 'invalid() ? "true" : null',
   },

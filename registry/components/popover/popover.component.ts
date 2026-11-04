@@ -1,3 +1,4 @@
+import { AevkoFloating } from '../shared/floating.directive';
 import {
   ChangeDetectionStrategy,
   Component,
@@ -11,7 +12,11 @@ import {
   model,
 } from '@angular/core';
 
-@Directive({ selector: '[aevkoPopoverTrigger]', standalone: true })
+@Directive({
+  selector: '[aevkoPopoverTrigger]',
+  standalone: true,
+  host: { 'data-slot': 'popover-trigger' },
+})
 export class AevkoPopoverTrigger {
   readonly element = inject<ElementRef<HTMLElement>>(ElementRef);
 }
@@ -19,12 +24,25 @@ export class AevkoPopoverTrigger {
 @Component({
   selector: 'aevko-popover',
   standalone: true,
+  imports: [AevkoFloating],
   templateUrl: './popover.component.html',
   styleUrl: './popover.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { '(click)': 'click($event)', '(keydown)': 'keydown($event)' },
+  host: {
+    'data-slot': 'popover-root',
+    '(document:pointerdown)': 'dismissOutside($event)',
+    '(document:focusin)': 'dismissOutside($event)',
+    '(click)': 'click($event)',
+    '(keydown)': 'keydown($event)',
+  },
 })
 export class AevkoPopover {
+  private readonly hostElement = inject<ElementRef<HTMLElement>>(ElementRef);
+  protected dismissOutside(event: Event): void {
+    if (this.open() && !event.composedPath().includes(this.hostElement.nativeElement)) {
+      this.open.set(false);
+    }
+  }
   readonly label = input.required<string>();
   readonly open = model(false);
   readonly id = input('aevko-popover');
@@ -50,6 +68,7 @@ export class AevkoPopover {
     if (event.key === 'Escape' && this.closeOnEscape()) {
       event.preventDefault();
       this.open.set(false);
+      this.trigger()?.element.nativeElement.focus();
     }
   }
 }

@@ -7,6 +7,7 @@ import { ChangeDetectionStrategy, Component, booleanAttribute, input } from '@an
   styleUrl: './radio-group.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
+    'data-slot': 'radio-group',
     '[attr.data-orientation]': 'orientation()',
     '[attr.data-invalid]': 'invalid() ? "true" : null',
   },
@@ -22,7 +23,10 @@ export class AevkoRadioGroup {
   template: '',
   styleUrl: './radio-group-item.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { '[attr.aria-invalid]': 'invalid() ? "true" : null' },
+  host: {
+    'data-slot': 'radio-group-item',
+    '[attr.aria-invalid]': 'invalid() ? "true" : null',
+  },
 })
 export class AevkoRadioGroupItem {
   readonly invalid = input(false, { transform: booleanAttribute });

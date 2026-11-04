@@ -1,21 +1,25 @@
-<section class="viewport" aria-label="Notifications">
+<section class="viewport" data-slot="toast-viewport" [attr.aria-label]="label()">
   @for (toast of store.toasts(); track toast.id) {
     <div
       class="toast"
+      data-slot="toast"
       [attr.data-tone]="toast.tone ?? 'default'"
       [attr.role]="toast.tone === 'error' ? 'alert' : 'status'"
     >
       <div>
-        <strong>{{ toast.title }}</strong>
+        <strong data-slot="toast-title">{{ toast.title }}</strong>
         @if (toast.description) {
-          <p>{{ toast.description }}</p>
+          <p data-slot="toast-description">{{ toast.description }}</p>
         }
       </div>
       @if (toast.actionLabel) {
-        <button type="button" (click)="store.runAction(toast)">{{ toast.actionLabel }}</button>
+        <button data-slot="toast-action" type="button" (click)="store.runAction(toast)">
+          {{ toast.actionLabel }}
+        </button>
       }
       <button
         class="close"
+        data-slot="toast-close"
         type="button"
         [attr.aria-label]="'Dismiss ' + toast.title"
         (click)="store.dismiss(toast.id)"

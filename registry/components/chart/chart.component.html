@@ -5,6 +5,7 @@
   }
 </div>
 <div class="visual" aria-hidden="true"><ng-content select="[aevkoChartVisual]" /></div>
+<ng-content />
 @if (series().length) {
   <ul class="legend" aria-label="Chart legend">
     @for (item of series(); track item.key) {

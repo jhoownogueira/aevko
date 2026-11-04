@@ -1,0 +1,29 @@
+{
+  "$schema": "https://aevko.jhonata.dev/registry/schema/item.v1.json",
+  "schemaVersion": 1,
+  "name": "sidebar-14",
+  "title": "Floating navigation",
+  "description": "An editable floating navigation shell with responsive navigation and dashboard content.",
+  "category": "layout",
+  "angular": ">=22 <23",
+  "files": [
+    {
+      "source": "components/blocks/sidebar-14/sidebar-14.component.ts",
+      "target": "blocks/sidebar-14/sidebar-14.component.ts"
+    },
+    {
+      "source": "components/blocks/sidebar-14/sidebar-14.component.html",
+      "target": "blocks/sidebar-14/sidebar-14.component.html"
+    },
+    {
+      "source": "components/blocks/sidebar-14/sidebar-14.component.css",
+      "target": "blocks/sidebar-14/sidebar-14.component.css"
+    },
+    {
+      "source": "components/blocks/sidebar-14/index.ts",
+      "target": "blocks/sidebar-14/index.ts"
+    }
+  ],
+  "registryDependencies": ["avatar", "badge", "button", "input", "sidebar"],
+  "npmDependencies": {}
+}

@@ -3,14 +3,16 @@
 ## Product boundary
 
 Aevko is a copy-to-project system, not a runtime component library. Canonical
-Angular source is stored under `registry/components`. The registry compiler
+Angular source is stored under `registry/components`. Composed application blocks
+live under `registry/components/blocks` and use the same canonical primitives.
+The registry compiler
 validates metadata and produces immutable JSON artifacts in `public-registry`.
 The CLI consumes those artifacts, resolves component and shared dependencies and
 writes readable source into a consumer-owned path.
 
 ## Workspace areas
 
-- `registry`: canonical component and shared source plus item manifests.
+- `registry`: canonical component, block and shared source plus item manifests.
 - `@lucide/angular`: optional first-party documentation dependency; never part
   of registry items or CLI-installed dependencies.
 - `packages/registry`: schema validation and reproducible registry generation.
@@ -41,12 +43,17 @@ never overwrites by default and treats `--yes` separately from `--overwrite`.
 
 ## Documentation performance budget
 
-The documentation deliberately renders previews from the same canonical source
-installed by the CLI. With all 64 previews available, the production browser
-bundle is 644.03 kB raw and 139.62 kB estimated transfer. CI warns at 675 kB and
-fails at 750 kB; component styles warn at 7 kB and fail at 8 kB. Route-level
-preview splitting remains a future optimization, while these explicit thresholds
-prevent silent growth in the current architecture.
+The documentation renders previews from the same canonical source installed by
+the CLI. Component pages, composed blocks and the chart gallery use route-level
+chunks. Chart.js is a separate dynamic import: it loads only after a chart canvas
+renders in the browser. SSR retains headings, legends and native data tables.
+The base chart frame still supports projected visuals; the chart registry item
+now declares Chart.js for its optional canvas renderer.
+
+CI warns at 700 kB and fails at 750 kB for the initial browser payload; component
+styles warn at 12 kB and fail at 13 kB. The documentation prerenders 131 routes,
+including 27 isolated block previews. Block previews use the canonical block
+source in same-origin frames, with responsive viewport controls and source views.
 
 ## Hosting boundary
 

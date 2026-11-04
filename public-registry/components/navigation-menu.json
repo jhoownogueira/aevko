@@ -9,11 +9,11 @@
   "files": [
     {
       "target": "navigation-menu/navigation-menu.component.ts",
-      "content": "import { ChangeDetectionStrategy, Component, input } from '@angular/core';\n@Component({\n  selector: 'aevko-navigation-menu',\n  standalone: true,\n  template: '<ng-content />',\n  styleUrl: './navigation-menu.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: { role: 'navigation', '[attr.aria-label]': 'label()' },\n})\nexport class AevkoNavigationMenu {\n  readonly label = input.required<string>();\n}\n"
+      "content": "import { ViewEncapsulation, ChangeDetectionStrategy, Component, input } from '@angular/core';\n@Component({\n  selector: 'aevko-navigation-menu',\n  standalone: true,\n  template: '<ng-content />',\n  styleUrl: './navigation-menu.component.css',\n  encapsulation: ViewEncapsulation.None,\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: { role: 'navigation', 'data-slot': 'navigation-menu', '[attr.aria-label]': 'label()' },\n})\nexport class AevkoNavigationMenu {\n  readonly label = input.required<string>();\n}\n"
     },
     {
       "target": "navigation-menu/navigation-menu.component.css",
-      "content": ":host {\n  align-items: center;\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.25rem;\n}\n:host ::ng-deep a,\n:host ::ng-deep button {\n  align-items: center;\n  background: transparent;\n  border: 0;\n  border-radius: 0;\n  color: inherit;\n  display: inline-flex;\n  min-block-size: 2.5rem;\n  padding: 0.5rem 0.75rem;\n  text-decoration: none;\n}\n:host ::ng-deep a:hover,\n:host ::ng-deep button:hover {\n  background: var(--aevko-muted, #eee);\n}\n:host ::ng-deep a:focus-visible,\n:host ::ng-deep button:focus-visible {\n  outline: 2px solid var(--aevko-ring, #a3a3a3);\n  outline-offset: 2px;\n}\n"
+      "content": ":where(aevko-navigation-menu) {\n  align-items: center;\n  display: flex;\n  flex-wrap: wrap;\n  gap: 0.25rem;\n}\n:where(aevko-navigation-menu) a,\n:where(aevko-navigation-menu) button {\n  align-items: center;\n  background: transparent;\n  border: 0;\n  border-radius: 0;\n  color: inherit;\n  display: inline-flex;\n  min-block-size: 2.5rem;\n  padding: 0.5rem 0.75rem;\n  text-decoration: none;\n}\n:where(aevko-navigation-menu) a:hover,\n:where(aevko-navigation-menu) button:hover {\n  background: var(--aevko-surface, #f4f4f5);\n}\n:where(aevko-navigation-menu) a:focus-visible,\n:where(aevko-navigation-menu) button:focus-visible {\n  outline: 2px solid var(--aevko-ring, #a3a3a3);\n  outline-offset: 2px;\n}\n"
     },
     {
       "target": "navigation-menu/index.ts",
@@ -22,5 +22,5 @@
   ],
   "registryDependencies": [],
   "npmDependencies": {},
-  "integrity": "64d59f3ec7d20d7f2984adc45e0b4b75a4f4e3c264335ca57c0e9dd84e4b7aea"
+  "integrity": "a184b99ba7c86527e2b524ef9ee9d1698408421200c891a3df9e5b3302c61b71"
 }

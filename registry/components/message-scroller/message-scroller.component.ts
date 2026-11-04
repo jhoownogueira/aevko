@@ -21,6 +21,7 @@ import { isPlatformBrowser } from '@angular/common';
   styleUrl: './message-scroller-item.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
+    'data-slot': 'message-scroller-item',
     '[attr.data-message-id]': 'messageId()',
     '[attr.data-scroll-anchor]': 'scrollAnchor() ? "true" : null',
   },
@@ -37,6 +38,7 @@ export class AevkoMessageScrollerItem {
   templateUrl: './message-scroller.component.html',
   styleUrl: './message-scroller.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { 'data-slot': 'message-scroller' },
 })
 export class AevkoMessageScroller {
   readonly label = input('Messages');

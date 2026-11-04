@@ -1,0 +1,222 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "@aevko/registry",
+  "items": [
+    {
+      "name": "dashboard-01",
+      "title": "Operations dashboard",
+      "description": "An interactive operations dashboard with Chart.js analytics, period controls, project search, creation and CSV export.",
+      "category": "layout",
+      "angular": ">=22 <23",
+      "url": "blocks/dashboard-01.json"
+    },
+    {
+      "name": "login-01",
+      "title": "Centered sign in",
+      "description": "An editable centered sign in composition built from canonical Aevko form primitives.",
+      "category": "forms",
+      "angular": ">=22 <23",
+      "url": "blocks/login-01.json"
+    },
+    {
+      "name": "login-02",
+      "title": "Split sign in",
+      "description": "An editable split sign in composition built from canonical Aevko form primitives.",
+      "category": "forms",
+      "angular": ">=22 <23",
+      "url": "blocks/login-02.json"
+    },
+    {
+      "name": "login-03",
+      "title": "Editorial sign in",
+      "description": "An editable editorial sign in composition built from canonical Aevko form primitives.",
+      "category": "forms",
+      "angular": ">=22 <23",
+      "url": "blocks/login-03.json"
+    },
+    {
+      "name": "login-04",
+      "title": "Compact sign in",
+      "description": "An editable compact sign in composition built from canonical Aevko form primitives.",
+      "category": "forms",
+      "angular": ">=22 <23",
+      "url": "blocks/login-04.json"
+    },
+    {
+      "name": "login-05",
+      "title": "Workspace sign in",
+      "description": "An editable workspace sign in composition built from canonical Aevko form primitives.",
+      "category": "forms",
+      "angular": ">=22 <23",
+      "url": "blocks/login-05.json"
+    },
+    {
+      "name": "sidebar-01",
+      "title": "Workspace navigation",
+      "description": "An editable workspace navigation shell with responsive navigation and dashboard content.",
+      "category": "layout",
+      "angular": ">=22 <23",
+      "url": "blocks/sidebar-01.json"
+    },
+    {
+      "name": "sidebar-02",
+      "title": "Documentation navigation",
+      "description": "An editable documentation navigation shell with responsive navigation and dashboard content.",
+      "category": "layout",
+      "angular": ">=22 <23",
+      "url": "blocks/sidebar-02.json"
+    },
+    {
+      "name": "sidebar-03",
+      "title": "Commerce navigation",
+      "description": "An editable commerce navigation shell with responsive navigation and dashboard content.",
+      "category": "layout",
+      "angular": ">=22 <23",
+      "url": "blocks/sidebar-03.json"
+    },
+    {
+      "name": "sidebar-04",
+      "title": "Project navigation",
+      "description": "An editable project navigation shell with responsive navigation and dashboard content.",
+      "category": "layout",
+      "angular": ">=22 <23",
+      "url": "blocks/sidebar-04.json"
+    },
+    {
+      "name": "sidebar-05",
+      "title": "Search-first navigation",
+      "description": "An editable search-first navigation shell with responsive navigation and dashboard content.",
+      "category": "layout",
+      "angular": ">=22 <23",
+      "url": "blocks/sidebar-05.json"
+    },
+    {
+      "name": "sidebar-06",
+      "title": "Community navigation",
+      "description": "An editable community navigation shell with responsive navigation and dashboard content.",
+      "category": "layout",
+      "angular": ">=22 <23",
+      "url": "blocks/sidebar-06.json"
+    },
+    {
+      "name": "sidebar-07",
+      "title": "Team-switcher navigation",
+      "description": "An editable team-switcher navigation shell with responsive navigation and dashboard content.",
+      "category": "layout",
+      "angular": ">=22 <23",
+      "url": "blocks/sidebar-07.json"
+    },
+    {
+      "name": "sidebar-08",
+      "title": "Project portfolio navigation",
+      "description": "An editable project portfolio navigation shell with responsive navigation and dashboard content.",
+      "category": "layout",
+      "angular": ">=22 <23",
+      "url": "blocks/sidebar-08.json"
+    },
+    {
+      "name": "sidebar-09",
+      "title": "Account navigation",
+      "description": "An editable account navigation shell with responsive navigation and dashboard content.",
+      "category": "layout",
+      "angular": ">=22 <23",
+      "url": "blocks/sidebar-09.json"
+    },
+    {
+      "name": "sidebar-10",
+      "title": "Multi-workspace navigation",
+      "description": "An editable multi-workspace navigation shell with responsive navigation and dashboard content.",
+      "category": "layout",
+      "angular": ">=22 <23",
+      "url": "blocks/sidebar-10.json"
+    },
+    {
+      "name": "sidebar-11",
+      "title": "Inset application navigation",
+      "description": "An editable inset application navigation shell with responsive navigation and dashboard content.",
+      "category": "layout",
+      "angular": ">=22 <23",
+      "url": "blocks/sidebar-11.json"
+    },
+    {
+      "name": "sidebar-12",
+      "title": "Calendar navigation",
+      "description": "An editable calendar navigation shell with responsive navigation and dashboard content.",
+      "category": "layout",
+      "angular": ">=22 <23",
+      "url": "blocks/sidebar-12.json"
+    },
+    {
+      "name": "sidebar-13",
+      "title": "Settings navigation",
+      "description": "An editable settings navigation shell with responsive navigation and dashboard content.",
+      "category": "layout",
+      "angular": ">=22 <23",
+      "url": "blocks/sidebar-13.json"
+    },
+    {
+      "name": "sidebar-14",
+      "title": "Floating navigation",
+      "description": "An editable floating navigation shell with responsive navigation and dashboard content.",
+      "category": "layout",
+      "angular": ">=22 <23",
+      "url": "blocks/sidebar-14.json"
+    },
+    {
+      "name": "sidebar-15",
+      "title": "Dual-context navigation",
+      "description": "An editable dual-context navigation shell with responsive navigation and dashboard content.",
+      "category": "layout",
+      "angular": ">=22 <23",
+      "url": "blocks/sidebar-15.json"
+    },
+    {
+      "name": "sidebar-16",
+      "title": "Analytics navigation",
+      "description": "An editable analytics navigation shell with responsive navigation and dashboard content.",
+      "category": "layout",
+      "angular": ">=22 <23",
+      "url": "blocks/sidebar-16.json"
+    },
+    {
+      "name": "signup-01",
+      "title": "Centered sign up",
+      "description": "An editable centered sign up composition built from canonical Aevko form primitives.",
+      "category": "forms",
+      "angular": ">=22 <23",
+      "url": "blocks/signup-01.json"
+    },
+    {
+      "name": "signup-02",
+      "title": "Split sign up",
+      "description": "An editable split sign up composition built from canonical Aevko form primitives.",
+      "category": "forms",
+      "angular": ">=22 <23",
+      "url": "blocks/signup-02.json"
+    },
+    {
+      "name": "signup-03",
+      "title": "Editorial sign up",
+      "description": "An editable editorial sign up composition built from canonical Aevko form primitives.",
+      "category": "forms",
+      "angular": ">=22 <23",
+      "url": "blocks/signup-03.json"
+    },
+    {
+      "name": "signup-04",
+      "title": "Compact sign up",
+      "description": "An editable compact sign up composition built from canonical Aevko form primitives.",
+      "category": "forms",
+      "angular": ">=22 <23",
+      "url": "blocks/signup-04.json"
+    },
+    {
+      "name": "signup-05",
+      "title": "Team sign up",
+      "description": "An editable team sign up composition built from canonical Aevko form primitives.",
+      "category": "forms",
+      "angular": ">=22 <23",
+      "url": "blocks/signup-05.json"
+    }
+  ]
+}

@@ -20,6 +20,7 @@ import {
   host: {
     type: 'button',
     role: 'tab',
+    'data-slot': 'tabs-trigger',
     '[attr.id]': 'rootId() + "-tab-" + value()',
     '[attr.aria-controls]': 'rootId() + "-panel-" + value()',
     '[attr.aria-selected]': 'selected()',
@@ -43,6 +44,7 @@ export class AevkoTabsTrigger {
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     role: 'tabpanel',
+    'data-slot': 'tabs-content',
     '[attr.id]': 'rootId() + "-panel-" + value()',
     '[attr.aria-labelledby]': 'rootId() + "-tab-" + value()',
     '[attr.tabindex]': 'selected() ? 0 : -1',
@@ -64,6 +66,7 @@ export class AevkoTabsContent {
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     role: 'tablist',
+    'data-slot': 'tabs-list',
     '[attr.aria-label]': 'label()',
     '[attr.aria-orientation]': 'orientation()',
     '[attr.data-orientation]': 'orientation()',
@@ -81,6 +84,7 @@ export class AevkoTabsList {
   styleUrl: './tabs.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
+    'data-slot': 'tabs',
     '[attr.data-orientation]': 'orientation()',
     '(click)': 'activate($event)',
     '(keydown)': 'navigate($event)',

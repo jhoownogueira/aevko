@@ -19,7 +19,14 @@
       "source": "components/tooltip/tooltip.component.css",
       "target": "tooltip/tooltip.component.css"
     },
-    { "source": "components/tooltip/index.ts", "target": "tooltip/index.ts" }
+    {
+      "source": "components/tooltip/index.ts",
+      "target": "tooltip/index.ts"
+    },
+    {
+      "source": "components/shared/floating.directive.ts",
+      "target": "shared/floating.directive.ts"
+    }
   ],
   "registryDependencies": [],
   "npmDependencies": {}

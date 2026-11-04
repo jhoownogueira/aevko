@@ -9,7 +9,7 @@
   "files": [
     {
       "target": "attachment/attachment.component.ts",
-      "content": "import { ChangeDetectionStrategy, Component, input } from '@angular/core';\n\n@Component({\n  selector: 'aevko-attachment',\n  standalone: true,\n  templateUrl: './attachment.component.html',\n  styleUrl: './attachment.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n})\nexport class AevkoAttachment {\n  readonly name = input.required<string>();\n  readonly metadata = input<string>();\n}\n"
+      "content": "import { ChangeDetectionStrategy, Component, input } from '@angular/core';\n\n@Component({\n  selector: 'aevko-attachment',\n  standalone: true,\n  templateUrl: './attachment.component.html',\n  styleUrl: './attachment.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: { 'data-slot': 'attachment' },\n})\nexport class AevkoAttachment {\n  readonly name = input.required<string>();\n  readonly metadata = input<string>();\n}\n"
     },
     {
       "target": "attachment/attachment.component.html",
@@ -26,5 +26,5 @@
   ],
   "registryDependencies": [],
   "npmDependencies": {},
-  "integrity": "cd425277226d3f83f7bdd8db94102b2fb1b71ade2966ee8dea9e482cfb5b38b2"
+  "integrity": "9fd828270bc9ef07dc30bc877833a6fceb0e1920d50d54f9ec79346cdc3d17b1"
 }

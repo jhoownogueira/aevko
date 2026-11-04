@@ -1,22 +1,37 @@
 <button
   type="button"
+  role="combobox"
+  data-slot="select-trigger"
   aria-haspopup="listbox"
   [attr.aria-label]="(selected()?.label ?? placeholder()) + ', ' + label()"
   [attr.aria-expanded]="open()"
-  aria-controls="aevko-select-list"
-  [disabled]="disabled()"
+  [attr.aria-controls]="id() + '-list'"
+  [attr.aria-activedescendant]="
+    open() && activeOption() ? id() + '-option-' + activeOption()!.value : null
+  "
+  [disabled]="isDisabled()"
+  (blur)="touch()"
   (click)="toggle()"
   (keydown)="keydown($event)"
 >
   {{ selected()?.label ?? placeholder() }}<span aria-hidden="true">⌄</span>
 </button>
-<div id="aevko-select-list" role="listbox" [attr.aria-label]="label()" [hidden]="!open()">
+<div
+  [id]="id() + '-list'"
+  data-slot="select-content"
+  aevkoFloating
+  role="listbox"
+  [attr.aria-label]="label()"
+  [hidden]="!open()"
+>
   @for (item of items(); track item.value; let index = $index) {
     <div
       role="option"
+      data-slot="select-item"
+      [id]="id() + '-option-' + item.value"
       [attr.aria-selected]="value() === item.value"
       [attr.aria-disabled]="item.disabled || null"
-      [attr.data-active]="active() === index"
+      [attr.data-active]="activeOption()?.value === item.value"
       (click)="choose(item)"
     >
       {{ item.label }}

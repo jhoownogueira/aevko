@@ -9,7 +9,7 @@
   "files": [
     {
       "target": "message/message.component.ts",
-      "content": "import { ChangeDetectionStrategy, Component, input } from '@angular/core';\n\n@Component({\n  selector: 'aevko-message',\n  standalone: true,\n  templateUrl: './message.component.html',\n  styleUrl: './message.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: { '[attr.data-variant]': 'variant()', '[attr.data-align]': 'align()' },\n})\nexport class AevkoMessage {\n  readonly variant = input<'default' | 'muted' | 'danger'>('default');\n  readonly align = input<'start' | 'end'>('start');\n}\n"
+      "content": "import { ChangeDetectionStrategy, Component, input } from '@angular/core';\n\n@Component({\n  selector: 'aevko-message',\n  standalone: true,\n  templateUrl: './message.component.html',\n  styleUrl: './message.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: {\n    'data-slot': 'message',\n    '[attr.data-variant]': 'variant()',\n    '[attr.data-align]': 'align()',\n  },\n})\nexport class AevkoMessage {\n  readonly variant = input<'default' | 'muted' | 'danger'>('default');\n  readonly align = input<'start' | 'end'>('start');\n}\n"
     },
     {
       "target": "message/message.component.html",
@@ -26,5 +26,5 @@
   ],
   "registryDependencies": [],
   "npmDependencies": {},
-  "integrity": "914e898387832cf4dabfb0ceb93ef39593202875b1e28bfb4d1980ae414c41ba"
+  "integrity": "0a692957dbd3b1b0bad6d681d73144e06e1648a20249d3d6f618ae2b1e5dfd7c"
 }

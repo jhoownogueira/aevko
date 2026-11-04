@@ -1,5 +1,5 @@
 @for (item of items(); track item.id) {
-  <section>
+  <section [attr.data-state]="expanded(item) ? 'open' : 'closed'">
     <div class="heading" role="heading" [attr.aria-level]="headingLevel()">
       <button
         type="button"
@@ -12,7 +12,7 @@
         <span>{{ item.label }}</span
         ><span class="indicator" [class.open]="expanded(item)" aria-hidden="true">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
-            <path d="m9 18 6-6-6-6" />
+            <path d="m6 9 6 6 6-6" />
           </svg>
         </span>
       </button>
@@ -20,10 +20,15 @@
     <div
       role="region"
       [id]="id() + '-' + item.id + '-panel'"
-      [attr.aria-labelledby]="id() + '-' + item.id + '-trigger'"
-      [hidden]="!expanded(item)"
+      [attr.aria-labelledby]="label() ? null : id() + '-' + item.id + '-trigger'"
+      [attr.aria-label]="label() ? label() + ': ' + item.label : null"
+      [attr.data-state]="expanded(item) ? 'open' : 'closed'"
+      [attr.aria-hidden]="!expanded(item)"
+      [inert]="!expanded(item)"
     >
-      <p>{{ item.content }}</p>
+      <div class="content-clip">
+        <p>{{ item.content }}</p>
+      </div>
     </div>
   </section>
 }

@@ -20,6 +20,7 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
     role: 'region',
+    'data-slot': 'table-container',
     tabindex: '0',
     '[attr.aria-label]': 'label()',
   },
@@ -40,6 +41,7 @@ export class AevkoTableContainer {
     }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { 'data-slot': 'table' },
 })
 export class AevkoTable {}
 
@@ -53,6 +55,7 @@ export class AevkoTable {}
     }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { 'data-slot': 'table-header' },
 })
 export class AevkoTableHeader {}
 
@@ -61,6 +64,7 @@ export class AevkoTableHeader {}
   standalone: true,
   template: '<ng-content />',
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { 'data-slot': 'table-body' },
 })
 export class AevkoTableBody {}
 
@@ -75,6 +79,7 @@ export class AevkoTableBody {}
     }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { 'data-slot': 'table-footer' },
 })
 export class AevkoTableFooter {}
 
@@ -92,6 +97,7 @@ export class AevkoTableFooter {}
     }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { 'data-slot': 'table-row' },
 })
 export class AevkoTableRow {}
 
@@ -110,6 +116,7 @@ export class AevkoTableRow {}
     }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { 'data-slot': 'table-head' },
 })
 export class AevkoTableHead {}
 
@@ -124,6 +131,7 @@ export class AevkoTableHead {}
     }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { 'data-slot': 'table-cell' },
 })
 export class AevkoTableCell {}
 
@@ -140,5 +148,6 @@ export class AevkoTableCell {}
     }
   `,
   changeDetection: ChangeDetectionStrategy.OnPush,
+  host: { 'data-slot': 'table-caption' },
 })
 export class AevkoTableCaption {}

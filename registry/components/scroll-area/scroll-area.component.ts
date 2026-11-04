@@ -6,7 +6,11 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
   template: '<ng-content />',
   styleUrl: './scroll-area.component.css',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: { '[attr.tabindex]': 'tabIndex()', '[attr.data-scrollbar]': 'scrollbar()' },
+  host: {
+    'data-slot': 'scroll-area',
+    '[attr.tabindex]': 'tabIndex()',
+    '[attr.data-scrollbar]': 'scrollbar()',
+  },
 })
 export class AevkoScrollArea {
   readonly tabIndex = input(0);

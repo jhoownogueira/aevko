@@ -130,16 +130,16 @@ function printHelp(): void {
 
 Usage:
   aevko-ui init [--dry-run] [--yes]
-  aevko-ui add <component...> [--dry-run] [--diff] [--overwrite] [--yes]
+  aevko-ui add <item...> [--dry-run] [--diff] [--overwrite] [--yes]
   aevko-ui list
-  aevko-ui diff <component...>
+  aevko-ui diff <item...>
 
 Options:
   --cwd <path>       Resolve an Angular workspace from another directory.
   --registry <path>  Use a local directory or HTTPS registry endpoint.
   --dry-run          Print planned changes without writing.
   --diff             Print file differences while adding.
-  --overwrite        Replace conflicting component files.
+  --overwrite        Replace conflicting registry files.
   --yes, -y          Accept safe initialization defaults; never implies overwrite.
   --help, -h         Show command help.
   --version, -v      Print the CLI version.`);
@@ -272,7 +272,15 @@ async function registryIndex(base: string): Promise<RegistryIndex> {
   if (index.schemaVersion !== 1 || !Array.isArray(index.items)) {
     throw new CliError('Unsupported registry index schema.');
   }
-  return index;
+  const blocks = await registryJson<RegistryIndex>(
+    base,
+    'blocks-index.json',
+    MAX_INDEX_BYTES,
+  ).catch(() => ({ schemaVersion: 1 as const, items: [] }));
+  if (blocks.schemaVersion !== 1 || !Array.isArray(blocks.items)) {
+    throw new CliError('Unsupported blocks registry index schema.');
+  }
+  return { ...index, items: [...index.items, ...blocks.items] };
 }
 
 async function registryItem(base: string, descriptor: RegistryIndexItem): Promise<RegistryItem> {
@@ -385,7 +393,7 @@ async function resolveItems(base: string, requested: string[]): Promise<Registry
     const descriptor = descriptors.get(name);
     if (!descriptor)
       throw new CliError(
-        `Unknown component: ${name}. Run \`aevko-ui list\` to inspect available items.`,
+        `Unknown registry item: ${name}. Run \`aevko-ui list\` to inspect available items.`,
       );
     visiting.add(name);
     const item = await registryItem(base, descriptor);
@@ -434,7 +442,7 @@ async function add(
   names: string[],
   options: CliOptions,
 ): Promise<void> {
-  if (names.length === 0) throw new CliError('Specify at least one component to add.');
+  if (names.length === 0) throw new CliError('Specify at least one component or block to add.');
   const base = options.registry ?? config.registry;
   const items = await resolveItems(base, names);
   const componentRoot = normalizeInside(workspace, config.components, 'components');
@@ -487,7 +495,7 @@ async function add(
     await writeFile(file.absolute, file.content, 'utf8');
   }
   console.log(
-    `Installed ${items.length} component${items.length === 1 ? '' : 's'} from editable local source.`,
+    `Installed ${items.length} registry item${items.length === 1 ? '' : 's'} from editable local source.`,
   );
 }
 

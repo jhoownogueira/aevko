@@ -9,7 +9,7 @@
   "files": [
     {
       "target": "button-group/button-group.component.ts",
-      "content": "import { ChangeDetectionStrategy, Component, input } from '@angular/core';\n\n@Component({\n  selector: 'aevko-button-group',\n  standalone: true,\n  template: '<ng-content />',\n  styleUrl: './button-group.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: {\n    role: 'group',\n    '[attr.aria-label]': 'label()',\n    '[attr.data-orientation]': 'orientation()',\n  },\n})\nexport class AevkoButtonGroup {\n  readonly label = input.required<string>();\n  readonly orientation = input<'horizontal' | 'vertical'>('horizontal');\n}\n"
+      "content": "import { ChangeDetectionStrategy, Component, input } from '@angular/core';\n\n@Component({\n  selector: 'aevko-button-group',\n  standalone: true,\n  template: '<ng-content />',\n  styleUrl: './button-group.component.css',\n  changeDetection: ChangeDetectionStrategy.OnPush,\n  host: {\n    'data-slot': 'button-group',\n    role: 'group',\n    '[attr.aria-label]': 'label()',\n    '[attr.data-orientation]': 'orientation()',\n  },\n})\nexport class AevkoButtonGroup {\n  readonly label = input.required<string>();\n  readonly orientation = input<'horizontal' | 'vertical'>('horizontal');\n}\n"
     },
     {
       "target": "button-group/button-group.component.css",
@@ -24,5 +24,5 @@
     "button"
   ],
   "npmDependencies": {},
-  "integrity": "18d00448fdc6ea3d025648e07122d2e664b2cdcb5e5ca46cb075a8c064483c0b"
+  "integrity": "1d3c5ed6ac6eb019a5709701e314dd8637f27cab316418b8414dfc1dee3c1f2e"
 }
